@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	spotList "demo/spot"
+	"demo/spot"
 )
 
 //说明：
