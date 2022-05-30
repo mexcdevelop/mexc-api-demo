@@ -10,8 +10,8 @@ import (
 	"os/signal"
 	"time"
 
+	"demo/config"
 	"github.com/gorilla/websocket"
-	"github.com/ross-ht/api-demo/config"
 )
 
 //加密

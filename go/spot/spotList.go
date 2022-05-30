@@ -1,9 +1,9 @@
 package spotList
 
 import (
+	"demo/config"
+	"demo/utils"
 	"fmt"
-	"github.com/ross-ht/api-demo/config"
-	"github.com/ross-ht/api-demo/utils"
 )
 
 //具体请求配置

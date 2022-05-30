@@ -3,11 +3,11 @@ package utils
 import (
 	"crypto/hmac"
 	"crypto/sha256"
+	"demo/config"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/go-resty/resty/v2"
-	"github.com/ross-ht/api-demo/config"
 	"log"
 	"net/url"
 	"strings"

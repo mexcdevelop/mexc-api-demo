@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	spotList "github.com/ross-ht/api-demo/spot"
+	spotList "demo/spot"
 )
 
 //说明：

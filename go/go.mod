@@ -1,4 +1,4 @@
-module github.com/ross-ht/api-demo
+module demo
 
 go 1.18
 
