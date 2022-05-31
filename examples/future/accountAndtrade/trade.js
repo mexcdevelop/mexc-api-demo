@@ -1,8 +1,8 @@
-const Spot = require('../../../src/Future')
+const Future = require('../../../src/Future')
 
 const apiKey = ''
 const apiSecret = ''
-const client = new Spot(apiKey, apiSecret, { baseURL: 'https://contract.mexc.com' })
+const client = new Future(apiKey, apiSecret, { baseURL: 'https://contract.mexc.com' })
 
 client.newOrder('BNBUSDT', 'BUY', 'LIMIT', {
   price: '10',
