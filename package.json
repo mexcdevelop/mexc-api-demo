@@ -1,0 +1,59 @@
+{
+  "name": "mexc",
+  "version": "1.10.0",
+  "description": "This is a lightweight library that works as a connector to the mexc public API.",
+  "main": "src/index.js",
+  "scripts": {
+    "jsdoc": "jsdoc -c conf.json && ./docs_src/docs.sh",
+    "jsdoc:win": "jsdoc -c conf.json && npx jsdoc --readme ./docs_src/gettingStarted.md src/modules/blvt.js && node ./docs_src/generateDoc.js && RD /S /Q out",
+    "test": "jest --testPathIgnorePatterns=__tests__/websocket/subscription.test.js",
+    "test:watch": "jest --watchAll",
+    "standard": "standard",
+    "standard:fix": "standard --fix ",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=12.22.3",
+    "npm": ">=6.14.13"
+  },
+  "keywords": [
+    "mexc",
+    "API"
+  ],
+  "author": "mexc",
+  "license": "MIT",
+  "homepage": "",
+  "devDependencies": {
+    "clean-jsdoc-theme": "^3.2.7",
+    "husky": "^6.0.0",
+    "jest": "^26.0.1",
+    "jsdoc": "^3.6.7",
+    "marked": "^4.0.12",
+    "nock": "^13.0.2",
+    "standard": "^16.0.4"
+  },
+  "files": [
+    "src/**/*"
+  ],
+  "dependencies": {
+    "axios": "^0.21.4",
+    "ws": "^7.5.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ]
+  },
+  "standard": {
+    "ignore": [
+      "/docs/**/*.js"
+    ]
+  },
+  "directories": {
+    "example": "examples"
+  }
+}
