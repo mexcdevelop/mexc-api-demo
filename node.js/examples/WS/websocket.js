@@ -1,7 +1,7 @@
 const moment = require('moment');
 const WebSocket = require('ws');
 const pako = require('pako');
-const CryptoJS = require ('crypto-js')
+const Crypto = require ('crypto-js')
 
 
 const WS_URL = 'wss://wbs.mexc.com/raw/ws';
@@ -13,9 +13,97 @@ const config = {
     REQ_TIME: Date.now()
 }
 
+/**
+ * infor
+ * @param ws
+ */
+ function infor(ws) {
+    var data ={
+        'op':"sub.symbol", 
+        'symbol':"VDS_USDT"      
+
+    }
+    ws.send(JSON.stringify(data));
+
+}
 
 /**
- * 签名计算
+ * kline
+ * @param ws
+ */
+function kline(ws) {
+    var data ={
+        'op':"sub.kline",
+        'symbol':"VDS_USDT",
+        'interval':"Min30"
+    }
+    ws.send(JSON.stringify(data));
+
+}
+
+/**
+ * depth
+ * @param ws
+ */
+ function depth(ws) {
+    var data ={
+        'op':"sub.limit.depth",
+
+        'symbol':"EOS_USDT",   //交易对
+      
+        "depth": 5
+    }
+
+    ws.send(JSON.stringify(data));
+
+}
+
+/**
+ * overview
+ * @param ws
+ */
+ function overview(ws) {
+    var data ={
+        "op": "sub.overview"
+    }
+
+    ws.send(JSON.stringify(data));
+
+}
+
+/**
+ * cny
+ * @param ws
+ */
+ function cny(ws) {
+    var data ={
+        "op": "sub.cny"
+    }
+
+    ws.send(JSON.stringify(data));
+
+}
+
+/**
+ * Subscribe to incremental depth
+ * @param ws
+ */
+ function Subdepth(ws) {
+    var data ={
+        "op":"sub.depth",
+        "symbol": "BTC_USDT"
+    }
+
+    ws.send(JSON.stringify(data));
+
+}
+
+
+/*private channel*/
+
+
+/**
+ * 签名
  */
  function sign(REQ_TIME,API_KEY,SECRET_KEY,OP){
   let param = new Map();
@@ -45,10 +133,10 @@ function build_mexc_sign(paramMap,secret_key){
 
 
 /**
- * privata
+ * Get account order status push
  * @param ws
  */
-function privata(ws){
+function personal(ws){
     var data ={
         'op':"sub.personal",  // sub key
 
@@ -56,38 +144,26 @@ function privata(ws){
       
         'sign': sign,
       
-        'req_time': "current timestamp "	//当前时间的时间戳 current timestamp 
+        'req_time': "current timestamp"	//当前时间的时间戳 current timestamp 
     }
 }
 
 /**
- * infor
+ * deals
  * @param ws
  */
-function infor(ws) {
+ function deals(ws){
     var data ={
-        'op':"sub.symbol", 
-        'symbol':"VDS_USDT"      
+        'op':"sub.personal.deals",  // sub key
 
+        'api_key': "api_key",	//API Key
+      
+        'sign': sign,
+      
+        'req_time': "current timestamp"	//当前时间的时间戳 current timestamp 
     }
-    ws.send(JSON.stringify(data));
-
 }
 
-/**
- * kline
- * @param ws
- */
-function kline(ws) {
-    var data ={
-        'op':"sub.kline",
-        'symbol':"VDS_USDT",
-        'interval':"Min30"
-    }
-
-    ws.send(JSON.stringify(data));
-
-}
 
 
 

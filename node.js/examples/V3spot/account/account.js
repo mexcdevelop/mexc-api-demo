@@ -1,4 +1,4 @@
-const Spot = require('../../../src/spot')
+const V3Spot = require('../../../src/V3spot')
 
 const apiKey = 'xxx'
 const apiSecret = 'xxx'

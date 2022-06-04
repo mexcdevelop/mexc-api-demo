@@ -1,4 +1,4 @@
-const Spot = require('../../../src/Future')
+const Future = require('../../../src/future')
 
 const apiKey = ''
 const apiSecret = ''

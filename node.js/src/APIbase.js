@@ -7,6 +7,7 @@ class APIBase {
     this.apiKey = apiKey
     this.apiSecret = apiSecret
     this.baseURL = baseURL
+    this.logger = logger || defaultLogger
   }
 
   publicRequest (method, path, params = {}) {
