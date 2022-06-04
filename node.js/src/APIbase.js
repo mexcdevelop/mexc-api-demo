@@ -1,13 +1,12 @@
 const crypto = require('crypto')
-const { removeEmptyValue, buildQueryString, createRequest, defaultLogger } = require('./helpers/utils')
+const { removeEmptyValue, buildQueryString, createRequest } = require('./helpers/utils')
 
 class APIBase {
   constructor (options) {
-    const { apiKey, apiSecret, baseURL, logger } = options
+    const { apiKey, apiSecret, baseURL } = options
     this.apiKey = apiKey
     this.apiSecret = apiSecret
     this.baseURL = baseURL
-    this.logger = logger || defaultLogger
   }
 
   publicRequest (method, path, params = {}) {
@@ -40,6 +39,8 @@ class APIBase {
       apiKey: this.apiKey
     })
   }
+
+
 }
 
 module.exports = APIBase
