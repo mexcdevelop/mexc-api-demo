@@ -20,7 +20,14 @@
     "jsdoc": "^3.6.7",
     "marked": "^4.0.12",
     "nock": "^13.0.2",
-    "standard": "^16.0.4"
+    "standard": "^16.0.4",
+    "bluebird": "^3.3.1",
+    "config": "^1.28.1",
+    "crypto-js": "^3.1.9-1",
+    "moment": "^2.13.0",
+    "pako": "^1.0.6",
+    "redis": "^2.4.2",
+    "request": "^2.72.0"
   },
   "files": [
     "src/**/*"
@@ -28,5 +35,8 @@
   "dependencies": {
     "axios": "^0.21.4",
     "ws": "^7.5.0"
+  },
+  "execMap": {
+    "js": "node –harmony"
   }
 }

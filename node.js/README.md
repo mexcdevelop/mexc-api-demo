@@ -49,3 +49,15 @@ client.account({ recvWindow: 2000 }).then(response => client.logger.log(response
 
 ```
 
+## Websocket
+## Environmental requirements
+nodejs 6.0+
+
+## Demo Description
+ws.js
+Demo using spot websocket
+
+## User's Guide
+```
+node ws.js
+```
