@@ -1,16 +1,15 @@
 const moment = require('moment');
 const WebSocket = require('ws');
 const pako = require('pako');
-const Crypto = require ('crypto-js')
+const crypto = require ('crypto')
 
 
 const WS_URL = 'wss://wbs.mexc.com/raw/ws';
 
 // 修改您的accessKey 和 secretKey
 const config = {
-    API_KEY: "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXX",
-    SECRET_KEY: "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXX",
-    REQ_TIME: Date.now()
+    API_KEY: "xxx",
+    SECRET_KEY: "xxx"
 }
 
 /**
@@ -34,7 +33,7 @@ const config = {
 function kline(ws) {
     var data ={
         'op':"sub.kline",
-        'symbol':"VDS_USDT",
+        'symbol':"MX_USDT",
         'interval':"Min30"
     }
     ws.send(JSON.stringify(data));
@@ -49,7 +48,7 @@ function kline(ws) {
     var data ={
         'op':"sub.limit.depth",
 
-        'symbol':"EOS_USDT",   //交易对
+        'symbol':"MX_USDT",   //交易对
       
         "depth": 5
     }
@@ -140,11 +139,11 @@ function personal(ws){
     var data ={
         'op':"sub.personal",  // sub key
 
-        'api_key': "api_key",	//API Key
+        'api_key': "API Key",	//API Key
       
         'sign': sign,
       
-        'req_time': "current timestamp"	//当前时间的时间戳 current timestamp 
+        'req_time': "1654392126568"	//当前时间的时间戳 current timestamp 
     }
 }
 
@@ -156,11 +155,11 @@ function personal(ws){
     var data ={
         'op':"sub.personal.deals",  // sub key
 
-        'api_key': "api_key",	//API Key
+        'api_key': "API Key",	//API Key
       
         'sign': sign,
       
-        'req_time': "current timestamp"	//当前时间的时间戳 current timestamp 
+        'req_time': "1654392126568"	//当前时间的时间戳 current timestamp 
     }
 }
 
@@ -171,25 +170,19 @@ function init() {
     var ws = new WebSocket(WS_URL);
     ws.on('open', () => {
         console.log('open');
-        kline(ws);
+        personal(ws);
     });
     ws.on('message', (data) => {
-        let text = pako.inflate(data, {
-            to: 'string'
-        });
-        let msg = JSON.parse(text);
-            console.log(msg)
+            console.log(data)
         }
 
     );
     ws.on('close', () => {
-        // websocket连接关闭处理
         console.log('close');
         init();
     });
 
     ws.on('error', err => {
-        // websocket连接关闭处理
         console.log('error', err);
         init();
     });
