@@ -1,9 +1,9 @@
 const crypto = require('crypto')
-const { removeEmptyValue, buildQueryString, createRequest } = require('./helpers/utils')
+const { removeEmptyValue, buildQueryString, createRequest, defaultLogger } = require('./helpers/utils')
 
 class APIBase {
   constructor (options) {
-    const { apiKey, apiSecret, baseURL } = options
+    const { apiKey, apiSecret, baseURL ,logger } = options
     this.apiKey = apiKey
     this.apiSecret = apiSecret
     this.baseURL = baseURL

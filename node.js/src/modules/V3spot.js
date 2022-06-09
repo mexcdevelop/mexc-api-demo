@@ -1,5 +1,5 @@
 const { validateRequiredParameters } = require('../helpers/validation')
-const Trade = superclass => class extends superclass {
+const V3Trade = superclass => class extends superclass {
   //测试下单
   TestConnectivity (options = {}) {
     return this.signRequest(
@@ -188,4 +188,4 @@ AccountTradeList (symbol, timestamp, options = {}) {
 
 }
 
-module.exports = Trade
+module.exports = V3Trade

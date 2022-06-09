@@ -1,0 +1,6 @@
+module.exports.V1public = require('./V1public')
+module.exports.Public = require('./public')
+module.exports.V3public = require('./V3public')
+module.exports.Trade = require('./spot')
+module.exports.V3Trade = require('./V3spot')
+module.exports.Future = require('./future')

@@ -52,11 +52,16 @@ const flowRight = (...functions) => input => functions.reduceRight(
   input
 )
 
+const defaultLogger = new Console({
+  stdout: process.stdout,
+  stderr: process.stderr
+})
 
 module.exports = {
   isEmptyValue,
   removeEmptyValue,
   buildQueryString,
   createRequest,
-  flowRight 
+  flowRight,
+  defaultLogger
 }

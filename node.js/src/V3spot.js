@@ -1,8 +1,8 @@
 const APIBase = require('./APIBase')
-const modules = require('./modules')
+const modules = require('./modules/index')
 const { flowRight } = require('./helpers/utils')
 
-class V3Spot extends flowRight(...Object.values(modules))(APIBase) {
+class V3spot extends flowRight(...Object.values(modules))(APIBase) {
   constructor (apiKey = '', apiSecret = '', options = {}) {
     options.baseURL = options.baseURL || 'https://api.mexc.com'
     super({
@@ -13,4 +13,4 @@ class V3Spot extends flowRight(...Object.values(modules))(APIBase) {
   }
 }
 
-module.exports = V3Spot
+module.exports = V3spot

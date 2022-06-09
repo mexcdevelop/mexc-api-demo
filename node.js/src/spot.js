@@ -1,5 +1,5 @@
 const APIBase = require('./APIBase')
-const modules = require('./modules')
+const modules = require('./modules/index')
 const { flowRight } = require('./helpers/utils')
 
 class Spot extends flowRight(...Object.values(modules))(APIBase) {

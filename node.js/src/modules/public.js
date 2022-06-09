@@ -41,13 +41,13 @@ servertime () {
   
   //深度信息
   Depth (symbol, depth, options = {}) {
-    validateRequiredParameters({ symbol, depth })
+    validateRequiredParameters({ symbol,depth})
     return this.publicRequest(
       'GET',
       '/open/api/v2/market/depth',
       Object.assign(options, {
         symbol: symbol.toUpperCase(),
-        depth: depth.toUpperCase()
+        depth: depth.toUpperCase(),
       })
     )
   }
