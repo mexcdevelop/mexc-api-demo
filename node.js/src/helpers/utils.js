@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { Console } = require('console')
+const { Console, timeStamp } = require('console')
 
 const removeEmptyValue = obj => {
   if (!(obj instanceof Object)) return {}
@@ -39,13 +39,31 @@ const createRequest = (config) => {
     baseURL,
     headers: {
       'Content-Type': 'application/json',
-      'X-MEXC-APIKEY': apiKey
+      'X-MEXC-APIKEY': apiKey,
+
     }
   }).request({
     method,
     url
   })
 }
+
+const CreateRequest = (config) => {
+  const { baseURL, method, url, apiKey, timestamp, Signature } = config
+  return getRequestInstance({
+    baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+      'ApiKey': apiKey,
+      'Request-Time':timestamp,
+      'Signature': Signature
+    }
+  }).request({
+    method,
+    url
+  })
+}
+
 
 const flowRight = (...functions) => input => functions.reduceRight(
   (input, fn) => fn(input),
@@ -63,5 +81,6 @@ module.exports = {
   buildQueryString,
   createRequest,
   flowRight,
+  CreateRequest,
   defaultLogger
 }

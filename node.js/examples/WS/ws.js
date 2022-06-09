@@ -139,7 +139,7 @@ function subKline(symbol) {
       
         'sign': sign,
       
-        'req_time': "current timestamp"	//当前时间的时间戳 current timestamp 
+        'req_time': 'current timestamp '	//当前时间的时间戳 current timestamp 
     }
     ws.send(JSON.stringify(data));
 }
@@ -171,3 +171,4 @@ function sign(REQ_TIME,API_KEY,SECRET_KEY,OP){
     hash.update(signStr,'utf-8');
     return hash.digest('hex');
   }
+

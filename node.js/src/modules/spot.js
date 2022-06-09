@@ -2,7 +2,7 @@ const { validateRequiredParameters } = require('../helpers/validation')
 const Trade = superclass => class extends superclass {
   //账户余额
   account (options = {}) {
-    return this.signRequest(
+    return this.SignRequest(
       'GET',
       '/open/api/v2/account/info',
       options

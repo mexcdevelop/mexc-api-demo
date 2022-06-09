@@ -1,5 +1,5 @@
 const crypto = require('crypto')
-const { removeEmptyValue, buildQueryString, createRequest, defaultLogger } = require('./helpers/utils')
+const { removeEmptyValue, buildQueryString, createRequest, CreateRequest, defaultLogger } = require('./helpers/utils')
 
 class APIBase {
   constructor (options) {
@@ -41,6 +41,22 @@ class APIBase {
     })
   }
 
+  SignRequest (method, path, params = {}) {
+    params = removeEmptyValue(params)
+    const timestamp = Date.now()
+    const queryString = buildQueryString({ ...params, timestamp })
+    const Signature = crypto
+      .createHmac('sha256', this.apiSecret)
+      .update(queryString)
+      .digest('hex')
+
+      return CreateRequest({
+        method: method,
+        baseURL: this.baseURL,
+        url: `${path}?${queryString}`,
+        apiKey: this.apiKey
+      })
+  }
 
 }
 
