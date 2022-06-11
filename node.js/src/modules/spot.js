@@ -11,7 +11,7 @@ const Trade = superclass => class extends superclass {
 
  //获取账户可接口交易的交易对
   apiAccount (options = {}) {
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/market/api_symbols',
     options
@@ -19,17 +19,17 @@ const Trade = superclass => class extends superclass {
 }
 
 //下单
-PlaceOrder (symbol, trade_type, quantity, price, order_type,options = {}) {
-  validateRequiredParameters({ symbol, trade_type, quantity, price,order_type, })
-  return this.signRequest(
+PlaceOrder (symbol, trade_type, order_type, quantity, price, options = {}) {
+  validateRequiredParameters({ symbol, trade_type, order_type, quantity, price })
+  return this.SignRequest(
     'POST',
     '/open/api/v2/order/place',
     Object.assign(options, {
       symbol: symbol.toUpperCase(),
       trade_type: trade_type.toUpperCase(),
+      order_type: order_type.toUpperCase(),
       quantity: quantity.toUpperCase(),
-      price: price.toUpperCase(),
-      order_type: order_type.toUpperCase()
+      price: price.toUpperCase()
     })
   )
 }
@@ -37,7 +37,7 @@ PlaceOrder (symbol, trade_type, quantity, price, order_type,options = {}) {
 //撤销订单
 CancelOrder ( options = {}) {
   validateRequiredParameters({})
-  return this.signRequest(
+  return this.SignRequest(
     'DELETE',
     '/open/api/v2/order/cancel',
      options   
@@ -47,7 +47,7 @@ CancelOrder ( options = {}) {
 //批量下单
 MuiltPlaceOrder (symbol, trade_type, quantity, price, order_type, options = {}) {
   validateRequiredParameters({ symbol, trade_type, quantity, price, order_type })
-  return this.signRequest(
+  return this.SignRequest(
     'POST',
     '/open/api/v2/order/place_batch',
     Object.assign(options, {
@@ -63,7 +63,7 @@ MuiltPlaceOrder (symbol, trade_type, quantity, price, order_type, options = {}) 
 //当前挂单
 GetOpenOrder (symbol, options = {}) {
   validateRequiredParameters({ symbol})
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/order/open_orders',
     Object.assign(options, {
@@ -75,7 +75,7 @@ GetOpenOrder (symbol, options = {}) {
 //所有订单
 GetAllOrder (symbol, trade_type	, states, options = {}) {
   validateRequiredParameters({ symbol, trade_type	, states })
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/order/list',
     Object.assign(options, {
@@ -89,7 +89,7 @@ GetAllOrder (symbol, trade_type	, states, options = {}) {
 //查询订单
 QueryOrderById (order_ids	, options = {}) {
   validateRequiredParameters({ order_ids	 })
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/order/query',
     Object.assign(options, {
@@ -101,7 +101,7 @@ QueryOrderById (order_ids	, options = {}) {
 //个人成交记录
 GetOrderDeal (order_id, options = {}) {
   validateRequiredParameters({ order_id })
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/order/deals',
     Object.assign(options, {
@@ -113,7 +113,7 @@ GetOrderDeal (order_id, options = {}) {
 //成交明细
 QueryOrderDealById (order_id, options = {}) {
   validateRequiredParameters({ order_id })
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/order/deal_detail',
     Object.assign(options, {
@@ -125,7 +125,7 @@ QueryOrderDealById (order_id, options = {}) {
 //按交易对撤销订单
 CancelBySymbol (symbol, options = {}) {
   validateRequiredParameters({ symbol })
-  return this.signRequest(
+  return this.SignRequest(
     'DELETE',
     '/open/api/v2/order/cancel_by_symbol',
     Object.assign(options, {
@@ -141,7 +141,7 @@ CancelBySymbol (symbol, options = {}) {
 //获取充币地址
 GetDepositList ( currency,options = {}) {
   validateRequiredParameters({currency})
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/asset/deposit/address/list',
      Object.assign(options,{
@@ -153,7 +153,7 @@ GetDepositList ( currency,options = {}) {
 //充值记录查询
 GetDepositRecord ( options = {}) {
   validateRequiredParameters({})
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/asset/deposit/list',
      options   
@@ -163,7 +163,7 @@ GetDepositRecord ( options = {}) {
 //提币地址列表查询
 GetWithdrawList ( options = {}) {
   validateRequiredParameters({})
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/asset/withdraw/list',
      options   
@@ -173,7 +173,7 @@ GetWithdrawList ( options = {}) {
 //提币
 withdraw (currency,	amount, address,	 options = {}) {
   validateRequiredParameters({currency,	amount, address})
-  return this.signRequest(
+  return this.SignRequest(
     'POST',
     '/open/api/v2/asset/withdraw',
      Object.assign(options, {
@@ -187,7 +187,7 @@ withdraw (currency,	amount, address,	 options = {}) {
 //取消提币
 CancelWithdraw (withdraw_id, options = {}) {
   validateRequiredParameters({ withdraw_id })
-  return this.signRequest(
+  return this.SignRequest(
     'DELETE',
     '/open/api/v2/asset/withdraw',
     Object.assign(options, {
@@ -200,7 +200,7 @@ CancelWithdraw (withdraw_id, options = {}) {
 transfer (currency,	amount, from, to, options = {}) {
   validateRequiredParameters({ currency,	amount, from, to })
 
-  return this.signRequest(
+  return this.SignRequest(
     'POST',
     '/open/api/v2/asset/internal/transfer',
     Object.assign(options, {
@@ -214,7 +214,7 @@ transfer (currency,	amount, from, to, options = {}) {
 //内部资金转账记录
 GetTransferRecord (options = {}) {
   validateRequiredParameters({})
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/asset/internal/transfer/record',
      options 
@@ -224,7 +224,7 @@ GetTransferRecord (options = {}) {
 //获取可划转资金
 GetAvlTransfer (currency, options = {}) {
   validateRequiredParameters({ currency })
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/account/balance',
     Object.assign(options, {
@@ -236,7 +236,7 @@ GetAvlTransfer (currency, options = {}) {
 //内部资金划转订单查询
 QueryTransferRecordById (transact_id, options = {}) {
   validateRequiredParameters({ transact_id })
-  return this.signRequest(
+  return this.SignRequest(
     'GET',
     '/open/api/v2/asset/internal/transfer/info',
     Object.assign(options, {

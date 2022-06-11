@@ -23,7 +23,7 @@ class APIBase {
       apiKey: this.apiKey
     })
   }
-
+//v3
   signRequest (method, path, params = {}) {
     params = removeEmptyValue(params)
     const timestamp = Date.now()
@@ -41,20 +41,31 @@ class APIBase {
     })
   }
 
+  //v2
   SignRequest (method, path, params = {}) {
     params = removeEmptyValue(params)
     const timestamp = Date.now()
-    const queryString = buildQueryString({ ...params, timestamp })
+    const apiKey = this.apiKey
+    let objectString = apiKey + timestamp
+    let queryString = buildQueryString({ ...params })   
+    if (method === 'POST'){
+     queryString = queryString.json(params)    
+      objectString +=  queryString
+    } else{        
+      objectString += queryString
+    }
     const Signature = crypto
       .createHmac('sha256', this.apiSecret)
-      .update(queryString)
+      .update(objectString)
       .digest('hex')
 
       return CreateRequest({
         method: method,
         baseURL: this.baseURL,
         url: `${path}?${queryString}`,
-        apiKey: this.apiKey
+        apiKey: this.apiKey,
+        timestamp: timestamp,
+        Signature: Signature,
       })
   }
 

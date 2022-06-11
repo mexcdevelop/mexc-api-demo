@@ -21,6 +21,23 @@ const buildQueryString = params => {
     .join('&')
 }
 
+const CreateRequest = (config) => {
+  const { baseURL, method, url, apiKey, timestamp, Signature} = config
+  return getRequestInstance({
+    baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+      'ApiKey': apiKey,
+      'Request-Time':timestamp,
+      'Signature': Signature
+    },
+    
+  }).request({
+    method,
+    url,
+  })
+}
+
 
 const stringifyKeyValuePair = ([key, value]) => {
   const valueString = Array.isArray(value) ? `["${value.join('","')}"]` : value
@@ -48,21 +65,7 @@ const createRequest = (config) => {
   })
 }
 
-const CreateRequest = (config) => {
-  const { baseURL, method, url, apiKey, timestamp, Signature } = config
-  return getRequestInstance({
-    baseURL,
-    headers: {
-      'Content-Type': 'application/json',
-      'ApiKey': apiKey,
-      'Request-Time':timestamp,
-      'Signature': Signature
-    }
-  }).request({
-    method,
-    url
-  })
-}
+
 
 
 const flowRight = (...functions) => input => functions.reduceRight(
@@ -74,6 +77,9 @@ const defaultLogger = new Console({
   stdout: process.stdout,
   stderr: process.stderr
 })
+
+
+
 
 module.exports = {
   isEmptyValue,
