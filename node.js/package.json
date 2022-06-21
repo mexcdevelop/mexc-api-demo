@@ -1,0 +1,47 @@
+{
+  "name": "mexc",
+  "version": "1.0.0",
+  "description": "This is a lightweight library that works as a connector to the MEXC public API.",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=12.22.3",
+    "npm": ">=6.14.13"
+  },
+  "keywords": [
+    "Mexc",
+    "API"
+  ],
+  "author": "Nl",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-jsdoc-theme": "^3.2.7",
+    "husky": "^6.0.0",
+    "jest": "^26.0.1",
+    "jsdoc": "^3.6.7",
+    "marked": "^4.0.12",
+    "nock": "^13.0.2",
+    "standard": "^16.0.4",
+    "bluebird": "^3.3.1",
+    "config": "^1.28.1",
+    "moment": "^2.13.0",
+    "redis": "^2.4.2",
+    "request": "^2.72.0",
+    "crypto":"^1.0.1",
+    "bluebird": "^3.3.1",
+    "config": "^1.28.1",
+    "moment": "^2.13.0",
+    "pako": "^1.0.6",
+    "redis": "^2.4.2",
+    "request": "^2.72.0"
+  },
+  "files": [
+    "src/**/*"
+  ],
+  "dependencies": {
+    "axios": "^0.21.4",
+    "ws": "^7.5.0"
+  },
+  "execMap": {
+    "js": "node –harmony"
+  }
+}
