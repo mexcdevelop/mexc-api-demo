@@ -14,23 +14,16 @@ const Trade = superclass => class extends superclass {
   return this.SignRequest(
     'GET',
     '/open/api/v2/market/api_symbols',
-    options
+    options,
   )
 }
 
 //下单
-PlaceOrder (symbol, trade_type, order_type, quantity, price, options = {}) {
-  validateRequiredParameters({ symbol, trade_type, order_type, quantity, price })
+PlaceOrder ( options={}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/order/place',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      trade_type: trade_type.toUpperCase(),
-      order_type: order_type.toUpperCase(),
-      quantity: quantity.toUpperCase(),
-      price: price.toUpperCase()
-    })
+    options
   )
 }
 
@@ -45,18 +38,11 @@ CancelOrder ( options = {}) {
 }
 
 //批量下单
-MuiltPlaceOrder (symbol, trade_type, quantity, price, order_type, options = {}) {
-  validateRequiredParameters({ symbol, trade_type, quantity, price, order_type })
+MuiltPlaceOrder (options = {}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/order/place_batch',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      trade_type: trade_type.toUpperCase(),
-      quantity: quantity.toUpperCase(),
-      price: price.toUpperCase(),
-      order_type: order_type.toUpperCase()
-    })
+    options
   )
 }
 
@@ -171,16 +157,11 @@ GetWithdrawList ( options = {}) {
 }
 
 //提币
-withdraw (currency,	amount, address,	 options = {}) {
-  validateRequiredParameters({currency,	amount, address})
+withdraw ( options = {}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/asset/withdraw',
-     Object.assign(options, {
-      currency: currency.toUpperCase(),
-      amount: amount.toUpperCase(),
-      address: address.toUpperCase()
-     })  
+     options
   )
 }
 
@@ -197,20 +178,14 @@ CancelWithdraw (withdraw_id, options = {}) {
 }
 
 //内部资金划转
-transfer (currency,	amount, from, to, options = {}) {
-  validateRequiredParameters({ currency,	amount, from, to })
-
+transfer ( options = {}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/asset/internal/transfer',
-    Object.assign(options, {
-      currency: currency.toUpperCase(),
-      amount: amount.toUpperCase(),
-      from: from.toUpperCase(),
-      to: to.toUpperCase()
-    })
+    options
   )
 }
+
 //内部资金转账记录
 GetTransferRecord (options = {}) {
   validateRequiredParameters({})

@@ -46,12 +46,11 @@ class APIBase {
     params = removeEmptyValue(params)
     const timestamp = Date.now()
     const apiKey = this.apiKey
-    let objectString = apiKey + timestamp
-    let queryString = buildQueryString({ ...params })   
-    if (method === 'POST'){
-     queryString = queryString.json(params)    
-      objectString +=  queryString
-    } else{        
+    let objectString = apiKey + timestamp  
+    let queryString = buildQueryString({ ...params }) 
+    if (method === "POST"){      
+      objectString += JSON.stringify(queryString)
+    } else{          
       objectString += queryString
     }
     const Signature = crypto
