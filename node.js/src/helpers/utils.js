@@ -33,7 +33,7 @@ const CreateRequest = (config) => {
       'ApiKey': apiKey,
       'Request-Time':timestamp,
       'Signature': Signature
-    },  
+    }, 
   }).request({
     method,
     url
