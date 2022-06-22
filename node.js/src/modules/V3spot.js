@@ -10,106 +10,102 @@ const V3Trade = superclass => class extends superclass {
   }
 
  //下单
- PlaceOrder (symbol, side, type, timestamp,options = {}) {
-    validateRequiredParameters({ symbol, side, type, timestamp })
+ Order (symbol, side, type, options = {}) {
+    validateRequiredParameters({ symbol, side, type })
     return this.signRequest(
       'POST',
       '/api/v3/order',
       Object.assign(options, {
         symbol: symbol.toUpperCase(),
         side: side.toUpperCase(),
-        type: type.toUpperCase(),
-        timestamp: timestamp.toUpperCase(),
+        type: type.toUpperCase()
       })
     )
   }
 
 //撤销订单
-CancelOrder (symbol, timestamp, options = {}) {
-    validateRequiredParameters({symbol, timestamp})
+CancelOrder (symbol,  options = {}) {
+    validateRequiredParameters({symbol})
     return this.signRequest(
       'DELETE',
       '/api/v3/order',
       Object.assign(options, {
-        symbol: symbol.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+        symbol: symbol.toUpperCase()
+        
       })   
     )
   }
 
 //撤销单一交易对所有订单
-CancelallOpenOrders (symbol, timestamp, options = {}) {
-    validateRequiredParameters({symbol, timestamp})
+CancelallOpenOrders (symbol,  options = {}) {
+    validateRequiredParameters({symbol })
     return this.signRequest(
       'DELETE',
       '/api/v3/openOrders',
       Object.assign(options, {
         symbol: symbol.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+      
       })   
     )
   }
 
 //查询订单
-QueryOrderr (symbol, timestamp, options = {}) {
-    validateRequiredParameters({symbol, timestamp})
+QueryOrderr (symbol,  options = {}) {
+    validateRequiredParameters({symbol})
     return this.signRequest(
       'GET',
       '/api/v3/order',
       Object.assign(options, {
         symbol: symbol.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+
       })   
     )
   }
 
 //当前挂单
-CurrentOpenOrders (symbol, timestamp, options = {}) {
-    validateRequiredParameters({symbol, timestamp})
+CurrentOpenOrders (symbol,  options = {}) {
+    validateRequiredParameters({symbol})
     return this.signRequest(
       'GET',
       '/api/v3/openOrders',
       Object.assign(options, {
         symbol: symbol.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+ 
       })   
     )
   }
 
 //查询所有订单
-AllOrders (symbol, timestamp, options = {}) {
-    validateRequiredParameters({symbol, timestamp})
+AllOrders (symbol,  options = {}) {
+    validateRequiredParameters({symbol })
     return this.signRequest(
       'GET',
       '/api/v3/allOrders',
       Object.assign(options, {
-        symbol: symbol.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+        symbol: symbol.toUpperCase()
       })   
     )
   }
 
 //账户信息
-AccountInformation (timestamp	, options = {}) {
-  validateRequiredParameters({ timestamp	 })
+AccountInformation ( options = {}) {
   return this.signRequest(
     'GET',
     '/api/v3/account',
-    Object.assign(options, {
-        timestamp: timestamp.toUpperCase(),
-    })
+    options
+    
   )
 }
 
 //账户成交历史
-AccountTradeList (symbol, timestamp, options = {}) {
-    validateRequiredParameters({symbol, timestamp})
+AccountTradeList (symbol, options = {}) {
+    validateRequiredParameters({symbol})
     return this.signRequest(
       'GET',
       '/api/v3/myTrades',
       Object.assign(options, {
-        symbol: symbol.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+        symbol: symbol.toUpperCase()
+
       })   
     )
   }
@@ -117,69 +113,63 @@ AccountTradeList (symbol, timestamp, options = {}) {
   //*母子账户接口*//
 
   //创建子账户
-  virtualSubAccount (subAccount, note	, timestamp, options = {}) {
-    validateRequiredParameters({subAccount, note	, timestamp})
+  virtualSubAccount (subAccount, note	, options = {}) {
+    validateRequiredParameters({subAccount, note	})
     return this.signRequest(
       'POST',
       '/api/v3/sub-account/virtualSubAccount',
       Object.assign(options, {
         subAccount: subAccount.toUpperCase(),
-        note: note.toUpperCase(),
-        timestamp:timestamp.toUpperCase()
+        note: note.toUpperCase()
+
       })   
     )
   }
 
   //查看子账户列表
-  SubAccountList ( timestamp, options = {}) {
-    validateRequiredParameters({timestamp})
+  SubAccountList ( options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/sub-account/list',
-      Object.assign(options, {
-        timestamp: timestamp.toUpperCase()
-      })   
+      options  
     )
   }
 
   //创建子账户的APIkey
-  virtualApikey (subAccount, note, permissions	, timestamp, options = {}) {
-    validateRequiredParameters({subAccount, note, permissions	, timestamp})
+  virtualApikey (subAccount, note, permissions	, options = {}) {
+    validateRequiredParameters({subAccount, note, permissions	})
     return this.signRequest(
       'POST',
       '/api/v3/sub-account/apiKey',
       Object.assign(options, {
         subAccount: subAccount.toUpperCase(),
         note: note.toUpperCase(),
-        timestamp:timestamp.toUpperCase(),
         permissions:permissions.toUpperCase()
       })   
     )
   }
 
   //查询子账户的APIkey
-  GetApiKey (subAccount	, timestamp, options = {}) {
-    validateRequiredParameters({subAccount	, timestamp})
+  GetApiKey (subAccount	, options = {}) {
+    validateRequiredParameters({subAccount})
     return this.signRequest(
       'GET',
       '/api/v3/sub-account/apiKey',
       Object.assign(options, {
-        subAccount: subAccount.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+        subAccount: subAccount.toUpperCase()
       })   
     )
   }
 
   //删除子账户的APIkey
-  DelAccount (subAccount, apiKey,	 timestamp, options = {}) {
-    validateRequiredParameters({subAccount, apiKey,	 timestamp})
+  DelAccount (subAccount, apiKey,	  options = {}) {
+    validateRequiredParameters({subAccount, apiKey})
     return this.signRequest(
       'DELETE',
       '/api/v3/sub-account/apiKey',
       Object.assign(options, {
         subAccount: subAccount.toUpperCase(),
-        apikey:apikey.toUpperCase(),
-        timestamp: timestamp.toUpperCase()
+        apikey:apikey.toUpperCase()
       })   
     )
   }

@@ -21,20 +21,22 @@ const buildQueryString = params => {
     .join('&')
 }
 
+
+
+
 const CreateRequest = (config) => {
   const { baseURL, method, url, apiKey, timestamp, Signature} = config
   return getRequestInstance({
-    baseURL,
+    baseURL, 
     headers: {
       'Content-Type': 'application/json',
       'ApiKey': apiKey,
       'Request-Time':timestamp,
       'Signature': Signature
-    },
-    
+    }, 
   }).request({
     method,
-    url,
+    url
   })
 }
 
