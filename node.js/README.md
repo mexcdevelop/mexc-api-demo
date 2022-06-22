@@ -27,10 +27,6 @@ Please find `examples` folder to check for more endpoints.
 
 
 ### Base URL
-# V1
-`https://contract.mexc.com`
-# V2
-`https://www.mexc.com`
 # V3
 `https://api.mexc.com`
 
