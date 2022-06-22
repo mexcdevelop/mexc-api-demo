@@ -122,7 +122,7 @@ function subKline(symbol) {
       
         'sign': sign,
       
-        'req_time': "current timestamp "	//当前时间的时间戳 current timestamp 
+        'req_time': "timestamp "	//当前时间的时间戳 current timestamp 
     }
     ws.send(JSON.stringify(data));
 }
@@ -139,7 +139,7 @@ function subKline(symbol) {
       
         'sign': sign,
       
-        'req_time': 'current timestamp '	//当前时间的时间戳 current timestamp 
+        'req_time': 'timestamp '	//当前时间的时间戳 current timestamp 
     }
     ws.send(JSON.stringify(data));
 }
