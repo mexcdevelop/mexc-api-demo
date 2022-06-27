@@ -25,7 +25,8 @@ const buildQueryString = params => {
 
 
 const CreateRequest = (config) => {
-  const { baseURL, method, url, apiKey, timestamp, Signature} = config
+  const { baseURL, method, url, params,apiKey, timestamp, Signature} = config
+  if (method === 'GET' || method === 'DELETE') {
   return getRequestInstance({
     baseURL, 
     headers: {
@@ -36,8 +37,24 @@ const CreateRequest = (config) => {
     }, 
   }).request({
     method,
-    url
-  })
+    url,
+    params
+  })}
+  if (method === 'POST') {
+      return getRequestInstance({
+          baseURL, 
+          headers: {
+            'Content-Type': 'application/json',
+            'ApiKey': apiKey,
+            'Request-Time':timestamp,
+            'Signature': Signature
+          }, 
+        }).request({
+          method,
+          url,
+          data:params
+        })
+  }
 }
 
 
