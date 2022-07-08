@@ -1,7 +1,7 @@
 
-const V3Spot = require('../../../src/v3spot')
+const Spot = require('../../src/spot')
 
-const client = new V3Spot()
+const client = new Spot()
 
 client.depth('btcusdt').then(response => client.logger.log(response.data))
   .catch(error => client.logger.error(error))

@@ -25,7 +25,7 @@ const buildQueryString = params => {
 
 
 const CreateRequest = (config) => {
-  const { baseURL, method, url, params,apiKey, timestamp, Signature} = config
+  const { baseURL, method, url, params, apiKey, timestamp, Signature} = config
   if (method === 'GET' || method === 'DELETE') {
   return getRequestInstance({
     baseURL, 
@@ -41,6 +41,8 @@ const CreateRequest = (config) => {
     params
   })}
   if (method === 'POST') {
+    console.log("请求体:",params)
+    
       return getRequestInstance({
           baseURL, 
           headers: {
@@ -48,12 +50,15 @@ const CreateRequest = (config) => {
             'ApiKey': apiKey,
             'Request-Time':timestamp,
             'Signature': Signature
-          }, 
+          },   
+          
         }).request({
           method,
           url,
-          data:params
+          data: params
+         
         })
+        
   }
 }
 
@@ -76,13 +81,13 @@ const createRequest = (config) => {
     headers: {
       'Content-Type': 'application/json',
       'X-MEXC-APIKEY': apiKey,
-
     }
   }).request({
     method,
     url
   })
 }
+
 
 
 

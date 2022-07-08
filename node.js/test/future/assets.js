@@ -1,4 +1,4 @@
-const Future = require('../../../src/future')
+const Future = require('../../src/future')
 
 const apiKey = ''
 const apiSecret = ''
