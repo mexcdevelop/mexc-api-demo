@@ -21,9 +21,6 @@ const buildQueryString = params => {
     .join('&')
 }
 
-
-
-
 const CreateRequest = (config) => {
   const { baseURL, method, url, params, apiKey, timestamp, Signature} = config
   if (method === 'GET' || method === 'DELETE') {
@@ -40,9 +37,7 @@ const CreateRequest = (config) => {
     url,
     params
   })}
-  if (method === 'POST') {
-    console.log("请求体:",params)
-    
+  if (method === 'POST') { 
       return getRequestInstance({
           baseURL, 
           headers: {
@@ -50,15 +45,12 @@ const CreateRequest = (config) => {
             'ApiKey': apiKey,
             'Request-Time':timestamp,
             'Signature': Signature
-          },   
-          
+          },         
         }).request({
           method,
           url,
-          data: params
-         
-        })
-        
+          data: params     
+        })       
   }
 }
 
@@ -87,10 +79,6 @@ const createRequest = (config) => {
     url
   })
 }
-
-
-
-
 
 const flowRight = (...functions) => input => functions.reduceRight(
   (input, fn) => fn(input),

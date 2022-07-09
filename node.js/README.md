@@ -9,24 +9,28 @@ npm install
 ## RESTful APIs
 
 ```javascript
-const Spot = require('../../../src/spot')
+const Spot = require('../../src/spot')
 
 const apiKey = ''
 const apiSecret = ''
 const client = new Spot(apiKey, apiSecret, { baseURL: 'https://contract.mexc.com' })
 
 client.newOrder('BNBUSDT', 'BUY', 'LIMIT', {
-  price: '10',
+  price: 10,
   quantity: 1 
 }).then(response => client.logger.log(response.data))
   .catch(error => client.logger.error(error))
 
 ```
 
-Please find `examples` folder to check for more endpoints.
+Please find `modules` folder to check for more endpoints.
 
 
 ### Base URL
+# V1
+`https://contract.mexc.com`
+# V2
+`https://www.mexc.com`
 # V3
 `https://api.mexc.com`
 
@@ -35,8 +39,6 @@ Please find `examples` folder to check for more endpoints.
 Optional parameters are encapsulated to a single object as the last function parameter.
 
 ```javascript
-const { Spot } = require('@binance/connector')
-
 const apiKey = ''
 const apiSecret = ''
 const client = new Spot(apiKey, apiSecret)

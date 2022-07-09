@@ -1,4 +1,6 @@
 const crypto = require('crypto')
+const CryptoJS = require('crypto-js')
+const HmacSHA256 = require('crypto-js/hmac-sha256')
 const { removeEmptyValue, buildQueryString, createRequest, CreateRequest, defaultLogger } = require('./helpers/utils')
 
 class APIBase {
@@ -30,7 +32,7 @@ class APIBase {
 
 
 
-  //v3
+//V3
   signRequest (method, path, params = {}) {
     params = removeEmptyValue(params)
     const timestamp = Date.now()
@@ -48,7 +50,8 @@ class APIBase {
     })
   }
 
-        //v2
+
+    //V2
         SignRequest (method, path, params = {}) {
           params = removeEmptyValue(params)
           const timestamp = Date.now()
@@ -57,21 +60,13 @@ class APIBase {
          
           if (method === 'POST'){
             path = `${path}`
-           // objectString = JSON.stringify(objectString)
-            objectString += JSON.stringify(params)
-            //objectString = JSON.stringify(objectString)
-            console.log("参数类型:",typeof(objectString))
-            console.log("参数:",objectString)
+            objectString += JSON.stringify(params)  
           } else{ 
             let queryString = buildQueryString({ ...params })      
             path = `${path}?${queryString}`
             objectString += queryString
           }
-          const Signature = crypto
-            .createHmac('sha256', this.apiSecret)
-            .update(objectString)
-            .digest('hex')
-            console.log("签名:",Signature)
+            const Signature = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(objectString, this.apiSecret))
             return CreateRequest({
               method: method,
               baseURL: this.baseURL,
@@ -79,16 +74,10 @@ class APIBase {
               apiKey: this.apiKey,
               timestamp: timestamp,
               Signature: Signature,
-              params:params
-              
-               
+              params:params              
             })
             
         }
-  
-
-
-
 }
 
 module.exports = APIBase

@@ -1,5 +1,5 @@
 const APIBase = require('./APIBase')
-const modules = require('./modules/index')
+const modules = require('./modules')
 const { flowRight } = require('./helpers/utils')
 
 class Future extends flowRight(...Object.values(modules))(APIBase) {

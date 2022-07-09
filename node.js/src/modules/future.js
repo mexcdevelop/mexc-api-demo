@@ -17,110 +17,82 @@ SupporCurrencies () {
 }
 
 //获取合约深度信息
-DepthBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+DepthBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
-    'api/v1/contract/depth/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    'api/v1/contract/depth/BTC_USDT',
+    options
   )
 }
 
 //获取合约最近N条深度信息快照
-DepthcommitsBySymbol (symbol, limit, options = {}) {
-  validateRequiredParameters({ symbol, limit })
+DepthcommitsBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/depth_commits/{symbol}/{limit}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      limit: limit.toUpperCase()
-    })
+    options
   )
 }
 
 //获取合约指数价格
-IndexPriceBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+IndexPriceBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/index_price/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //获取合约合理价格
-FairPriceBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+FairPriceBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/fair_price/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //获取合约资金费率
-FundingRateBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+FundingRateBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/funding_rate/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //获取蜡烛图数据
-KlineBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+KlineBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/kline/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //获取指数价格蜡烛图数据
-IndexPriceKlineBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+IndexPriceKlineBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/kline/index_price/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 //获取合理价格蜡烛图数据
-FairPriceKlineBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+FairPriceKlineBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/kline/fair_price/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //获取成交数据
-DealsBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+DealsBySymbol (options = {}) {
   return this.publicRequest(
     'GET',
     'api/v1/contract/deals/{symbol}',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
@@ -135,29 +107,25 @@ RiskReverse () {
 }
 
 //获取合约风险基金余额历史
-RiskReverseHistory (symbol, page_num, page_size = {}) {
-  validateRequiredParameters({ symbol, page_num, page_size })
+RiskReverseHistory (symbol, options = {}) {
+  validateRequiredParameters({symbol})
   return this.publicRequest(
     'GET',
     'api/v1/contract/risk_reverse/history',
     Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      page_num: page_num.toUpperCase(),
-      page_size: page_size.toUpperCase()
+      symbol: symbol.toUpperCase()
     })
   )
 }
 
 //获取合约资金费率历史
-FundingRateHistory (symbol, page_num, page_size = {}) {
-  validateRequiredParameters({ symbol, page_num, page_size })
+FundingRateHistory (symbol, options={}) {
+  validateRequiredParameters({ symbol })
   return this.publicRequest(
     'GET',
     'api/v1/contract/funding_rate/history',
     Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      page_num: page_num.toUpperCase(),
-      page_size: page_size.toUpperCase()
+      symbol: symbol.toUpperCase()
     })
   )
 }   
@@ -175,40 +143,29 @@ FundingRateHistory (symbol, page_num, page_size = {}) {
   }
 
  //获取用户单个币种资产信息
- AssetByCurrency (currency, options = {}) {
-      validateRequiredParameters({currency})
+ AssetByCurrency (options = {}) {
   return this.SignRequest(
     'GET',
     '/api/v1/private/account/asset/{currency}',
-    Object.assign(options, {
-        currency:currency.toUpperCase()
-    })
+    options
   )
 }
 
 //获取用户资产划转记录
-TransferRecord (page_num, page_size, options = {}) {
-  validateRequiredParameters({ page_num, page_size })
+TransferRecord (options = {}) {
   return this.SignRequest(
     'GET',
     '/api/v1/private/account/transfer_record',
-    Object.assign(options, {
-        page_num: page_num.toUpperCase(),
-        page_size: page_size.toUpperCase(),
-    })
+    options
   )
 }
 
 //获取用户历史持仓信息
-HistoryPositions (page_num, page_size, options = {}) {
-    validateRequiredParameters({ page_num, page_size })
+HistoryPositions (options = {}) {
     return this.SignRequest(
       'GET',
       '/api/v1/private/position/list/history_positions',
-      Object.assign(options, {
-          page_num: page_num.toUpperCase(),
-          page_size: page_size.toUpperCase(),
-      })
+      options
     )
   }
 
@@ -222,41 +179,29 @@ OpenPositions (options = {}) {
   }
 
 //获取用户资金费用明细
-FundingRecords (page_num, page_size, options = {}) {
-    validateRequiredParameters({ page_num, page_size })
+FundingRecords (options = {}) {
     return this.SignRequest(
       'GET',
       '/api/v1/private/position/funding_records',
-      Object.assign(options, {
-          page_num: page_num.toUpperCase(),
-          page_size: page_size.toUpperCase(),
-      })
+      options
     )
   }
 
 //获取用户当前未结束订单
-OpenOrders (page_num, page_size, options = {}) {
-    validateRequiredParameters({ page_num, page_size })
+OpenOrders (options = {}) {
     return this.SignRequest(
       'GET',
       '/api/v1/private/order/list/open_orders/{symbol}',
-      Object.assign(options, {
-          page_num: page_num.toUpperCase(),
-          page_size: page_size.toUpperCase(),
-      })
+      options
     )
   }
 
 //获取用户所有历史订单
-HistoryOrders (page_num, page_size, options = {}) {
-    validateRequiredParameters({ page_num, page_size })
+HistoryOrders (options = {}) {
     return this.SignRequest(
       'GET',
       '/api/v1/private/order/list/history_orders',
-      Object.assign(options, {
-          page_num: page_num.toUpperCase(),
-          page_size: page_size.toUpperCase(),
-      })
+      options
     )
   }
 
@@ -274,14 +219,11 @@ ExternalByExternalOid (symbol, external_oid, options = {}) {
   }
 
 //根据订单号查询订单
-QueryOrderById (order_id, options = {}) {
-  validateRequiredParameters({ order_id })
+QueryOrderById (options = {}) {
   return this.SignRequest(
     'GET',
     '/api/v1/private/order/get/{order_id}',
-    Object.assign(options, {
-      order_id: order_id.toUpperCase(),
-    })
+    options
   )
 }
 
@@ -300,55 +242,42 @@ BatchQueryById (order_ids, options = {}) {
 
 
 //根据订单号获取订单成交明细
-DealDetails ( order_id	,options = {}) {
-  validateRequiredParameters({order_id})
+DealDetails (options = {}) {
   return this.SignRequest(
     'GET',
     '/api/v1/private/order/deal_details/{order_id}',
-     Object.assign(options,{
-        order_id: order_id.toUpperCase() 
-     })   
+     options
   )
 }
 
 //获取用户所有订单成交明细
-OrderDeals ( symbol, page_num, page_size, options = {}) {
-    validateRequiredParameters({symbol, page_num, page_size})
+OrderDeals ( symbol, options = {}) {
+    validateRequiredParameters({symbol})
     return this.SignRequest(
       'GET',
       '/api/v1/private/order/list/order_deals',
        Object.assign(options,{
-        symbol: symbol.toUpperCase(),
-        page_num: page_num.toUpperCase(),
-        page_size: page_size.toUpperCase()  
+        symbol: symbol.toUpperCase()
        })   
     )
   }
 
 //获取计划委托订单列表
-Planorder ( page_num, page_size, options = {}) {
-    validateRequiredParameters({page_num, page_size})
+Planorder (options = {}) {
     return this.SignRequest(
       'GET',
       '/api/v1/private/planorder/list/orders',
-       Object.assign(options,{
-        page_num: page_num.toUpperCase(),
-        page_size: page_size.toUpperCase()  
-       })   
+       options
     )
   }
 
 
 //获取止盈止损订单列表
-Stoporder ( page_num, page_size, options = {}) {
-    validateRequiredParameters({page_num, page_size})
+Stoporder (options = {}) {
     return this.SignRequest(
       'GET',
       '/api/v1/private/stoporder/list/orders',
-       Object.assign(options,{
-        page_num: page_num.toUpperCase(),
-        page_size: page_size.toUpperCase()  
-       })   
+       options
     )
   }
 
@@ -374,16 +303,11 @@ TieredFeeRate ( symbol, options = {}) {
   )
 }
 //增加或减少仓位保证金
-ChangeMargin (positionId, amount, type,  options = {}) {
-    validateRequiredParameters({ positionId, amount, type })
+ChangeMargin (options = {}) {
     return this.SignRequest(
       'POST',
       '/api/v1/private/position/change_margin',
-      Object.assign(options, {
-        positionId: positionId.toUpperCase(),
-        amount: amount.toUpperCase(),
-        type: type.toUpperCase()
-      })
+      options
     )
   }
 
@@ -433,35 +357,25 @@ PositionMode (transact_id, options = {}) {
     )
   }
   //下单
-  PlaceNewOrder (symbol, price, vol, side, type, openType, options = {}) {
-    validateRequiredParameters({ symbol, price, vol, side, type, openType })
+  PlaceNewOrder (symbol, options = {}) {
+    validateRequiredParameters({symbol})
     return this.SignRequest(
       'POST',
       '/api/v1/private/order/submit',
       Object.assign(options, {
-        symbol:symbol.toUpperCase(),
-        price: price.toUpperCase(),
-        vol: vol.toUpperCase(),
-        side: side.toUpperCase(),
-        type: type.toUpperCase(),
-        openType: openType.toUpperCase()
+        symbol:symbol.toUpperCase()
       })
     )
   }
 
   //批量下单
-  PlaceNewOrderBatch (symbol, price, vol, side, type, openType, options = {}) {
-    validateRequiredParameters({ symbol, price, vol, side, type, openType })
+  PlaceNewOrderBatch (symbol ,options = {}) {
+    validateRequiredParameters({symbol})
     return this.SignRequest(
       'POST',
       '/api/v1/private/order/submit_batch',
       Object.assign(options, {
-        symbol:symbol.toUpperCase(),
-        price: price.toUpperCase(),
-        vol: vol.toUpperCase(),
-        side: side.toUpperCase(),
-        type: type.toUpperCase(),
-        openType: openType.toUpperCase()
+        symbol:symbol.toUpperCase()
       })
     )
   }
@@ -499,29 +413,18 @@ PositionMode (transact_id, options = {}) {
     )
   }
 
-  //修改风险等级（已禁用）
-
     //计划委托下单
-    PlacePlanOrder (symbol, vol, side,  openType, triggerPrice, triggerType, executeCycle,
-        orderType, trend, options = {}) {
-        validateRequiredParameters({ symbol, vol, side,  openType, triggerPrice, triggerType, executeCycle,
-            orderType, trend })
+    PlacePlanOrder (symbol, options = {}) {
+        validateRequiredParameters({symbol})
         return this.SignRequest(
           'POST',
           '/api/v1/private/order/submit_batch',
           Object.assign(options, {
-            symbol:symbol.toUpperCase(),
-            openType: openType.toUpperCase(),
-            vol: vol.toUpperCase(),
-            side: side.toUpperCase(),
-            triggerPrice: triggerPrice.toUpperCase(),
-            triggerType: triggerType.toUpperCase(),
-            executeCycle: executeCycle.toUpperCase(),
-            orderType: orderType.toUpperCase(),
-            trend: trend.toUpperCase()
+            symbol:symbol.toUpperCase()
           })
         )
       }
+      
         //取消计划委托订单
         CancelPlanOrder (symbol, orderId, options = {}) {
     validateRequiredParameters({ symbol, orderId })
@@ -577,7 +480,7 @@ PositionMode (transact_id, options = {}) {
 
 
           //修改止盈止损委托单止盈止损价格
-          StopOrderChangePlanPrice (stopPlanOrderId, options = {}) {
+      StopOrderChangePlanPrice (stopPlanOrderId, options = {}) {
         validateRequiredParameters({ stopPlanOrderId })
         return this.SignRequest(
           'POST',
