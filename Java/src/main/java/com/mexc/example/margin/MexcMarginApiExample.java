@@ -47,7 +47,7 @@ public class MexcMarginApiExample {
         });
     }
 
-    public static RowsResult<LoanListItem> loadRecords(Map<String, String> params) {
+    public static RowsResult<LoanListItem> loanRecords(Map<String, String> params) {
         return UserDataClient.get("/api/v3/margin/loan", params, new TypeReference<RowsResult<LoanListItem>>() {
         });
     }
@@ -112,8 +112,8 @@ public class MexcMarginApiExample {
         });
     }
 
-    public static IsolatedMarginDataResult isolatedMarginData(Map<String, String> params) {
-        return UserDataClient.get("/api/v3/margin/isolatedMarginData", params, new TypeReference<IsolatedMarginDataResult>() {
+    public static List<IsolatedMarginDataResult> isolatedMarginData(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/margin/isolatedMarginData", params, new TypeReference<List<IsolatedMarginDataResult>>() {
         });
     }
 
@@ -124,35 +124,40 @@ public class MexcMarginApiExample {
 
     public static void main(String[] args) {
 
-
+//        //切换杠杆模式
+        TradeModeResult TradeModeResult = changeTradeMode(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("tradeMode", "0")
+                .put("symbol", "BTCUSDT")
+                .build()));
+        log.info("==>>TradeModeResult:{}", JsonUtil.toJson(TradeModeResult));
 
 //        //下单
-//        PlaceOrderResult placeOrderResult = placeOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
-//                .put("symbol", "BTCUSDT")
-//                .put("side", "BUY")
-//                .put("type", "LIMIT")
-//                .put("price", "20000")
-//                .put("quantity", "0.001")
-//                .build()));
-//        log.info("==>>placeOrderResult:{}", JsonUtil.toJson(placeOrderResult));
+        PlaceOrderResult placeOrderResult = placeOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("symbol", "BTCUSDT")
+                .put("side", "BUY")
+                .put("type", "LIMIT")
+                .put("price", "20000")
+                .put("quantity", "0.001")
+                .build()));
+        log.info("==>>placeOrderResult:{}", JsonUtil.toJson(placeOrderResult));
 //
 //        //杠杆订单查询
-//        OrderResult order = getOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
-//                .put("symbol", "BTCUSDT")
-//                .put("orderId", "150751023827259392")
-//                .build()));
-//        log.info("==>>order:{}", JsonUtil.toJson(order));
+        OrderResult order = getOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("symbol", "BTCUSDT")
+                .put("orderId", "150751023827259392")
+                .build()));
+        log.info("==>>order:{}", JsonUtil.toJson(order));
 
 //        //借贷
-//        TranIdResult loanResult = loan(Maps.newHashMap(ImmutableMap.<String, String>builder()
-//                .put("asset", "BTC")
-//                .put("amount", "100")
-//                .put("symbol", "BTCUSDT")
-//                .build()));
-//        log.info("==>>tranIdResult:{}", JsonUtil.toJson(loanResult));
+        TranIdResult loanResult = loan(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("asset", "BTC")
+                .put("amount", "100")
+                .put("symbol", "BTCUSDT")
+                .build()));
+        log.info("==>>tranIdResult:{}", JsonUtil.toJson(loanResult));
 
 
-        //归还借贷
+//        //归还借贷
         TranIdResult repayResult = repay(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("asset", "BTC")
                 .put("amount", "100")
@@ -160,6 +165,46 @@ public class MexcMarginApiExample {
                 .put("borrowId", "14235346546345345")
                 .build()));
         log.info("==>>repayResult:{}", JsonUtil.toJson(repayResult));
+
+//        //撤销订单
+        OrderResult OrderResult = cancelOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("symbol", "BTCUSDT")
+                .put("orderId", "324365834583")
+                .build()));
+        log.info("==>>OrderResult:{}", JsonUtil.toJson(OrderResult));
+
+          //当前挂单记录
+        List<OrderResult> openOrdersResult = openOrders(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("symbol", "BTCUSDT")
+                .put("isIsolated", "TRUE")
+                .build()));
+        log.info("==>>OrderResult:{}", JsonUtil.toJson(openOrdersResult));
+
+        //查询借贷记录
+        RowsResult<LoanListItem> loanRecordsResult = loanRecords(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("asset", "BTC")
+                .put("symbol", "BTCUSDT")
+                .build()));
+        log.info("==>>RowsResult:{}", JsonUtil.toJson(loanRecordsResult));
+
+         //查询最大可转出额
+        MaxTransferableResult maxTransferableResult =maxTransferable(Maps.newHashMap(ImmutableMap.<String, String>builder()
+               .put("symbol", "BTCUSDT")
+                .put("asset", "BTC")
+                .build()));
+        log.info("==>>MaxTransferableResult:{}", JsonUtil.toJson(maxTransferableResult));
+
+        //查询逐仓杠杆交易对
+        IsolatedPairResult isolatedPairResult =isolatedPair(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("symbol", "BTCUSDT")
+                .build()));
+        log.info("==>>IsolatedPairResult:{}", JsonUtil.toJson(isolatedPairResult));
+
+        //查询逐仓杠杆利率及限额
+        List<IsolatedMarginDataResult> isolatedMarginDataResult =isolatedMarginData(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("symbol", "BTCUSDT")
+                .build()));
+        log.info("==>>IsolatedPairResult:{}", JsonUtil.toJson(isolatedMarginDataResult));
 
     }
 }
