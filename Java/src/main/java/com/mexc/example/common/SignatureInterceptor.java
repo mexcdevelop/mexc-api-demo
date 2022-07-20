@@ -1,11 +1,9 @@
-package com.mexc.example.spot.api.v3;
+package com.mexc.example.common;
 
 
-import com.mexc.example.common.SignatureUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okio.Buffer;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -28,7 +26,7 @@ public class SignatureInterceptor implements Interceptor {
 
     @NotNull
     @Override
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    public Response intercept(Chain chain) throws IOException {
         Request origRequest = chain.request();
         String method = origRequest.method();
         Request newRequest;

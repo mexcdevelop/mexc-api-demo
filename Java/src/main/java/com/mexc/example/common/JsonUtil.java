@@ -6,22 +6,27 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
 
 public class JsonUtil {
+    private static final ObjectMapper objectMapper = createObjectMapper();
+    private static Gson gson = new Gson();
 
     public static String writeValue(Object obj) throws IOException {
         return objectMapper.writeValueAsString(obj);
     }
 
-    public static <T> T readValue(String s, TypeReference<T> ref) throws IOException {
+    public static String toJson(Object obj) {
+        return gson.toJson(obj);
+    }
 
+    public static <T> T readValue(String s, TypeReference<T> ref) throws IOException {
         return objectMapper.readValue(s, ref);
     }
 
-    private static final ObjectMapper objectMapper = createObjectMapper();
 
     private static ObjectMapper createObjectMapper() {
 

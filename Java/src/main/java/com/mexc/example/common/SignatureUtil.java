@@ -7,6 +7,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SignatureUtil {
 
@@ -52,5 +54,10 @@ public class SignatureUtil {
             throw new IllegalArgumentException("UTF-8 encoding not supported!");
         }
     }
+
+    public static String toQueryString(Map<String, String> params) {
+        return params.entrySet().stream().map((entry) -> entry.getKey() + "=" + urlEncode(entry.getValue())).collect(Collectors.joining("&"));
+    }
+
 
 }
