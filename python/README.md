@@ -20,30 +20,18 @@ Fill in the corresponding function according to the parameters mentioned in the 
 > ### Example(Spot V3) :
 
 ```python
-import json
-import requests
+import mexc_spot_v3
+import time
 
-BASE_URL = 'https://api.mexc.com'
+hosts = "https://api.mexc.com"
+# mexc_key = "your apiKey"
+# mexc_secret = "your secretKey"
 
-def get_kline(symbol, interval, start_time=None, end_time=None, limit=None):
-    """get k-line data"""
-    method = 'GET'
-    path = '/api/v3/klines'
-    url = '{}{}'.format(BASE_URL, path)
-    data = {
-        'symbol': symbol,
-        'interval': interval,
-    }
-    if start_time:
-        data.update({'start_time': start_time})
-    if end_time:
-        data.update({'end_time': end_time})
-    if limit:
-        data.update({'limit': limit})
-    response = requests.request(method, url, params=data)
-    print(response.json())
-
-print(get_kline('ETHUSDT', interval='5m'))
+# Market Data
+"""get kline"""
+data = mexc_spot_v3.mexc_market(mexc_hosts=hosts)
+response= data.get_kline({'symbol': 'BTCUSDT', 'interval': '5m', 'limit': 10})
+print(k_line_data)
 ```
 
 ## Spot Websocket Demo 
@@ -52,7 +40,7 @@ According to the information you want to subscribe, change the content of the pa
 
 **WebSocket doc**   `URL = 'wss://wbs.mexc.com/raw/ws'`
 
-* <https://github.com/mxcdevelop/APIDoc/blob/master/websocket/spot/websocket.2022_2_28.md>
+* <https://mxcdevelop.github.io/apidocs/spot_v2_cn/#websocket-api>
 
 
 > ### Example(Spot WebSocket) :
