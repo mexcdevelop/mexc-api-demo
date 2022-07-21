@@ -80,6 +80,20 @@ const createRequest = (config) => {
   })
 }
 
+const pubRequest = (config) => {
+  const {  apiKey, method, url } = config
+  return getRequestInstance({
+    baseURL:'https://www.mexc.com',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-MEXC-APIKEY': apiKey,
+    }
+  }).request({
+    method,
+    url
+  })
+}
+
 const flowRight = (...functions) => input => functions.reduceRight(
   (input, fn) => fn(input),
   input
@@ -100,5 +114,6 @@ module.exports = {
   createRequest,
   flowRight,
   CreateRequest,
+  pubRequest,
   defaultLogger
 }

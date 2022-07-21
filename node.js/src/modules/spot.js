@@ -6,85 +6,68 @@ const Spot = superclass => class extends superclass {
  */
    //所有交易对信息
  symbols () {
-  return this.publicRequest('GET', 'https://www.mexc.com/open/api/v2/market/symbols')
+  return this.PublicRequest('GET', '/open/api/v2/market/symbols')
 }
 
 //当前系统时间
 servertime () {
-  return this.publicRequest('GET', 'https://www.mexc.com/open/api/v2/common/timestamp')
+  return this.PublicRequest('GET', '/open/api/v2/common/timestamp')
 }
 
 //ping
 ping () {
-  return this.publicRequest('GET', 'https://www.mexc.com/open/api/v2/common/ping')
+  return this.PublicRequest('GET', '/open/api/v2/common/ping')
 }
 
 //获取平台支持接口的交易对
-api_default_symbols (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
-  return this.publicRequest(
+defaultSymbols (options = {}) {
+  return this.PublicRequest(
     'GET',
-    'https://www.mexc.com/open/api/v2/market/ticker',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    '/open/api/v2/market/ticker',
+    options
   )
 }
 
 //Ticker行情
-Ticker (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
-  return this.publicRequest(
+ticker (options = {}) {
+  return this.PublicRequest(
     'GET',
-    'https://www.mexc.com/open/api/v2/market/ticker',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    '/open/api/v2/market/ticker',
+    options
   )
 }
 
 //深度信息
-Depth (symbol, depth, options = {}) {
-  validateRequiredParameters({ symbol,depth})
-  return this.publicRequest(
+depth (options = {}) {
+  return this.PublicRequest(
     'GET',
-    'https://www.mexc.com/open/api/v2/market/depth',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      depth: depth.toUpperCase(),
-    })
+    '/open/api/v2/market/depth',
+    options
   )
 }
 
 
 //成交记录
-Deals (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
-  return this.publicRequest(
+deals (options = {}) {
+  return this.PublicRequest(
     'GET',
-    'https://www.mexc.com/open/api/v2/market/deals',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    '/open/api/v2/market/deals',
+    options
   )
 }
 
 //K线数据
-Kline (symbol, interval, options = {}) {
-  validateRequiredParameters({ symbol, interval})
-  return this.publicRequest(
+kline (options = {}) {
+  return this.PublicRequest(
     'GET',
-    'https://www.mexc.com/open/api/v2/market/kline',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      interval: interval.toUpperCase()
-    })
+    '/open/api/v2/market/kline',
+    options
   )
 }
 
 //获取币种信息
-CoinList () {
-  return this.publicRequest('GET', 'https://www.mexc.com/open/api/v2/market/coin/list')
+coinList () {
+  return this.PublicRequest('GET', '/open/api/v2/market/coin/list')
 }
 
   //账户余额
@@ -106,7 +89,7 @@ CoinList () {
 }
 
 //下单
-PlaceOrder (options = {}) {
+placeOrder (options = {}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/order/place',
@@ -116,7 +99,7 @@ PlaceOrder (options = {}) {
 }
 
 //撤销订单
-CancelOrder ( options = {}) {
+cancelOrder ( options = {}) {
   return this.SignRequest(
     'DELETE',
     '/open/api/v2/order/cancel',
@@ -125,7 +108,7 @@ CancelOrder ( options = {}) {
 }
 
 //批量下单
-MuiltPlaceOrder (options = {}) {
+muiltPlaceOrder (options = {}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/order/place_batch',
@@ -134,76 +117,56 @@ MuiltPlaceOrder (options = {}) {
 }
 
 //当前挂单
-GetOpenOrder (symbol, options = {}) {
-  validateRequiredParameters({ symbol})
+getOpenOrder (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/order/open_orders',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-    })
+    options
   )
 }
 
 //所有订单
-GetAllOrder (symbol, trade_type	, states, options = {}) {
-  validateRequiredParameters({ symbol, trade_type	, states })
+getAllOrder (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/order/list',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      trade_type: trade_type.toUpperCase(),
-      states: states.toUpperCase(),
-    })
+    options
   )
 }
 
 //查询订单
-QueryOrderById (order_ids	, options = {}) {
-  validateRequiredParameters({ order_ids	 })
+queryOrderById (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/order/query',
-    Object.assign(options, {
-      order_ids	: order_ids.toUpperCase(),
-    })
+    options
   )
 }
 
 //个人成交记录
-GetOrderDeal (order_id, options = {}) {
-  validateRequiredParameters({ order_id })
+getOrderDeal (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/order/deals',
-    Object.assign(options, {
-      order_id: order_id.toUpperCase(),
-    })
+    options
   )
 }
 
 //成交明细
-QueryOrderDealById (order_id, options = {}) {
-  validateRequiredParameters({ order_id })
+queryOrderDealById (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/order/deal_detail',
-    Object.assign(options, {
-      order_id: order_id.toUpperCase(),
-    })
+    options
   )
 }
 
 //按交易对撤销订单
-CancelBySymbol (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+cancelBySymbol (options = {}) {
   return this.SignRequest(
     'DELETE',
     '/open/api/v2/order/cancel_by_symbol',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-    })
+    options
   )
 }
 
@@ -212,20 +175,16 @@ CancelBySymbol (symbol, options = {}) {
 
 
 //获取充币地址
-GetDepositList ( currency,options = {}) {
-  validateRequiredParameters({currency})
+getDepositList (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/asset/deposit/address/list',
-     Object.assign(options,{
-    currency: currency.toUpperCase() 
-     })   
+     options
   )
 }
 
 //充值记录查询
-GetDepositRecord ( options = {}) {
-  validateRequiredParameters({})
+getDepositRecord ( options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/asset/deposit/list',
@@ -234,8 +193,7 @@ GetDepositRecord ( options = {}) {
 }
 
 //提币地址列表查询
-GetWithdrawList ( options = {}) {
-  validateRequiredParameters({})
+getWithdrawList ( options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/asset/withdraw/list',
@@ -253,19 +211,16 @@ withdraw ( options = {}) {
 }
 
 //取消提币
-CancelWithdraw (withdraw_id, options = {}) {
-  validateRequiredParameters({ withdraw_id })
+cancelWithdraw (options = {}) {
   return this.SignRequest(
     'DELETE',
     '/open/api/v2/asset/withdraw',
-    Object.assign(options, {
-      withdraw_id: withdraw_id.toUpperCase()
-    })
+    options
   )
 }
 
 //内部资金划转
-transfer ( options = {}) {
+transFer ( options = {}) {
   return this.SignRequest(
     'POST',
     '/open/api/v2/asset/internal/transfer',
@@ -274,8 +229,7 @@ transfer ( options = {}) {
 }
 
 //内部资金转账记录
-GetTransferRecord (options = {}) {
-  validateRequiredParameters({})
+getTransferRecord (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/asset/internal/transfer/record',
@@ -284,26 +238,20 @@ GetTransferRecord (options = {}) {
 }
 
 //获取可划转资金
-GetAvlTransfer (currency, options = {}) {
-  validateRequiredParameters({ currency })
+getAvlTransfer (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/account/balance',
-    Object.assign(options, {
-      currency: currency.toUpperCase(),
-    })
+    options
   )
 }
 
 //内部资金划转订单查询
-QueryTransferRecordById (transact_id, options = {}) {
-  validateRequiredParameters({ transact_id })
+queryTransferRecordById (options = {}) {
   return this.SignRequest(
     'GET',
     '/open/api/v2/asset/internal/transfer/info',
-    Object.assign(options, {
-      transact_id: transact_id.toUpperCase(),
-    })
+    options
   )
 }
 
@@ -316,7 +264,7 @@ QueryTransferRecordById (transact_id, options = {}) {
 }
 
 //获取服务器时间
-servertime () {
+Servertime () {
   return this.publicRequest('GET', '/api/v3/time')
 }
 
@@ -326,75 +274,56 @@ ExchangeInformation () {
 }
 
 //深度信息
-depth (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+Depth (options = {}) {
   return this.publicRequest(
     'GET',
     '/api/v3/depth',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //近期成交列表
-RecentTradesList (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+RecentTradesList (options = {}) {
   return this.publicRequest(
     'GET',
     '/api/v3/trades',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //历史成交列表
-OldTradeLookup (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+OldTradeLookup (ptions = {}) {
   return this.publicRequest(
     'GET',
     '/api/v3/historicalTrades',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //近期成交（归集）
-CompressedTradesList (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+CompressedTradesList (options = {}) {
   return this.publicRequest(
     'GET',
     '/api/v3/aggTrades',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
 //K线数据
-Kline (symbol, interval, options = {}) {
-  validateRequiredParameters({ symbol, interval})
+Kline ( options = {}) {
   return this.publicRequest(
     'GET',
     '/api/v3/klines',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase(),
-      interval: interval.toUpperCase()
-    })
+    options
   )
 }
 
 //当前平均价格
-CurrentAveragePrice (symbol, options = {}) {
-  validateRequiredParameters({ symbol })
+CurrentAveragePrice (options = {}) {
   return this.publicRequest(
     'GET',
     '/api/v3/avgPrice',
-    Object.assign(options, {
-      symbol: symbol.toUpperCase()
-    })
+    options
   )
 }
 
@@ -428,85 +357,61 @@ return this.publicRequest('GET', 'api/v3/etf/info')
   }
 
  //下单
- Order (symbol, side, type, options = {}) {
-    validateRequiredParameters({ symbol, side, type })
+ Order (options = {}) {
     return this.signRequest(
       'POST',
       '/api/v3/order',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase(),
-        side: side.toUpperCase(),
-        type: type.toUpperCase()
-      })
+      options
     )
   }
 
 //撤销订单
-CancelOrder (symbol,  options = {}) {
-    validateRequiredParameters({symbol})
+CancelOrder (options = {}) {
     return this.signRequest(
       'DELETE',
       '/api/v3/order',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase()
-        
-      })   
+      options    
     )
   }
 
 //撤销单一交易对所有订单
-CancelallOpenOrders (symbol,  options = {}) {
-    validateRequiredParameters({symbol })
+CancelallOpenOrders (options = {}) {
     return this.signRequest(
       'DELETE',
       '/api/v3/openOrders',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase(),
-      
-      })   
+      options
     )
   }
 
 //查询订单
-QueryOrderr (symbol,  options = {}) {
-    validateRequiredParameters({symbol})
+QueryOrder (options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/order',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase(),
-
-      })   
+      options
     )
   }
 
 //当前挂单
-CurrentOpenOrders (symbol,  options = {}) {
-    validateRequiredParameters({symbol})
+CurrentOpenOrders (options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/openOrders',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase(),
- 
-      })   
+      options
     )
   }
 
 //查询所有订单
-AllOrders (symbol,  options = {}) {
-    validateRequiredParameters({symbol })
+AllOrders (options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/allOrders',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase()
-      })   
+      options
     )
   }
 
 //账户信息
-AccountInformation ( options = {}) {
+AccountInformation (options = {}) {
   return this.signRequest(
     'GET',
     '/api/v3/account',
@@ -516,31 +421,22 @@ AccountInformation ( options = {}) {
 }
 
 //账户成交历史
-AccountTradeList (symbol, options = {}) {
-    validateRequiredParameters({symbol})
+AccountTradeList (ptions = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/myTrades',
-      Object.assign(options, {
-        symbol: symbol.toUpperCase()
-
-      })   
+      options
     )
   }
 
   //*母子账户接口*//
 
   //创建子账户
-  virtualSubAccount (subAccount, note	, options = {}) {
-    validateRequiredParameters({subAccount, note	})
+  VirtualSubAccount (options = {}) {
     return this.signRequest(
       'POST',
       '/api/v3/sub-account/virtualSubAccount',
-      Object.assign(options, {
-        subAccount: subAccount.toUpperCase(),
-        note: note.toUpperCase()
-
-      })   
+      options
     )
   }
 
@@ -554,163 +450,116 @@ AccountTradeList (symbol, options = {}) {
   }
 
   //创建子账户的APIkey
-  virtualApikey (subAccount, note, permissions	, options = {}) {
-    validateRequiredParameters({subAccount, note, permissions	})
+  VirtualApikey (options = {}) {
     return this.signRequest(
       'POST',
       '/api/v3/sub-account/apiKey',
-      Object.assign(options, {
-        subAccount: subAccount.toUpperCase(),
-        note: note.toUpperCase(),
-        permissions:permissions.toUpperCase()
-      })   
+      options        
     )
   }
 
   //查询子账户的APIkey
-  GetApiKey (subAccount	, options = {}) {
-    validateRequiredParameters({subAccount})
+  GetApiKey (options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/sub-account/apiKey',
-      Object.assign(options, {
-        subAccount: subAccount.toUpperCase()
-      })   
+      options
     )
   }
 
   //删除子账户的APIkey
-  DelAccount (subAccount, apiKey,	  options = {}) {
-    validateRequiredParameters({subAccount, apiKey})
+  DelAccount (options = {}) {
     return this.signRequest(
       'DELETE',
       '/api/v3/sub-account/apiKey',
-      Object.assign(options, {
-        subAccount: subAccount.toUpperCase(),
-        apikey:apikey.toUpperCase()
-      })   
+      options
     )
   }
 
 
 //切换杠杆模式
-TradeMode (tradeMode , symbol, options= {}) {
-  validateRequiredParameters({tradeMode , symbol})
+TradeMode (options= {}) {
   return this.signRequest(
     'POST',
     '/api/v3/margin/tradeMode',
-    Object.assign(options, {
-      tradeMode: tradeMode.toUpperCase(),
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //下单
-Marginorder (tradeMode , symbol, options= {}) {
-  validateRequiredParameters({tradeMode , symbol})
+Marginorder (options= {}) {
   return this.signRequest(
     'POST',
     '/api/v3/margin/order',
-    Object.assign(options, {
-      tradeMode: tradeMode.toUpperCase(),
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //借贷
-loan (asset , amount, options= {}) {
-  validateRequiredParameters({asset , amount})
+Loan (options= {}) {
   return this.signRequest(
     'POST',
     '/api/v3/margin/loan',
-    Object.assign(options, {
-      asset: asset.toUpperCase(),
-      amount:amount.toUpperCase()
-    })   
+    options
   )
 }
 
 //归还借贷
-repay (asset , symbol, borrowId, recvWindow, options= {}) {
-  validateRequiredParameters({asset , symbol, borrowId, recvWindow})
+Repay (options= {}) {
   return this.signRequest(
     'POST',
     '/api/v3/margin/repay',
-    Object.assign(options, {
-      asset: asset.toUpperCase(),
-      symbol:symbol.toUpperCase(),
-      borrowId:borrowId.toUpperCase(),
-      recvWindow:recvWindow.toUpperCase()
-
-    })   
+    options
   )
 }
 
 //撤销单一交易对的所有挂单
-cancelAllMargin (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+CancelAllMargin (options= {}) {
   return this.signRequest(
     'DELETE',
     '/api/v3/margin/openOrders',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //撤销订单
-cancelMargin (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+CancelMargin (options= {}) {
   return this.signRequest(
     'DELETE',
     '/api/v3/margin/order',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询借贷记录
-loanRecord (asset , recvWindow, options= {}) {
-  validateRequiredParameters({asset , recvWindow})
+LoanRecord (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/loan',
-    Object.assign(options, {
-      asset: asset.toUpperCase(),
-      recvWindow:recvWindow.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询历史委托记录
-allOrdersRecord (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+AllOrdersRecord (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/allOrders',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询历史成交记录
-MyTrades (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+MyTrades (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/myTrades',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询当前挂单记录
-marginOpenOrders (options= {}) {
+MarginOpenOrders (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/openOrders',
@@ -719,32 +568,25 @@ marginOpenOrders (options= {}) {
 }
 
 //查询最大可转出额
-maxTransferableh (asset , symbol, options= {}) {
-  validateRequiredParameters({asset , symbol})
+MaxTransferableh (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/maxTransferableh',
-    Object.assign(options, {
-      asset: asset.toUpperCase(),
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询杠杆价格指数
-priceIndex (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+PriceIndex (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/priceIndex',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+   options
   )
 }
 
 //查询杠杆账户订单详情
-marginOrder (options= {}) {
+MarginOrder (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/order',
@@ -753,19 +595,16 @@ marginOrder (options= {}) {
 }
 
 //查询杠杆逐仓账户信息
-isolatedAccount (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+IsolatedAccount (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/isolated/account',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询止盈止损订单
-trigerOrder (options= {}) {
+TrigerOrder (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/trigerOrder',
@@ -774,44 +613,34 @@ trigerOrder (options= {}) {
 }
 
 //查询账户最大可借贷额度
-maxBorrowable (asset ,options= {}) {
-  validateRequiredParameters({asset})
+MaxBorrowable (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/maxBorrowable',
-    Object.assign(options, {
-      asset: asset.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询还贷记录
-repayRecord (asset , tranId, options= {}) {
-  validateRequiredParameters({asset , tranId})
+RepayRecord (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/repay',
-    Object.assign(options, {
-      asset: asset.toUpperCase(),
-      tranId:tranId.toUpperCase()
-    })   
+    options
   )
 }
 
 //查询逐仓杠杆交易对
-isolatedPair (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+IsolatedPair (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/isolated/pair',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options
   )
 }
 
 //获取账户强制平仓记录
-forceLiquidationRec (options= {}) {
+ForceLiquidationRec (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/forceLiquidationRec',
@@ -820,7 +649,7 @@ forceLiquidationRec (options= {}) {
 }
 
 //获取逐仓杠杆利率及限额
-isolatedMarginData (options= {}) {
+IsolatedMarginData (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/isolatedMarginData',
@@ -829,14 +658,11 @@ isolatedMarginData (options= {}) {
 }
 
 //获取逐仓档位信息
-isolatedMarginTier (symbol, options= {}) {
-  validateRequiredParameters({symbol})
+IsolatedMarginTier (options= {}) {
   return this.signRequest(
     'GET',
     '/api/v3/margin/isolatedMarginTier',
-    Object.assign(options, {
-      symbol:symbol.toUpperCase()
-    })   
+    options 
   )
 }
 

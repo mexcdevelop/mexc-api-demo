@@ -1,7 +1,6 @@
-const crypto = require('crypto')
 const CryptoJS = require('crypto-js')
 const HmacSHA256 = require('crypto-js/hmac-sha256')
-const { removeEmptyValue, buildQueryString, createRequest, CreateRequest, defaultLogger } = require('./helpers/utils')
+const { removeEmptyValue, buildQueryString, createRequest, CreateRequest, pubRequest, defaultLogger } = require('./helpers/utils')
 
 class APIBase {
   constructor (options) {
@@ -12,10 +11,6 @@ class APIBase {
     this.logger = logger || defaultLogger
   }
 
-
-
-
-
   publicRequest (method, path, params = {}) {
     params = removeEmptyValue(params)
     params = buildQueryString(params)
@@ -25,7 +20,7 @@ class APIBase {
     return createRequest({
       method: method,
       baseURL: this.baseURL,
-      url: `${path}`,
+      url: path,
       apiKey: this.apiKey
     })
   }
@@ -37,11 +32,7 @@ class APIBase {
     params = removeEmptyValue(params)
     const timestamp = Date.now()
     const queryString = buildQueryString({ ...params, timestamp })
-    const signature = crypto
-      .createHmac('sha256', this.apiSecret)
-      .update(queryString)
-      .digest('hex')
-
+    const signature = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(queryString, this.apiSecret))
     return createRequest({
       method: method,
       baseURL: this.baseURL,
@@ -52,6 +43,20 @@ class APIBase {
 
 
     //V2
+    PublicRequest (method, path, params = {}) {
+      params = removeEmptyValue(params)
+      params = buildQueryString(params)
+      if (params !== '') {
+        path = `${path}?${params}`
+      }
+      return pubRequest({
+        method: method,
+        baseURL: this.baseURL,
+        url: path,
+        apiKey: this.apiKey
+      })
+    }
+  
         SignRequest (method, path, params = {}) {
           params = removeEmptyValue(params)
           const timestamp = Date.now()

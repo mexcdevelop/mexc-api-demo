@@ -4,7 +4,7 @@ const { flowRight } = require('./helpers/utils')
 
 class Spot extends flowRight(...Object.values(modules))(APIBase) {
   constructor (apiKey = '', apiSecret = '', options = {}) {
-    options.baseURL = options.baseURL ||'https://api.mexc.com' 
+    options.baseURL = options.baseURL || 'https://api.mexc.com' 
     super({
       apiKey,
       apiSecret,
