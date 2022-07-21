@@ -19,6 +19,8 @@ Fill in the corresponding function according to the parameters mentioned in the 
 
 > ### Example(Spot V3) :
 
+Use test_v3.py as a test example
+
 ```python
 import mexc_spot_v3
 import time
