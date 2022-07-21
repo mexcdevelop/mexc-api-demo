@@ -114,7 +114,7 @@ class mexc_market(TOOL):
         return response.json()
 
     def get_ETF_info(self, params=None):
-        """get ETH information"""
+        """get ETF information"""
         url = '{}{}'.format(self.api, '/etf/info')
         response = self.public_request(self.method, url, params=params)
         return response.json()
@@ -145,7 +145,7 @@ class mexc_trade(TOOL):
     def post_batchorders(self, params):
         """place batch orders"""
         method = 'POST'
-        url = '{}{}'.format(self.api, '/order')
+        url = '{}{}'.format(self.api, '/batchOrders')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
@@ -155,7 +155,7 @@ class mexc_trade(TOOL):
         'origClientOrderId' or 'orderId' must be sent
         """
         method = 'DELETE'
-        url = '{}{}'.format(self.api, '/batchOrders')
+        url = '{}{}'.format(self.api, '/order')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
