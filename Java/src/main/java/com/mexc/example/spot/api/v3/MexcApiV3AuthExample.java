@@ -64,7 +64,7 @@ public class MexcApiV3AuthExample {
 
     public static void main(String[] args) {
 
-        //订单查询
+        //get order
         Order order = getOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "BTCUSDT")
                 .put("orderId", "150751023827259392")
@@ -72,25 +72,25 @@ public class MexcApiV3AuthExample {
                 .build()));
         log.info("==>>order:{}", JsonUtil.toJson(order));
 
-        //所有订单
+        //get all orders
         List<Order> allOrders = allOrders(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "GAL3SUSDT")
                 .build()));
         log.info("==>>allOrders:{}", JsonUtil.toJson(allOrders));
 
-        //当前挂单
+        //get open orders
         List<Order> openOrders = openOrders(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "MXUSDT")
                 .build()));
         log.info("==>>openOrders:{}", JsonUtil.toJson(openOrders));
 
-        //成交记录
+        //get my trades
         List<MyTrades> myTrades = myTrades(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "MXUSDT")
                 .build()));
         log.info("==>>myTrades:{}", JsonUtil.toJson(myTrades));
 
-        //账户信息
+        //get account
         Account account = account(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("recvWindow", "60000")
                 .build()));
@@ -106,16 +106,16 @@ public class MexcApiV3AuthExample {
         params.put("price", "100000");
         params.put("recvWindow", "60000");
 
-        //下单
+        //place order
         OrderPlaceResp placeResp = placeOrder(params);
         log.info("==>>placeResp:{}", JsonUtil.toJson(placeResp));
 
-        //测试下单
+        //test place order
         OrderPlaceResp placeRespTest = placeOrderTest(params);
         log.info("==>>placeRespTest:{}", JsonUtil.toJson(placeRespTest));
 
 
-        //撤销订单
+        //cancel order
         OrderCancelResp cancelResp = cancelOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "BTCUSDT")
                 .put("orderId", "150751023827259392")
@@ -123,7 +123,7 @@ public class MexcApiV3AuthExample {
                 .build()));
         log.info("==>>cancelResp:{}", JsonUtil.toJson(cancelResp));
 
-        //撤销所有挂单
+        //cancel open orders
         List<OrderCancelResp> orderCancelResps = cancelOpenOrders(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "BTCUSDT")
                 .put("recvWindow", "60000")

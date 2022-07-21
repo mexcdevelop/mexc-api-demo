@@ -267,32 +267,32 @@ public class MexcApiV2Example {
     }
 
     public static void main(String[] args) {
-        String accessKey = "mx0LAUvP5u0UNufqpH";
-        String secretKey = "cccadcc82efa41ad83fc73079d8000b8";
+        String accessKey = "";
+        String secretKey = "";
         Gson gson = new Gson();
         MexcApiV2Example example = new MexcApiV2Example(secretKey, accessKey);
 
-        //交易对深度
+        //depth
         Result<MarketDepthWrapper> depth = example.depth(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "ETH_USDT")
                 .put("depth", "10")
                 .build()));
         log.info("==>>交易对深度:{}", gson.toJson(depth));
 
-        //交易对成交历史查询
+        //deals
         Result<List<TradeHistory>> deals = example.deals(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "ETH_USDT")
                 .put("limit", "10")
                 .build()));
         log.info("==>>交易对成交历史查询:{}", gson.toJson(deals));
 
-        //市场行情(24h)
+        //ticker(24h)
         Result<List<TickerInfo>> ticker = example.ticker((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "ETH_USDT")
                 .build())));
         log.info("市场行情(24h):{}", gson.toJson(ticker));
 
-        // 获取交易对K线
+        // kline
         Result<List<Object[]>> kline = example.kline((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "ETH_USDT")
                 .put("interval", "1m")
@@ -302,8 +302,7 @@ public class MexcApiV2Example {
         log.info("获取交易对K线:{}", gson.toJson(kline));
 
 
-        //下单
-
+        //place order
         Result<String> order = example.placeOrder(buildPlaceOrderRequest());
         log.info("==>>下单:{}", gson.toJson(order));
 
@@ -312,14 +311,14 @@ public class MexcApiV2Example {
                 .build())));
         log.info("cancelResult:{}", gson.toJson(cancelResult));
 
-        //批量下单
+        //batch place order
         List<PlaceOrderRequest> placeOrderReqList = new ArrayList<>();
         placeOrderReqList.add(buildPlaceOrderRequest());
         placeOrderReqList.add(buildPlaceOrderRequest());
         Result<Object> batchResult = example.batchPlaceOrder(placeOrderReqList);
         log.info("==>>批量下单:{}", gson.toJson(batchResult));
 
-        //订单成交明细查询
+        //order deal detail
         Result<List<OrderDealsResp>> dealDetail = example.orderDealDetail((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("order_id", "a39ea6b7afcf4f5cbba1e515210ff827")
                 .build())));
@@ -329,7 +328,7 @@ public class MexcApiV2Example {
 
         log.info("server time ->> " + new Date(Long.parseLong(example.timestamp().getData().toString())));
 
-        //查询当前委托单
+        //open orders
         Result<List<OpenOrderResp>> openOrders = example.openOrders((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "MX_USDT")
                 .put("start_time", "1572076703000")
@@ -338,7 +337,7 @@ public class MexcApiV2Example {
                 .build())));
         log.info("查询当前委托单:{}", gson.toJson(openOrders));
 
-        //按条件查询订单列表
+        //get order list by condition
         Result<List<OrderResp>> listResult = example.orderList((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "MX_USDT")
                 .put("start_time", "1573198722444")
@@ -348,14 +347,14 @@ public class MexcApiV2Example {
                 .build())));
         log.info("按条件查询订单列表:{}", gson.toJson(listResult));
 
-        //根据Ids查询订单
+        //get order by ids
         Result<List<OrderResp>> orderQueryList = example.orderQuery((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("order_ids", "467e0920fae94ba6a90f6b40df0ad169")
                 .build())));
         log.info("根据Ids查询订单:{}", gson.toJson(orderQueryList));
 
 
-        //用户成交记录查询
+        //get order deals
         Result<List<OrderDealsResp>> orderDeals = example.orderDeals((Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "MX_USDT")
                 .put("start_time", "1571872481022")
@@ -364,37 +363,37 @@ public class MexcApiV2Example {
         log.info("用户成交记录查询:{}", gson.toJson(orderDeals));
 
 
-        //余额查询
+        //get balance
         Result<Map<String, Asset>> balance = example.balance();
         log.info("balance:{}", gson.toJson(balance));
 
-        //默认交易对查询
+        //get default symbols
         Result<Map<String, List<String>>> defaultSymbols = example.defaultSymbols();
         log.info("defaultSymbols:{}", gson.toJson(defaultSymbols));
 
-        //币种列表
+        //get coinlist
         Result<List<CoinList>> coinList = example.coinList(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("currency", "BTC")
                 .build()));
         log.info("coinList:{}", gson.toJson(coinList));
 
-        //获取账户的可api交易的交易对
+        //get apisymbols
         Result<Map<String, List<String>>> apiSymbols = example.apiSymbols();
         log.info("apiSymbols:{}", gson.toJson(apiSymbols));
 
-        //按交易对撤单
+        //cancel order by symbol
         Result<List<Map<String, String>>> cancelOrderResult = example.cancelBySymbol(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "MX_USDT")
                 .build()));
         log.info("cancelResult:{}", gson.toJson(cancelOrderResult));
 
-        //充值地址查询
+        //get deposit address
         Result<DepositAddressDto> addressList = example.depositAddressList(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("currency", "USDT")
                 .build()));
         log.info("=>>addressList:{}", gson.toJson(addressList));
 
-        //充值记录查询
+        //get deposit record list
         Date now = new Date();
         Date start = DateUtils.addDays(now, -30);
         Result<Pagination<DepositRecordDto>> depositRecordList = example.depositRecordList(Maps.newHashMap(ImmutableMap.<String, String>builder()
@@ -404,19 +403,19 @@ public class MexcApiV2Example {
                 .build()));
         log.info("=>>depositRecordList:{}", gson.toJson(depositRecordList));
 
-        //提现地址查询
+        //get withdraw address
         Result<Pagination<WithdrawAddress>> withdrawAddressList = example.withdrawAddressList(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("currency", "USDT")
                 .build()));
         log.info("withdrawAddressList:{}", gson.toJson(withdrawAddressList));
 
-        //提现记录查询
+        //get withdraw record list
         Result<Pagination<WithdrawRecord>> withdrawList = example.withdrawList(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("currency", "USDT")
                 .build()));
         log.info("withdrawList:{}", gson.toJson(withdrawList));
 
-        //提现
+        //withdraw
         Result<Map<String, String>> withdrawResult = example.withdrawApply(WithdrawApply.builder()
                 .currency("LUNA")
                 .chain("BEP20(BSC)")
@@ -425,11 +424,11 @@ public class MexcApiV2Example {
                 .build());
         log.info("withdrawResult:{}", gson.toJson(withdrawResult));
 
-        //取消提现
+        //cencel withdraw
         Result<Map<String, String>> cancelWithdrawResult = example.cancelWithdraw("test_cancel1");
         log.info("cancelWithdrawResult:{}", gson.toJson(cancelWithdrawResult));
 
-        //内部划转
+        //internal transfer
         Result<InternalTransferResult> transferResult = example.internalTransfer(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("amount", "1")
                 .put("currency", "USDT")
@@ -438,19 +437,19 @@ public class MexcApiV2Example {
                 .build()));
         log.info("transferResult:{}", gson.toJson(transferResult));
 
-        //划转记录列表查询
+        //get transfer record
         Result<Pagination<InternalTransferRecord>> transferRecord = example.internalTransferRecord(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("currency", "USDT")
                 .build()));
         log.info("transferRecord:{}", gson.toJson(transferRecord));
 
-        //可划转资金查询
+        //get account balance
         Result<List<Balance>> accountBalance = example.accountBalance(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("currency", "USDT")
                 .build()));
         log.info("accountBalance:{}", gson.toJson(accountBalance));
 
-        //划转信息查询
+        //get transfer record detail
         Result<InternalTransferRecord> transferInfo = example.internalTransferInfo(Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("transact_id", "bc7a78ca643e4c0992128e30797dd648")
                 .build()));

@@ -65,21 +65,21 @@ public final class MexcSpotRawWsExample extends WebSocketListener {
         MexcSpotRawWsExample spotRawWs = new MexcSpotRawWsExample();
         WebSocket webSocket = spotRawWs.run();
 
-        //订阅深度
+        //subscribe depth
         webSocket.send("{\"op\":\"sub.limit.depth\",\"symbol\":\"BTC_USDT\",\"depth\": 5}");
 
-        //订阅kline
+        //subscribe kline
         //webSocket.send("{\"op\":\"sub.kline\",\"symbol\":\"BTC_USDT\",\"interval\":\"Min30\"}");
 
-        //订阅交易信息
+        //subscribe trade
         //webSocket.send("{\"op\":\"sub.symbol\",\"symbol\":\"BTC_USDT\"}}");
 
-        //订阅私有消息
+        //subscribe private message
         //签名规则 把api_key、req_time以及及op用MD5私钥做一个签名  Use MD5 private key to sign api_key, req_time, and op
         //api_key=api_key&req_time=req_time&op=sub.personal&api_secret=api_secret
 
-        String apiKey = "mx0LAUvP5u0UNufqpH";
-        String secretKey = "cccadcc82efa41ad83fc73079d8000b8";
+        String apiKey = "";
+        String secretKey = "";
 
         Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
