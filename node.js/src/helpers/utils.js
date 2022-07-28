@@ -21,11 +21,9 @@ const buildQueryString = params => {
     .join('&')
 }
 
-
-
-
 const CreateRequest = (config) => {
-  const { baseURL, method, url, apiKey, timestamp, Signature} = config
+  const { baseURL, method, url, params, apiKey, timestamp, Signature} = config
+  if (method === 'GET' || method === 'DELETE') {
   return getRequestInstance({
     baseURL, 
     headers: {
@@ -36,8 +34,24 @@ const CreateRequest = (config) => {
     }, 
   }).request({
     method,
-    url
-  })
+    url,
+    params
+  })}
+  if (method === 'POST') { 
+      return getRequestInstance({
+          baseURL, 
+          headers: {
+            'Content-Type': 'application/json',
+            'ApiKey': apiKey,
+            'Request-Time':timestamp,
+            'Signature': Signature
+          },         
+        }).request({
+          method,
+          url,
+          data: params     
+        })       
+  }
 }
 
 
@@ -59,7 +73,6 @@ const createRequest = (config) => {
     headers: {
       'Content-Type': 'application/json',
       'X-MEXC-APIKEY': apiKey,
-
     }
   }).request({
     method,
@@ -67,8 +80,19 @@ const createRequest = (config) => {
   })
 }
 
-
-
+const pubRequest = (config) => {
+  const {  apiKey, method, url } = config
+  return getRequestInstance({
+    baseURL:'https://www.mexc.com',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-MEXC-APIKEY': apiKey,
+    }
+  }).request({
+    method,
+    url
+  })
+}
 
 const flowRight = (...functions) => input => functions.reduceRight(
   (input, fn) => fn(input),
@@ -90,5 +114,6 @@ module.exports = {
   createRequest,
   flowRight,
   CreateRequest,
+  pubRequest,
   defaultLogger
 }

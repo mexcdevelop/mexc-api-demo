@@ -1,4 +1,2 @@
-
-
-module.exports.V3public = require('./V3public')
-module.exports.V3Trade = require('./V3spot')
+module.exports.Spot = require('./spot')
+module.exports.Future = require('./future')
