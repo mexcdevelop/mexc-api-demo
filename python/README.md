@@ -19,6 +19,8 @@ Fill in the corresponding function according to the parameters mentioned in the 
 
 > ### Example(Spot V3) :
 
+Use test_v3.py as a test example
+
 ```python
 import mexc_spot_v3
 import time
@@ -30,8 +32,13 @@ hosts = "https://api.mexc.com"
 # Market Data
 """get kline"""
 data = mexc_spot_v3.mexc_market(mexc_hosts=hosts)
-response= data.get_kline({'symbol': 'BTCUSDT', 'interval': '5m', 'limit': 10})
-print(k_line_data)
+params = {
+    'symbol': 'BTCUSDT', 
+    'interval': '5m', 
+    'limit': 10
+}
+response= data.get_kline(params)
+print(response)
 ```
 
 ## Spot Websocket Demo 
