@@ -23,7 +23,7 @@ Run Spot Trade Example
 
 > ### Example(Spot V3) :
 
-```dotnet
+```csharp
 /// Exchange Information
 using (var response = MexcService.SendPublicAsync("/api/v3/exchangeInfo", HttpMethod.Get, new Dictionary<string, object> {
           {"symbol", "BTCUSDT"}
