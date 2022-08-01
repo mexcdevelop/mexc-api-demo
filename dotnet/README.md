@@ -12,16 +12,13 @@ Fill in the corresponding function according to the parameters mentioned in the 
 
 * <https://mxcdevelop.github.io/apidocs/spot_v3_cn/#45fa4e00db>
 
-Run Signature Example
-
+Run Signature Example.
 `dotnet run signature`
 
-Run Market Example
-
+Run Market Example.
 `dotnet run market`
 
-Run Spot Trade Example
-
+Run Spot Trade Example.
 `dotnet run spot_trade`
 
 > ### Example(Spot V3) :
