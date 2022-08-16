@@ -16,6 +16,7 @@ params = {
 response= data.get_kline(params)
 print(response)
 
+
 # Spot Trade
 """place an order"""
 trade = mexc_spot_v3.mexc_trade(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
@@ -29,17 +30,27 @@ params = {
 response= trade.post_order(params)
 print(response)
 
+
 # Spot Account
 """get spot account information"""
 account = mexc_spot_v3.mexc_account(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
 response= account.get_account_info()
 print(response)
 
+
+# Capital
+"""get currency information"""
+capital = mexc_spot_v3.mexc_capital(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
+response= capital.get_coinlist()
+print(response)
+
+
 # Sub-Account
 """get sub account information"""
 sub_account = mexc_spot_v3.mexc_subaccount(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
 response = sub_account.get_SubAccountList()
 print(response)
+
 
 # Margin Account & Trade
 """get loan history"""
