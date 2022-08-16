@@ -25,6 +25,7 @@ namespace MexcDotNet
         case "market": await Market(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
         case "spot_trade": await Spot_Trade(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
         case "account": await Account(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
+        case "capital": await Capital(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
         case "subaccount": await Sub_Account(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
         case "margin": await Margin(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
       }
@@ -219,12 +220,57 @@ namespace MexcDotNet
       {
         Console.WriteLine(await response);
       };
-
-      /// Coin List
+    }
+    
+    private static async Task Capital(MexcService MexcService)
+    {
+      /// Currency Information
       using (var response = MexcService.SendSignedAsync("/api/v3/capital/config/getall", HttpMethod.Get))
       {
         Console.WriteLine(await response);
       }
+      /// Withdraw
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/apply", HttpMethod.Post, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"network", "TRC20"}, {"address", "TRxxxxxxxxxxxxx"}, {"amount", 1000}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+      /// Deposit History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/hisrec", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+      /// Withdraw History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/history", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+      /// Despoit Address
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/address", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+      /// Transfer
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer", HttpMethod.Post, new Dictionary<string, object> {
+                {"fromAccountType", "SPOT"}, {"toAccountType", "FUTURES"}, {"asset", "USDT"}, {"amount", 1000}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+      /// Transfer History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer", HttpMethod.Get, new Dictionary<string, object> {
+                {"fromAccountType", "SPOT"}, {"toAccountType", "FUTURES"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
     }
 
     private static async Task Sub_Account(MexcService MexcService)
