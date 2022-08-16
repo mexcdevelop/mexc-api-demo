@@ -221,13 +221,63 @@ class mexc_account(TOOL):
         response = self.sign_request(method, url)
         return response.json()
 
+class mexc_capital(TOOL):
+
+    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+        self.api = '/api/v3/capital'
+        self.hosts = mexc_hosts
+        self.mexc_key = mexc_key
+        self.mexc_secret = mexc_secret
+
     def get_coinlist(self):
-        """get coin list"""
+        """get currency information"""
         method = 'GET'
-        url = '{}{}'.format(self.api, '/capital/config/getall')
+        url = '{}{}'.format(self.api, '/config/getall')
         response = self.sign_request(method, url)
         return response.json()
 
+    def post_withdraw(self, params):
+        """withdraw"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/withdraw/apply')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_deposit_list(self, params):
+        """deposit history list"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/deposit/hisrec')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_withdraw_list(self, params):
+        """withdraw history list"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/withdraw/history')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_deposit_address(self, params):
+        """get deposit address"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/deposit/address')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_transfer(self, params):
+        """universal transfer"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/transfer')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_transfer_list(self, params):
+        """universal transfer history"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/transfer')
+        response = self.sign_request(method, url, params=parmas)
+        return response.json()
+    
 # Sub-Account
 class mexc_subaccount(TOOL):
 
