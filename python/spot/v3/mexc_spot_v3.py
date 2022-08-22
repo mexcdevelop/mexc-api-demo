@@ -145,9 +145,18 @@ class mexc_trade(TOOL):
     def post_batchorders(self, params):
         """place batch orders"""
         method = 'POST'
-        url = '{}{}'.format(self.api, '/batchOrders')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
+        url = '{}{}{}'.format(self.hosts, self.api, '/batchOrders')
+        params = str(params)
+        params = {"batchOrders": params}
+        params.update({'timestamp': self._get_server_time()})
+        query_str = "&".join([f"{key}={urllib.parse.quote(str(value))}" for key, value in params.items() if key != 'signature'])
+        params['signature'] = hmac.new(key=self.mexc_secret.encode('utf-8'), msg=query_str.encode('utf-8'),
+                     digestmod=hashlib.sha256).hexdigest()
+        headers = {
+            'x-mexc-apikey': self.mexc_key,
+            'Content-Type': 'application/json',
+        }
+        return requests.request(method, url, params=params, headers=headers).json()
 
     def delete_order(self, params):
         """
@@ -221,6 +230,7 @@ class mexc_account(TOOL):
         response = self.sign_request(method, url)
         return response.json()
 
+# Capital
 class mexc_capital(TOOL):
 
     def __init__(self, mexc_hosts, mexc_key, mexc_secret):
