@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "uZuFJcxbeekpVtC/lWcc64EpYcEsi1iK/VAoo5jhylXT0LsOubKK3Gn4fV6VF1CMv8FkD/fc7ydBO0J7u/4y4Q==",
+  "success": true,
+  "projectFilePath": "/Users/shawnkuo/mexc-spot-v3-dotnet/MexcDotNet.csproj",
+  "expectedPackageFiles": [
+    "/Users/shawnkuo/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/shawnkuo/.nuget/packages/microsoft.netcore.app.ref/3.1.0/microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "/Users/shawnkuo/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "/Users/shawnkuo/.nuget/packages/microsoft.netcore.app.host.osx-x64/3.1.25/microsoft.netcore.app.host.osx-x64.3.1.25.nupkg.sha512"
+  ],
+  "logs": []
+}

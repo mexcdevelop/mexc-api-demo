@@ -1,0 +1,16 @@
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.csproj.AssemblyReference.cache
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.AssemblyInfoInputs.cache
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.AssemblyInfo.cs
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.csproj.CoreCompileInputs.cache
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/MexcDotNet
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/MexcDotNet.deps.json
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/MexcDotNet.runtimeconfig.json
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/MexcDotNet.runtimeconfig.dev.json
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/MexcDotNet.dll
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/MexcDotNet.pdb
+/Users/shawnkuo/mexc-spot-v3-dotnet/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.csproj.CopyComplete
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.dll
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.pdb
+/Users/shawnkuo/mexc-spot-v3-dotnet/obj/Debug/netcoreapp3.1/MexcDotNet.genruntimeconfig.cache
