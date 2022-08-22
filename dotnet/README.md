@@ -1,29 +1,61 @@
-# MEXC SPOT API V3 signature examples for DotNET
+# Mexc DotNet Demo
 
-[MEXC API document](https://mxcdevelop.github.io/apidocs/spot_v3_en/#signed) has the details of how to hash the signature. In this repo, we give the example script on how to do signature.
+Before you use the demo, you need to generate your apikey & apisecret, then enter them first.
 
-## How it works
-In each language, the script will try to hash following string and should return same signature
+* <https://www.mexc.com/user/openapi>
 
-```bash
-# hashing string
-timestamp=1652918401000
-# and return
-35f29f605c92b6f782b58bcd8513e48b903af50af0e7a9002f031a000b36de35
+## Spot V3 Demo 
 
+Fill in the corresponding function according to the parameters mentioned in the API documentation and execute it. => `dotnet run`
+
+**Rest API V3 doc**   `URL = 'https://api.mexc.com'`
+
+* <https://mxcdevelop.github.io/apidocs/spot_v3_cn/#45fa4e00db>
+
+
+> ### Example(Spot V3) :
+
+Use Program.cs as a test example
+
+```csharp
+static async Task Main(string[] args)
+{
+   if (args.Count() == 0)
+      throw new ArgumentException($"Command missing. Accept commands: signature, market, trade, account, subaccount, margin");
+
+   string apiKey = "your apikey";
+   string apiSecret = "your secret";
+   string BaseUrl = "https://api.mexc.com";
+
+   HttpClient httpClient = new HttpClient();
+   switch (args[0])
+   {
+     case "market": await Market(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
+   }
+}
+private static async Task Market(MexcService MexcService)
+{
+   using (var response = MexcService.SendPublicAsync("/api/v3/klines", HttpMethod.Get, new Dictionary<string, object> {
+                {"symbol", "BTCUSDT"}, {"interval", "1d"}, {"limit", 5}
+   }))
+   {
+     Console.WriteLine(await response);
+   };
+}
 ```
+`dotnet run market`
 
-## Before you start to use our demo
-- please enter your apiKey & apiSecret first.
+## Spot Websocket Demo 
+
+According to the information you want to subscribe, change the content of the params according to the websocket documentation, ex: "op" or "symbol".   Execute the entire file after adjusting the parameters.
 
 
-## DotNET Compiling 
-Build the solution. \
-$ dotnet build
 
-## DotNET Running
-Run signature examples. \
-$ dotnet run signature
+**WebSocket doc**   `URL = 'wss://wbs.mexc.com/raw/ws'`
 
-Run spot examples. \
-$ dotnet run spot
+* <https://mxcdevelop.github.io/apidocs/spot_v2_cn/#websocket-api>
+
+
+`dotnet run`
+
+
