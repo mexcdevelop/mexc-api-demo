@@ -25,7 +25,7 @@ params = {
     "side": "BUY",
     "type": "LIMIT",
     "quantity": 0.005,
-    "price": 10000,
+    "price": "10000"
 }
 response= trade.post_order(params)
 print(response)
