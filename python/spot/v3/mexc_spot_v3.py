@@ -145,9 +145,18 @@ class mexc_trade(TOOL):
     def post_batchorders(self, params):
         """place batch orders"""
         method = 'POST'
-        url = '{}{}'.format(self.api, '/batchOrders')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
+        url = '{}{}{}'.format(self.hosts, self.api, '/batchOrders')
+        params = str(params)
+        params = {"batchOrders": params}
+        params.update({'timestamp': self._get_server_time()})
+        query_str = "&".join([f"{key}={urllib.parse.quote(str(value))}" for key, value in params.items() if key != 'signature'])
+        params['signature'] = hmac.new(key=self.mexc_secret.encode('utf-8'), msg=query_str.encode('utf-8'),
+                     digestmod=hashlib.sha256).hexdigest()
+        headers = {
+            'x-mexc-apikey': self.mexc_key,
+            'Content-Type': 'application/json',
+        }
+        return requests.request(method, url, params=params, headers=headers).json()
 
     def delete_order(self, params):
         """
@@ -221,13 +230,64 @@ class mexc_account(TOOL):
         response = self.sign_request(method, url)
         return response.json()
 
+# Capital
+class mexc_capital(TOOL):
+
+    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+        self.api = '/api/v3/capital'
+        self.hosts = mexc_hosts
+        self.mexc_key = mexc_key
+        self.mexc_secret = mexc_secret
+
     def get_coinlist(self):
-        """get coin list"""
+        """get currency information"""
         method = 'GET'
-        url = '{}{}'.format(self.api, '/capital/config/getall')
+        url = '{}{}'.format(self.api, '/config/getall')
         response = self.sign_request(method, url)
         return response.json()
 
+    def post_withdraw(self, params):
+        """withdraw"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/withdraw/apply')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_deposit_list(self, params):
+        """deposit history list"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/deposit/hisrec')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_withdraw_list(self, params):
+        """withdraw history list"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/withdraw/history')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_deposit_address(self, params):
+        """get deposit address"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/deposit/address')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_transfer(self, params):
+        """universal transfer"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/transfer')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_transfer_list(self, params):
+        """universal transfer history"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/transfer')
+        response = self.sign_request(method, url, params=parmas)
+        return response.json()
+    
 # Sub-Account
 class mexc_subaccount(TOOL):
 
