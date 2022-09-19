@@ -61,6 +61,42 @@ public class MexcApiV3AuthExample {
         });
     }
 
+    public static List<CoinItem> getAllCoins(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/config/getall", params, new TypeReference<List<CoinItem>>() {
+        });
+    }
+
+    public static Withdraw withdraw(Map<String, String> params) {
+        return UserDataClient.post("/api/v3/capital/withdraw/apply", params, new TypeReference<Withdraw>() {
+        });
+    }
+
+    public static List<DepositHisRec> getDepositHisRec(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/deposit/hisrec", params, new TypeReference<List<DepositHisRec>>() {
+        });
+    }
+
+    public static List<WithdrawHisRec> getWithdrawHisRec(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/withdraw/history", params, new TypeReference<List<WithdrawHisRec>>() {
+        });
+    }
+
+    public static List<DepositAddress> getDepositAddress(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/deposit/address", params, new TypeReference<List<DepositAddress>>() {
+        });
+    }
+
+    public static TransferId transfer(Map<String, String> params) {
+        return UserDataClient.post("/api/v3/capital/transfer", params, new TypeReference<TransferId>() {
+        });
+    }
+
+    public static TransferRec getTransferRec(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/transfer", params, new TypeReference<TransferRec>() {
+        });
+    }
+
+
 
     public static void main(String[] args) {
 
@@ -129,5 +165,60 @@ public class MexcApiV3AuthExample {
                 .put("recvWindow", "60000")
                 .build()));
         log.info("==>>orderCancelResps:{}", JsonUtil.toJson(orderCancelResps));
+
+        //get allCoins
+
+        List<CoinItem> allCoins = getAllCoins(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("recvWindow", "60000")
+                .build()));
+        log.info("==>>allCoins:{}", JsonUtil.toJson(allCoins));
+
+        //withdraw apply
+        HashMap<String, String> withdrawParams = Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("coin", "USDT-TRX")
+                .put("address", "TPb5qT9ZikopzCUD4zyieSEfwbjdjU8PVb")
+                .put("amount", "3")
+                .put("network", "TRC20")
+                .put("recvWindow", "60000")
+                .build());
+
+        Object withdraw = withdraw(withdrawParams);
+        System.out.println(JsonUtil.toJson(withdraw));
+
+        //get deposit history record
+        List<DepositHisRec> depositHisRec = getDepositHisRec(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("coin", "USDT-TRX")
+                .build()));
+        log.info("==>>depositHisRec:{}", JsonUtil.toJson(depositHisRec));
+
+        //get deposit history record
+        List<WithdrawHisRec> withdrawHisRec = getWithdrawHisRec(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("coin", "USDT-TRX")
+                .build()));
+        log.info("==>>withdrawHisRec:{}", JsonUtil.toJson(withdrawHisRec));
+
+        //get deposit address
+        List<DepositAddress> depositAddress = getDepositAddress(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("coin", "USDT")
+                .build()));
+        log.info("==>>withdrawHisRec:{}", JsonUtil.toJson(depositAddress));
+
+        //transfer
+        TransferId transferResp = transfer(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("fromAccountType", "SPOT")
+                .put("toAccountType", "FUTURES")
+                .put("asset", "USDT")
+                .put("amount", "3")
+                .build()));
+        log.info("==>>transferResp:{}", JsonUtil.toJson(transferResp));
+
+        //get transfer record
+        TransferRec transferRec = getTransferRec(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("fromAccountType", "SPOT")
+                .put("toAccountType", "SPOT")
+                .build()));
+        log.info("==>>transferRec:{}", JsonUtil.toJson(transferRec));
+
+
     }
 }

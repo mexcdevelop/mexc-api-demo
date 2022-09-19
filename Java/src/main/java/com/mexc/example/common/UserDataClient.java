@@ -6,6 +6,7 @@ import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
