@@ -267,6 +267,13 @@ class mexc_capital(TOOL):
         response = self.sign_request(method, url, params=params)
         return response.json()
 
+    def post_deposit_address(self, params):
+        """generate deposit address"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/deposit/address')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
     def get_deposit_address(self, params):
         """get deposit address"""
         method = 'GET'
@@ -285,14 +292,14 @@ class mexc_capital(TOOL):
         """universal transfer history"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/transfer')
-        response = self.sign_request(method, url, params=parmas)
+        response = self.sign_request(method, url, params=params)
         return response.json()
     
 # Sub-Account
 class mexc_subaccount(TOOL):
 
     def __init__(self, mexc_hosts, mexc_key, mexc_secret):
-        self.api = '/api/v3/sub-account'
+        self.api = '/api/v3'
         self.hosts = mexc_hosts
         self.mexc_key = mexc_key
         self.mexc_secret = mexc_secret
@@ -300,35 +307,63 @@ class mexc_subaccount(TOOL):
     def post_virtualSubAccount(self, params):
         """create a sub-account"""
         method = 'POST'
-        url = '{}{}'.format(self.api, '/virtualSubAccount')
+        url = '{}{}'.format(self.api, '/sub-account/virtualSubAccount')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
     def get_SubAccountList(self, params=None):
         """get sub-account list"""
         method = 'GET'
-        url = '{}{}'.format(self.api, '/list')
+        url = '{}{}'.format(self.api, '/sub-account/list')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
     def post_virtualApiKey(self, params):
         """create sub-account's apikey"""
         method = 'POST'
-        url = '{}{}'.format(self.api, '/apiKey')
+        url = '{}{}'.format(self.api, '/sub-account/apiKey')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
     def get_virtualApiKey(self, params):
         """get sub-account's apikey"""
         method = 'GET'
-        url = '{}{}'.format(self.api, '/apiKey')
+        url = '{}{}'.format(self.api, '/sub-account/apiKey')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
     def delete_virtualApiKey(self, params):
         """delete sub-account's apikey"""
         method = 'DELETE'
-        url = '{}{}'.format(self.api, '/apiKey')
+        url = '{}{}'.format(self.api, '/sub-account/apiKey')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_universalTransfer(self, params):
+        """universal transfer between accounts"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/capital/sub-account/universalTransfer')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_universalTransfer(self, params):
+        """universal transfer history between accounts"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/capital/sub-account/universalTransfer')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_SubAccountFutures(self, params):
+        """open sub-account futures"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/sub_account/futures')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_SubAccountMargin(self, params):
+        """open sub-account leveraged"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/sub_account/margin')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
@@ -485,5 +520,65 @@ class mexc_margin(TOOL):
         """get isolated tier"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/isolatedMarginTier')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+# Rebate
+class mexc_rebate(TOOL):
+
+    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+        self.api = '/api/v3/rebate'
+        self.hosts = mexc_hosts
+        self.mexc_key = mexc_key
+        self.mexc_secret = mexc_secret
+
+    def get_taxQuery(self):
+        """get the rebate commission record"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/taxQuery')
+        response = self.sign_request(method, url)
+        return response.json()
+
+    def get_rebate_detail(self, params):
+        """get rebate record details"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/detail')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_kickback_detail(self, params):
+        """get self-return record details"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/detail/kickback')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+# WebSocket ListenKey
+class mexc_listenkey(TOOL):
+
+    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+        self.api = '/api/v3'
+        self.hosts = mexc_hosts
+        self.mexc_key = mexc_key
+        self.mexc_secret = mexc_secret
+
+    def post_listenKey(self):
+        """ generate ListenKey """
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/userDataStream')
+        response = self.sign_request(method, url)
+        return response.json()
+
+    def put_listenKey(self, params):
+        """ extend ListenKey validity """
+        method = 'PUT'
+        url = '{}{}'.format(self.api, '/userDataStream')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def delete_listenKey(self, params):
+        """ delete ListenKey """
+        method = 'DELETE'
+        url = '{}{}'.format(self.api, '/userDataStream')
         response = self.sign_request(method, url, params=params)
         return response.json()
