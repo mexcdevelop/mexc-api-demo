@@ -6,8 +6,8 @@ from python.spot.v3 import mexc_spot_v3
 
 BASE_URL = 'wss://wbs.mexc.com/ws'
 hosts = 'https://api.mexc.com'
-mexc_key = 'mx0W9XU2zh91xSZ2MG'
-mexc_secret = 'da410a3bb0ad4530a29a815acc29383c'
+mexc_key = "your apiKey"
+mexc_secret = "your secretKey"
 
 listenKey = mexc_spot_v3.mexc_listenkey(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
 
