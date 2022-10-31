@@ -143,21 +143,8 @@ namespace MexcDotNet
 
       /// Place Batched Odears
       using (var response = MexcService.SendSignedAsync("/api/v3/batchOrders", HttpMethod.Post, new Dictionary<string, object> {
-        {"batchOrders", new object[]{
-          new{
-            symbol = "BTCUSDT",
-            side = "BUY",
-            type = "LIMIT",
-            quantity = 0.0006,
-            price = 10000
-          },
-          new{
-            symbol = "ETHUSDT",
-            side = "BUY",
-            type = "LIMIT",
-            quantity = 0.01,
-            price = 600
-          }}
+        {"batchOrders",
+        "[{'symbol':'MXUSDT','price':'0.5','quantity':'10','side':'BUY','type':'LIMIT'},{'symbol':'MXUSDT','price':'0.6','quantity':'10','side':'BUY','type':'LIMIT'}]"
         }}))
       {
         Console.WriteLine(await response);
