@@ -14,33 +14,24 @@
   "author": "Nl",
   "license": "MIT",
   "devDependencies": {
+    "bluebird": "^3.3.1",
     "clean-jsdoc-theme": "^3.2.7",
+    "config": "^1.28.1",
+    "crypto-js": "^3.1.9-1",
     "husky": "^6.0.0",
     "jest": "^26.0.1",
     "jsdoc": "^3.6.7",
     "marked": "^4.0.12",
+    "moment": "^2.13.0",
     "nock": "^13.0.2",
-    "standard": "^16.0.4",
-    "bluebird": "^3.3.1",
-    "config": "^1.28.1",
-    "moment": "^2.13.0",
-    "redis": "^2.4.2",
-    "request": "^2.72.0",
-    "crypto-js": "^3.1.9-1",
-    "bluebird": "^3.3.1",
-    "config": "^1.28.1",
-    "moment": "^2.13.0",
     "pako": "^1.0.6",
     "redis": "^2.4.2",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "standard": "^16.0.4"
   },
   "files": [
     "src/**/*"
   ],
-  "dependencies": {
-    "axios": "^0.21.4",
-    "ws": "^7.5.0"
-  },
   "execMap": {
     "js": "node –harmony"
   }
