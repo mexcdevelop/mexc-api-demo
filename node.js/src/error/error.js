@@ -1,8 +1,8 @@
 class Error {
-    constructor (message) {
-      this.message = message
-      this.name = 'Error'
-    }
+  constructor(message) {
+    this.message = message
+    this.name = 'Error'
   }
-  
-  module.exports = Error
+}
+
+module.exports = Error

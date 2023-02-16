@@ -44,10 +44,10 @@ function subInfo(symbol) {
  * @param ws
  */
 function subKline(symbol) {
-    var data ={
-        'op':"sub.kline",
-        'symbol':symbol,
-        'interval':"Min30"
+    var data = {
+        'op': "sub.kline",
+        'symbol': symbol,
+        'interval': "Min30"
     }
     ws.send(JSON.stringify(data));
 
@@ -57,12 +57,12 @@ function subKline(symbol) {
  * depth
  * @param ws
  */
- function subDepth(symbol) {
-    var data ={
-        'op':"sub.limit.depth",
+function subDepth(symbol) {
+    var data = {
+        'op': "sub.limit.depth",
 
-        'symbol':symbol,   //交易对
-      
+        'symbol': symbol,   //交易对
+
         "depth": 5
     }
 
@@ -74,8 +74,8 @@ function subKline(symbol) {
  * overview
  * @param ws
  */
- function subOverview() {
-    var data ={
+function subOverview() {
+    var data = {
         "op": "sub.overview"
     }
 
@@ -87,8 +87,8 @@ function subKline(symbol) {
  * cny
  * @param ws
  */
- function subCny() {
-    var data ={
+function subCny() {
+    var data = {
         "op": "sub.cny"
     }
 
@@ -100,9 +100,9 @@ function subKline(symbol) {
  * Subscribe to incremental depth
  * @param ws
  */
- function Subdepth(symbol) {
-    var data ={
-        "op":"sub.depth",
+function Subdepth(symbol) {
+    var data = {
+        "op": "sub.depth",
         "symbol": symbol
     }
 
@@ -114,14 +114,14 @@ function subKline(symbol) {
  * Get account order status push
  * @param ws
  */
- function subPersonal(){
-    var data ={
-        'op':"sub.personal",  // sub key
+function subPersonal() {
+    var data = {
+        'op': "sub.personal",  // sub key
 
         'api_key': "API Key",	//API Key
-      
+
         'sign': sign,
-      
+
         'req_time': "timestamp "	//当前时间的时间戳 current timestamp 
     }
     ws.send(JSON.stringify(data));
@@ -131,14 +131,14 @@ function subKline(symbol) {
  * deals
  * @param ws
  */
- function subDeals(){
-    var data ={
-        'op':"sub.personal.deals",  // sub key
+function subDeals() {
+    var data = {
+        'op': "sub.personal.deals",  // sub key
 
         'api_key': "API Key",	//API Key
-      
+
         'sign': sign,
-      
+
         'req_time': 'timestamp '	//当前时间的时间戳 current timestamp 
     }
     ws.send(JSON.stringify(data));

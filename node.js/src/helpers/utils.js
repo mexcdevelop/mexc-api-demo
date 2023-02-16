@@ -1,5 +1,6 @@
 const axios = require('axios')
 const { Console, timeStamp } = require('console')
+const { encode } = require('punycode')
 
 const removeEmptyValue = obj => {
   if (!(obj instanceof Object)) return {}
@@ -14,50 +15,55 @@ const isEmptyValue = input => {
     (Array.isArray(input) && !input.length)
 }
 
+const stringifyKeyValuePair = ([key, value]) => {
+  let valueString;
+  if (typeof value === 'object') {
+    valueString = JSON.stringify(value);
+  } else {
+    valueString = value;
+  }
+  return `${key}=${encodeURIComponent(valueString)}`;
+};
+
 const buildQueryString = params => {
-  if (!params) return ''
+  if (!params) return '';
   return Object.entries(params)
     .map(stringifyKeyValuePair)
-    .join('&')
-}
+    .join('&');
+};
 
 const CreateRequest = (config) => {
-  const { baseURL, method, url, params, apiKey, timestamp, Signature} = config
+  const { baseURL, method, url, params, apiKey, timestamp, Signature } = config
   if (method === 'GET' || method === 'DELETE') {
-  return getRequestInstance({
-    baseURL, 
-    headers: {
-      'Content-Type': 'application/json',
-      'ApiKey': apiKey,
-      'Request-Time':timestamp,
-      'Signature': Signature
-    }, 
-  }).request({
-    method,
-    url,
-    params
-  })}
-  if (method === 'POST') { 
-      return getRequestInstance({
-          baseURL, 
-          headers: {
-            'Content-Type': 'application/json',
-            'ApiKey': apiKey,
-            'Request-Time':timestamp,
-            'Signature': Signature
-          },         
-        }).request({
-          method,
-          url,
-          data: params     
-        })       
+    return getRequestInstance({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+        'ApiKey': apiKey,
+        'Request-Time': timestamp,
+        'Signature': Signature
+      },
+    }).request({
+      method,
+      url,
+      params
+    })
   }
-}
-
-
-const stringifyKeyValuePair = ([key, value]) => {
-  const valueString = Array.isArray(value) ? `["${value.join('","')}"]` : value
-  return `${key}=${encodeURIComponent(valueString)}`
+  if (method === 'POST') {
+    return getRequestInstance({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+        'ApiKey': apiKey,
+        'Request-Time': timestamp,
+        'Signature': Signature
+      },
+    }).request({
+      method,
+      url,
+      data: params
+    })
+  }
 }
 
 const getRequestInstance = (config) => {
@@ -80,10 +86,11 @@ const createRequest = (config) => {
   })
 }
 
+
 const pubRequest = (config) => {
-  const {  apiKey, method, url } = config
+  const { apiKey, method, url } = config
   return getRequestInstance({
-    baseURL:'https://www.mexc.com',
+    baseURL: 'https://www.mexc.com',
     headers: {
       'Content-Type': 'application/json',
       'X-MEXC-APIKEY': apiKey,

@@ -4,7 +4,6 @@ const apiSecret = ''
 const client = new Spot(apiKey, apiSecret, { baseURL: 'https://api.mexc.com' })
 
 
+client.AccountInformation().then(response => client.logger.log(response.data))
+  .catch(error => client.logger.error(error))
 
-
-client.WithDraw({ coin: "XXX", address: "XXX", amount: 10000, network: "BEP20(BSC)" })
-  .then(response => client.logger.log(response.data))
