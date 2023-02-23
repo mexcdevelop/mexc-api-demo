@@ -39,16 +39,6 @@ def on_close(ws):
     print("Connection closed ....")
 
 
-def on_ping(ws, message):
-    params = {"method": "PING"}
-    ws.send(json.dumps(params))
-    print(message)
-
-
-def on_pong(ws, message):
-    print(message)
-
-
 def on_open(ws):
     """
     根據想訂閱信息, 依照websocket文檔更改"method"及"params"中的內容
@@ -70,6 +60,12 @@ def on_open(ws):
     print(json.dumps(params))
     ws.send(json.dumps(params))
     print('Opened ....')
+    def send_ping():
+        for i in range(1000):
+            time.sleep(30)
+            params = {"method": "ping"}
+            ws.send(json.dumps(params))
+    threading.Thread(target=send_ping).start()
 
 
 if __name__ == "__main__":
@@ -77,9 +73,6 @@ if __name__ == "__main__":
     ws = websocket.WebSocketApp(BASE_URL,
                                 on_message=on_message,
                                 on_error=on_error,
-                                on_close=on_close,
-                                on_ping=on_ping,
-                                on_pong=on_pong)
+                                on_close=on_close)
     ws.on_open = on_open
-    ws.run_forever(ping_interval=30,
-                    ping_timeout=10)
+    ws.run_forever()
