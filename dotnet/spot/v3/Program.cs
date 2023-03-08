@@ -135,7 +135,7 @@ namespace MexcDotNet
 
       /// New Order
       using (var response = MexcService.SendSignedAsync("/api/v3/order", HttpMethod.Post, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}, {"side", "BUY"}, {"type", "LIMIT"}, {"quantity", 0.0006}, {"price", 10000}
+                {"symbol", "BTCUSDT"}, {"side", "BUY"}, {"type", "LIMIT"}, {"quantity", 0.6}, {"price", 10000}
             }))
       {
         Console.WriteLine(await response);

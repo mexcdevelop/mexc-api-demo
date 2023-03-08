@@ -1,19 +1,18 @@
-import time
-import json
 import requests
 import hmac
 import hashlib
-from urllib.parse import urlencode
+from urllib.parse import urlencode, quote
+import urllib.parse
 
 # ServerTime、Signature
 class TOOL(object):
 
     def _get_server_time(self):
-        return int(time.time()*1000)
+        return requests.request('get', 'https://api.mexc.com/api/v3/time').json()['serverTime']
 
     def _sign_v3(self, req_time, sign_params=None):
         if sign_params:
-            sign_params = urlencode(sign_params)
+            sign_params = urlencode(sign_params, quote_via=quote)
             to_sign = "{}&timestamp={}".format(sign_params, req_time)
         else:
             to_sign = "timestamp={}".format(req_time)
@@ -143,7 +142,7 @@ class mexc_trade(TOOL):
         return response.json()
 
     def post_batchorders(self, params):
-        """place batch orders"""
+        """place batch orders(same symbol)"""
         method = 'POST'
         url = '{}{}{}'.format(self.hosts, self.api, '/batchOrders')
         params = str(params)
@@ -212,6 +211,20 @@ class mexc_trade(TOOL):
         method = 'GET'
         url = '{}{}'.format(self.api, '/myTrades')
         response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_mxDeDuct(self, params):
+        """Enable MX DeDuct"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/mxDeduct/enable')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_mxDeDuct(self):
+        """MX DeDuct status"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/mxDeduct/enable')
+        response = self.sign_request(method, url)
         return response.json()
 
 # Spot Account
@@ -293,6 +306,27 @@ class mexc_capital(TOOL):
         method = 'GET'
         url = '{}{}'.format(self.api, '/transfer')
         response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_smallAssets_list(self):
+        """small Assets convertible list"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/convert/list')
+        response = self.sign_request(method, url)
+        return response.json()
+
+    def post_smallAssets_convert(self, params):
+        """small Assets convert"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/convert')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_smallAssets_history(self):
+        """small Assets convertible history"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/convert')
+        response = self.sign_request(method, url)
         return response.json()
     
 # Sub-Account
@@ -532,24 +566,31 @@ class mexc_rebate(TOOL):
         self.mexc_key = mexc_key
         self.mexc_secret = mexc_secret
 
-    def get_taxQuery(self):
+    def get_taxQuery(self, params=None):
         """get the rebate commission record"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/taxQuery')
-        response = self.sign_request(method, url)
+        response = self.sign_request(method, url, params=params)
         return response.json()
 
-    def get_rebate_detail(self, params):
+    def get_rebate_detail(self, params=None):
         """get rebate record details"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/detail')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
-    def get_kickback_detail(self, params):
+    def get_kickback_detail(self, params=None):
         """get self-return record details"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/detail/kickback')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_inviter(self, params=None):
+        """get self-return record details"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/referCode')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
