@@ -273,6 +273,11 @@ const Spot = superclass => class extends superclass {
     return this.publicRequest('GET', '/api/v3/exchangeInfo')
   }
 
+  //API交易对
+  ApiDefault() {
+    return this.publicRequest('GET', '/api/v3/defaultSymbols')
+  }
+ 
   //深度信息
   Depth(options = {}) {
     return this.publicRequest(
@@ -345,6 +350,15 @@ const Spot = superclass => class extends superclass {
   //获取ETF
   Etfinfo() {
     return this.publicRequest('GET', 'api/v3/etf/info')
+  }
+
+  //用户API交易对
+  SelfSymbol(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/selfSymbols',
+      options
+    )
   }
 
   //测试下单
@@ -728,7 +742,7 @@ const Spot = superclass => class extends superclass {
     )
   }
 
-  //*资产接口*//
+  //*钱包接口*//
   //查询币种信息
   CoinList(options = {}) {
     return this.signRequest(
@@ -747,6 +761,14 @@ const Spot = superclass => class extends superclass {
     )
   }
 
+  //取消提币
+  CancelWithdraw(options = {}) {
+    return this.signRequest(
+      'DELETE',
+      '/api/v3/capital/withdraw',
+      options
+    )
+  }
   //获取充值历史
   DepositHisrec(options = {}) {
     return this.signRequest(
@@ -765,6 +787,15 @@ const Spot = superclass => class extends superclass {
     )
   }
 
+  //生成充值地址
+  GenerateDepositAddress(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/capital/deposit/address',
+      options
+    )
+  }
+
   //获取充值地址
   DepositAddress(options = {}) {
     return this.signRequest(
@@ -774,6 +805,15 @@ const Spot = superclass => class extends superclass {
     )
   }
 
+  //获取提币地址
+  WithdrawAddress(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/withdraw/address',
+      options
+    )
+  }
+  
   //用户万向划转
   Transfer(options = {}) {
     return this.signRequest(
@@ -791,6 +831,33 @@ const Spot = superclass => class extends superclass {
       options
     )
   }
+
+  //获取小额资产可兑换列表
+  Capital(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/convert/list',
+      options
+    )
+  }
+
+  //小额资产兑换
+  CapitalConvert(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/capital/convert',
+      options
+    )
+  } 
+
+  //查询小额资产兑换历史
+  CapitalHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/convert',
+      options
+    )
+  } 
 
   //*邀请返佣接口*//
   //  获取邀请返佣记录
