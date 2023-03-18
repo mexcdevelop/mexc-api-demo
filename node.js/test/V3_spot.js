@@ -8,7 +8,7 @@ client.AccountInformation().then(response => client.logger.log(response.data))
   .catch(error => client.logger.error(error))
 
 //Place an order
-client.placeOrder({ "order_type": "LIMIT_ORDER", "price": "XX", "quantity": "XX", "symbol": "MX_USDT", "trade_type": "BID" })
+client.Order({ "type": "LIMIT", "price": "XX", "quantity": "XX", "symbol": "MXUSDT", "side": "BUY" })
   .then(response => client.logger.log(response.data)) 
 
 //BatchOrders
