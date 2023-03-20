@@ -1,14 +1,14 @@
 import json
-from urllib.parse import urlencode
 import websocket
 from python.spot.v3 import mexc_spot_v3
+import threading, time
 
 BASE_URL = 'wss://wbs.mexc.com/ws'
 hosts = 'https://api.mexc.com'
 mexc_key = "your apiKey"
 mexc_secret = "your secretKey"
 
-#listenKey = mexc_spot_v3.mexc_listenkey(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
+# listenKey = mexc_spot_v3.mexc_listenkey(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
 
 """ 建立 ListenKey """
 """ generate ListenKey """
@@ -48,15 +48,16 @@ def on_open(ws):
     params = {
         "method": "SUBSCRIPTION",
         "params":[
-            "spot@public.deals.v3.api@ADAUSDT",
-            #"spot@public.kline.v3.api@ADAUSDT@Min5",
-            #"spot@public.increase.depth.v3.api@ADAUSDT"
-            #"spot@private.orders.v3.api",
-            #"spot@private.deals.v3.api"
+            "spot@public.deals.v3.api@BTCUSDT",
+            # "spot@public.kline.v3.api@BTCUSDT@Min5",
+            # "spot@public.increase.depth.v3.api@BTCUSDT",
+            # "spot@public.limit.depth.v3.api@BTCUSDT@5",
+            # "spot@public.bookTicker.v3.api@BTCUSDT",
+            # "spot@private.account.v3.api",
+            # "spot@private.orders.v3.api",
+            # "spot@private.deals.v3.api"
         ]
     }
-    params_sign = urlencode(params)
-    print(params_sign)
     print(json.dumps(params))
     ws.send(json.dumps(params))
     print('Opened ....')

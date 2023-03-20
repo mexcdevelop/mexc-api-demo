@@ -4,6 +4,7 @@ import hashlib
 from urllib.parse import urlencode, quote
 import urllib.parse
 
+
 # ServerTime、Signature
 class TOOL(object):
 
@@ -29,7 +30,7 @@ class TOOL(object):
         if params:
             params['signature'] = self._sign_v3(req_time=req_time, sign_params=params)
         else:
-            params={}
+            params = {}
             params['signature'] = self._sign_v3(req_time=req_time)
         params['timestamp'] = req_time
         headers = {
@@ -37,6 +38,7 @@ class TOOL(object):
             'Content-Type': 'application/json',
         }
         return requests.request(method, url, params=params, headers=headers)
+
 
 # Market Data
 class mexc_market(TOOL):
@@ -55,6 +57,12 @@ class mexc_market(TOOL):
     def get_timestamp(self):
         """get sever time"""
         url = '{}{}'.format(self.api, '/time')
+        response = self.public_request(self.method, url)
+        return response.json()
+
+    def get_defaultSymbols(self):
+        """get defaultSymbols"""
+        url = '{}{}'.format(self.api, '/defaultSymbols')
         response = self.public_request(self.method, url)
         return response.json()
 
@@ -94,16 +102,16 @@ class mexc_market(TOOL):
         response = self.public_request(self.method, url, params=params)
         return response.json()
 
-    def get_24hr_ticker(self, params):
+    def get_24hr_ticker(self, params=None):
         """get 24hr prcie ticker change statistics"""
         url = '{}{}'.format(self.api, '/ticker/24hr')
         response = self.public_request(self.method, url, params=params)
         return response.json()
 
-    def get_price(self, params):
+    def get_price(self, params=None):
         """get symbol price ticker"""
         url = '{}{}'.format(self.api, '/ticker/price')
-        response = self.mexc_request(self.method, url, params=params)
+        response = self.public_request(self.method, url, params=params)
         return response.json()
 
     def get_bookticker(self, params=None):
@@ -118,6 +126,7 @@ class mexc_market(TOOL):
         response = self.public_request(self.method, url, params=params)
         return response.json()
 
+
 # Spot Trade
 class mexc_trade(TOOL):
 
@@ -126,6 +135,13 @@ class mexc_trade(TOOL):
         self.hosts = mexc_hosts
         self.mexc_key = mexc_key
         self.mexc_secret = mexc_secret
+
+    def get_selfSymbols(self):
+        """get currency information"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/selfSymbols')
+        response = self.sign_request(method, url)
+        return response.json()
 
     def post_order_test(self, params):
         """test new order"""
@@ -149,8 +165,7 @@ class mexc_trade(TOOL):
         params = {"batchOrders": params}
         params.update({'timestamp': self._get_server_time()})
         query_str = "&".join([f"{key}={urllib.parse.quote(str(value))}" for key, value in params.items() if key != 'signature'])
-        params['signature'] = hmac.new(key=self.mexc_secret.encode('utf-8'), msg=query_str.encode('utf-8'),
-                     digestmod=hashlib.sha256).hexdigest()
+        params['signature'] = hmac.new(key=self.mexc_secret.encode('utf-8'), msg=query_str.encode('utf-8'), digestmod=hashlib.sha256).hexdigest()
         headers = {
             'x-mexc-apikey': self.mexc_key,
             'Content-Type': 'application/json',
@@ -227,6 +242,7 @@ class mexc_trade(TOOL):
         response = self.sign_request(method, url)
         return response.json()
 
+
 # Spot Account
 class mexc_account(TOOL):
 
@@ -242,6 +258,7 @@ class mexc_account(TOOL):
         url = '{}{}'.format(self.api, '/account')
         response = self.sign_request(method, url)
         return response.json()
+
 
 # Capital
 class mexc_capital(TOOL):
@@ -263,6 +280,13 @@ class mexc_capital(TOOL):
         """withdraw"""
         method = 'POST'
         url = '{}{}'.format(self.api, '/withdraw/apply')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def cancel_withdraw(self, params):
+        """withdraw"""
+        method = 'DELETE'
+        url = '{}{}'.format(self.api, '/withdraw')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
@@ -308,6 +332,13 @@ class mexc_capital(TOOL):
         response = self.sign_request(method, url, params=params)
         return response.json()
 
+    def get_transfer_list_byId(self, params):
+        """universal transfer history (by tranId)"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/transfer/tranId')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
     def get_smallAssets_list(self):
         """small Assets convertible list"""
         method = 'GET'
@@ -322,13 +353,14 @@ class mexc_capital(TOOL):
         response = self.sign_request(method, url, params=params)
         return response.json()
 
-    def get_smallAssets_history(self):
+    def get_smallAssets_history(self, params=None):
         """small Assets convertible history"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/convert')
-        response = self.sign_request(method, url)
+        response = self.sign_request(method, url, params=params)
         return response.json()
-    
+
+
 # Sub-Account
 class mexc_subaccount(TOOL):
 
@@ -387,175 +419,6 @@ class mexc_subaccount(TOOL):
         response = self.sign_request(method, url, params=params)
         return response.json()
 
-    def post_SubAccountFutures(self, params):
-        """open sub-account futures"""
-        method = 'POST'
-        url = '{}{}'.format(self.api, '/sub_account/futures')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def post_SubAccountMargin(self, params):
-        """open sub-account leveraged"""
-        method = 'POST'
-        url = '{}{}'.format(self.api, '/sub_account/margin')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-# Margin Account & Trade
-class mexc_margin(TOOL):
-
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
-        self.api = '/api/v3/margin'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
-
-    def post_tradeMode(self, params):
-        """switch tradeMode"""
-        method = 'POST'
-        url = '{}{}'.format(self.api, '/tradeMode')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def post_margin_Order(self, params):
-        """place margin order"""
-        method = 'POST'
-        url = '{}{}'.format(self.api, '/order')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def post_loan(self, params):
-        """loan"""
-        method = 'POST'
-        url = '{}{}'.format(self.api, '/loan')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def post_repay(self, params):
-        """repay loan"""
-        method = 'POST'
-        url = '{}{}'.format(self.api, '/repay')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def delete_openOrders(self, params):
-        """cancel margin openOrders(All orders for a single symbol)"""
-        method = 'DELETE'
-        url = '{}{}'.format(self.api, '/openOrders')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def delete_Order(self, params):
-        """cancel margin order"""
-        method = 'DELETE'
-        url = '{}{}'.format(self.api, '/order')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_loan_history(self, params):
-        """get loan history"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/loan')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_allOrders(self, params):
-        """get historical commission records"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/allOrders')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_myTrades(self, params):
-        """get historical deals"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/myTrades')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_openOrders(self, params):
-        """get current pending order record"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/openOrders')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_maxTransferable(self, params):
-        """get the maximum transferable amount"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/maxTransferable')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_priceIndex(self, params):
-        """get margin price index"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/priceIndex')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_order(self, params):
-        """get margin account order details"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/order')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_isolated_account(self, params):
-        """get isolated margin account information"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/isolated/account')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_trigerOrder(self):
-        """get stop profit or stop loss order"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/trigerOrder')
-        response = self.sign_request(method, url)
-        return response.json()
-
-    def get_maxBorrowable(self, params):
-        """get account's maximum loan amount"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/maxBorrowable')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_repay_history(self, params):
-        """get repay history"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/repay')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_isolated_pair(self, params):
-        """get isolated margin symbol"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/isolated/pair')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_forceLiquidationRec(self, params):
-        """get account forced liquidation record"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/forceLiquidationRec')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_isolatedMarginData(self, params):
-        """get isolated margin rate and limit"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/isolatedMarginData')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
-
-    def get_isolatedMarginTier(self, params):
-        """get isolated tier"""
-        method = 'GET'
-        url = '{}{}'.format(self.api, '/isolatedMarginTier')
-        response = self.sign_request(method, url, params=params)
-        return response.json()
 
 # Rebate
 class mexc_rebate(TOOL):
@@ -593,6 +456,7 @@ class mexc_rebate(TOOL):
         url = '{}{}'.format(self.api, '/referCode')
         response = self.sign_request(method, url, params=params)
         return response.json()
+
 
 # WebSocket ListenKey
 class mexc_listenkey(TOOL):

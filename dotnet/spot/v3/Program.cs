@@ -12,7 +12,7 @@ namespace MexcDotNet
     static async Task Main(string[] args)
     {
       if (args.Count() == 0)
-        throw new ArgumentException($"Command missing. Accept commands: signature, market, trade, account, subaccount, margin");
+        throw new ArgumentException($"Command missing. Accept commands: signature, market, trade, subaccount, capital, rebate");
 
       string apiKey = "your apikey";
       string apiSecret = "your secret";
@@ -24,9 +24,9 @@ namespace MexcDotNet
         case "signature": Signature(apiSecret); break;
         case "market": await Market(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
         case "trade": await Trade(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
-        case "account": await Account(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
         case "subaccount": await Sub_Account(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
-        case "margin": await Margin(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
+        case "capital": await Capital(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
+        case "rebate": await Rebate(new MexcService(apiKey, apiSecret, BaseUrl, httpClient)); break;
       }
     }
 
@@ -40,6 +40,12 @@ namespace MexcDotNet
 
       /// Check Server Time
       using (var response = MexcService.SendPublicAsync("/api/v3/time", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get DefaultSymbols
+      using (var response = MexcService.SendPublicAsync("/api/v3/defaultSymbols", HttpMethod.Get))
       {
         Console.WriteLine(await response);
       };
@@ -125,9 +131,15 @@ namespace MexcDotNet
 
     private static async Task Trade(MexcService MexcService)
     {
+      /// Account SelfSymbols
+      using (var response = MexcService.SendSignedAsync("/api/v3/selfSymbols", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
       /// Test New Order
       using (var response = MexcService.SendSignedAsync("/api/v3/order/test", HttpMethod.Post, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}, {"side", "BUY"}, {"type", "LIMIT"}, {"quantity", 1}, {"price", 200}
+                {"symbol", "BTCUSDT"}, {"side", "BUY"}, {"type", "LIMIT"}, {"quantity", 0.0006}, {"price", 10000}
             }))
       {
         Console.WriteLine(await response);
@@ -135,13 +147,13 @@ namespace MexcDotNet
 
       /// New Order
       using (var response = MexcService.SendSignedAsync("/api/v3/order", HttpMethod.Post, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}, {"side", "BUY"}, {"type", "LIMIT"}, {"quantity", 0.6}, {"price", 10000}
+                {"symbol", "BTCUSDT"}, {"side", "BUY"}, {"type", "LIMIT"}, {"quantity", 0.0006}, {"price", 10000}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Place Batched Odears
+      /// Place Batched Orders
       using (var response = MexcService.SendSignedAsync("/api/v3/batchOrders", HttpMethod.Post, new Dictionary<string, object> {
         {"batchOrders",
         "[{'symbol':'MXUSDT','price':'0.5','quantity':'10','side':'BUY','type':'LIMIT'},{'symbol':'MXUSDT','price':'0.6','quantity':'10','side':'BUY','type':'LIMIT'}]"
@@ -150,7 +162,7 @@ namespace MexcDotNet
         Console.WriteLine(await response);
       };
 
-      /// Cancel Orde
+      /// Cancel Order
       using (var response = MexcService.SendSignedAsync("/api/v3/order", HttpMethod.Delete, new Dictionary<string, object> {
                 {"symbol", "BTCUSDT"}, {"orderId", 155959573394513920 }
             }))
@@ -190,6 +202,12 @@ namespace MexcDotNet
         Console.WriteLine(await response);
       };
 
+      /// Account Information
+      using (var response = MexcService.SendSignedAsync("/api/v3/account", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
       /// Account Trade List
       using (var response = MexcService.SendSignedAsync("/api/v3/myTrades", HttpMethod.Get, new Dictionary<string, object> {
                 {"symbol", "BTCUSDT"}
@@ -197,21 +215,20 @@ namespace MexcDotNet
       {
         Console.WriteLine(await response);
       };
-    }
 
-    private static async Task Account(MexcService MexcService)
-    {
-      /// Account Information
-      using (var response = MexcService.SendSignedAsync("/api/v3/account", HttpMethod.Get))
+      /// Enable MxDeduct
+      using (var response = MexcService.SendSignedAsync("/api/v3/mxDeduct/enable", HttpMethod.Post, new Dictionary<string, object> {
+                {"mxDeductEnable", "True"}
+            }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Coin List
-      using (var response = MexcService.SendSignedAsync("/api/v3/capital/config/getall", HttpMethod.Get))
+      /// Get MxDeduct Status
+      using (var response = MexcService.SendSignedAsync("/api/v3/mxDeduct/enable", HttpMethod.Get))
       {
         Console.WriteLine(await response);
-      }
+      };
     }
 
     private static async Task Sub_Account(MexcService MexcService)
@@ -225,10 +242,9 @@ namespace MexcDotNet
       };
 
       /// Get SubAccount List
-      using (var response = MexcService.SendSignedAsync("/api/v3/sub-account/list", HttpMethod.Get, new Dictionary<string, object>
-      {
-        // {"subAccount", "subAccount1"}, {"isFreeze", "True"}, {"page", 1}, {"limit", 1}
-      }))
+      using (var response = MexcService.SendSignedAsync("/api/v3/sub-account/list", HttpMethod.Get, new Dictionary<string, object>{
+                {"subAccount", "subAccount1"}, {"isFreeze", "True"}, {"page", 1}, {"limit", 1}
+            }))
       {
         Console.WriteLine(await response);
       };
@@ -256,192 +272,170 @@ namespace MexcDotNet
       {
         Console.WriteLine(await response);
       };
+
+      /// Account UniversalTransfer
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/sub-account/universalTransfer", HttpMethod.Post, new Dictionary<string, object> {
+                {"fromAccount", "xxxx"}, {"toAccount", "xxxx"}, {"fromAccountType", "SPOT"}, {"toAccountType", "SPOT"},
+                {"symbol", "xxx"}, {"asset", "xxx"}, {"amount", "xxx"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get Account UniversalTransfer List
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/sub-account/universalTransfer", HttpMethod.Get, new Dictionary<string, object> {
+                {"fromAccount", "xxxx"}, {"toAccount", "xxxx"}, {"fromAccountType", "SPOT"}, {"toAccountType", "SPOT"},
+                {"startTime", "xxx"}, {"endTime", "xxx"}, {"page", "xxx"}, {"limit", "xxx"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
     }
 
-    private static async Task Margin(MexcService MexcService)
+    private static async Task Capital(MexcService MexcService)
     {
-      /// Switch TradeMode
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/tradeMode", HttpMethod.Post, new Dictionary<string, object> {
-                {"tradeMode", 0}, {"symbol", "BTCUSDT"}
+      /// Coin List
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/config/getall", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Withdraw
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/apply", HttpMethod.Post, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"withdrawOrderId", "1234554321"}, {"network", "TRC20"}, {"address", "xxx"}, {"memo", "xxx"},
+                {"amount", "1000"}, {"remark", "test-withdraw"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// New Order
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/order", HttpMethod.Post, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"},
-                {"isIsolated", "TRUE"},
-                {"side", "BUY"},
-                {"type", "LIMIT"},
-                {"quantity", 0.0006},
-                //{"quoteOrderQty", 6},
-                {"price", 10000 },
-                // {"newClientOrderId", 111}
+      /// Cancel Withdraw
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw", HttpMethod.Delete, new Dictionary<string, object> {
+                {"id", "1234554321"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Loan
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/loan", HttpMethod.Post, new Dictionary<string, object> {
-                {"asset", "USDT"},
-                {"isIsolated", "TRUE"},
-                {"symbol", "ETHUSDT"},
-                {"amount", 0.01}
-      }))
-      {
-        Console.WriteLine(await response);
-      };
-
-      /// Repay Loan
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/repay", HttpMethod.Post, new Dictionary<string, object> {
-                {"asset", "USDT"},
-                {"isIsolated", "TRUE"},
-                {"symbol", "BTCUSDT"},
-                {"amount", 0.01},
-                {"borrowId", 155959573394513920},
-                {"isAllRepay", "true"}
+      /// Get Deposit History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/hisrec", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"startTime", "1669865156000"}, {"endTime", "1679282756000"},
+                // {"status", "xxx"}, {"limit", "1000"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Cancel all Open Orders on one Symbol
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/openOrders", HttpMethod.Delete, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}, {"isIsolated", "TRUE"}
+      /// Get Withdraw History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/history", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"startTime", "1669865156000"}, {"endTime", "1679282756000"},
+                // {"status", "xxx"}, {"limit", "1000"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Query Order
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/order", HttpMethod.Get, new Dictionary<string, object> {
-                {"isIsolated", "TRUE"}, {"symbol", "BTCUSDT" },
-                //{"orderId", 111111111111111 }, {"origClientOrderId", 111111111111111}
+      /// Generate Deposit Address
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/address", HttpMethod.Post, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"network", "TRC20"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Query Loan Record
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/loan", HttpMethod.Get, new Dictionary<string, object> {
-                {"asset", "USDT"}, {"symbol", "BTCUSDT"},
-                // {"tranId", "1234567890"},
-                // {"startTime", 123456789},
-                // {"endTime", 987654321},
-                // {"current", 1},
-                // {"size", 10}
+      /// Get Deposit Address
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/address", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"network", "TRC20"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// All Orders
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/allOrders", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"},
-                {"isIsolated", "TRUE"},
-                // {"orderId", "123456789"},
-                // {"startTime", "123456789"},
-                // {"endTime", "987654321"},
-                {"limit", 10}
+      /// Get Withdraw Address
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/address", HttpMethod.Get, new Dictionary<string, object> {
+                {"coin", "USDT"}, // {"page", "1"}, {"limit", "1000"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Account Trade List
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/myTrades", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT" }
+      /// Account Transfer
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer", HttpMethod.Post, new Dictionary<string, object> {
+                {"fromAccountType", "xxx"}, {"toAccountType", "xxx"}, {"asset", "xxx"}, {"amount", "xxx"}, {"symbol", "xxx"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Current Open Orders
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/openOrders", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT" }, {"isIsolated", "TRUE"}
+      /// Get Transfer History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer", HttpMethod.Get, new Dictionary<string, object> {
+                {"fromAccountType", "xxx"}, {"toAccountType", "xxx"}, {"startTime", "1669865156000"}, {"endTime", "1679282756000"},
+                {"page", "xxx"}, {"size", "xxx"}, {"symbol", "xxx"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Maximum Transferable Amount
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/maxTransferable", HttpMethod.Get, new Dictionary<string, object> {
-                {"asset", "BTC"}, {"symbol", "BTCUSDT" }
+      /// Get Transfer History (By tranId)
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer/tranId", HttpMethod.Get, new Dictionary<string, object> {
+                {"tranId", "xxx"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Margin Price Index
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/priceIndex", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "ETCUSDT" }
+      /// Get Convert List
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/convert/list", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Convert
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/convert", HttpMethod.Post, new Dictionary<string, object> {
+                {"asset", "xxx"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Margin Account Order Details
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/order", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}, {"orderId", "12123847321"}
+      /// Get Convert History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/convert", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"},
+                // {"page", "1"}, {"limit", "1000"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+    }
+
+    private static async Task Rebate(MexcService MexcService)
+    {
+      /// Get Rebate History
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/taxQuery", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"page", "1"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Isolated Margin Account Information
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/isolated/account", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbols", "BTCUSDT"}
+      /// Get Rebate Detail
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/detail", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"page", "1"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Maximum Loan Amount
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/maxBorrowable", HttpMethod.Get, new Dictionary<string, object> {
-                {"asset", "BTC"}, {"symbol", "BTCUSDT"}
+      /// Get Rebate Kickback Detail
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/detail/kickback", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"page", "1"}
             }))
       {
         Console.WriteLine(await response);
       };
 
-      /// Repay History
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/repay", HttpMethod.Get, new Dictionary<string, object> {
-                {"asset", "BTC"}, {"symbol", "BTCUSDT"}, {"tranId", "123456789"}
-            }))
-      {
-        Console.WriteLine(await response);
-      };
-
-      /// Get Isolated Margin Symbol
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/isolated/pair", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}
-            }))
-      {
-        Console.WriteLine(await response);
-      };
-
-      /// Get Account Forced Liquidation Record
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/forceLiquidationRec", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}
-            }))
-      {
-        Console.WriteLine(await response);
-      };
-
-      /// Get Isolated Margin Rate & Limit
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/isolatedMarginData", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}
-            }))
-      {
-        Console.WriteLine(await response);
-      };
-
-      /// Get Isolated Tier
-      using (var response = MexcService.SendSignedAsync("/api/v3/margin/myTrades", HttpMethod.Get, new Dictionary<string, object> {
-                {"symbol", "BTCUSDT"}
-            }))
+      /// Get Rebate ReferCode
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/referCode", HttpMethod.Get))
       {
         Console.WriteLine(await response);
       };
