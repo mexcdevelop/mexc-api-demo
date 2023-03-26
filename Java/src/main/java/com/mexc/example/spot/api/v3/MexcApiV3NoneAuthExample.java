@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mexc.example.common.JsonUtil;
 import com.mexc.example.common.MarketDataClient;
+import com.mexc.example.common.UserDataClient;
 import com.mexc.example.spot.api.v3.pojo.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,10 +42,6 @@ public class MexcApiV3NoneAuthExample {
         });
     }
 
-    public static List<Trades> historicalTrades(Map<String, String> params) {
-        return MarketDataClient.get("/api/v3/historicalTrades", params, new TypeReference<List<Trades>>() {
-        });
-    }
 
     public static List<AggTrades> aggTrades(Map<String, String> params) {
         return MarketDataClient.get("/api/v3/aggTrades", params, new TypeReference<List<AggTrades>>() {
@@ -76,32 +73,46 @@ public class MexcApiV3NoneAuthExample {
         });
     }
 
+    public static Symbols defaultSymbols(Map<String, String> params) {
+        return MarketDataClient.get("/api/v3/defaultSymbols", params, new TypeReference<Symbols>() {
+        });
+    }
+
     public static void main(String[] args) {
 
         HashMap<String, String> symbolParams = Maps.newHashMap(ImmutableMap.<String, String>builder()
                 .put("symbol", "BTCUSDT")
                 .build());
-
+        //symbol order book ticker
         log.info("=>>bookTicker:{}", JsonUtil.toJson(bookTicker(symbolParams)));
 
+        //24hr ticker price change statistics
         log.info("=>>ticker24hr:{}", JsonUtil.toJson(ticker24hr(symbolParams)));
 
+        //exchange information
         log.info("=>>exchangeInfo:{}", JsonUtil.toJson(exchangeInfo(symbolParams)));
 
+        //order book
         log.info("=>>depth:{}", JsonUtil.toJson(depth(symbolParams)));
 
+        //recent trades list
         log.info("=>>trades:{}", JsonUtil.toJson(trades(symbolParams)));
 
-        log.info("=>>historicalTrades:{}", JsonUtil.toJson(historicalTrades(symbolParams)));
-
+        //compressed/aggregate trades list
         log.info("=>>aggTrades:{}", JsonUtil.toJson(aggTrades(symbolParams)));
 
+        //current average price
         log.info("=>>avgPrice:{}", JsonUtil.toJson(avgPrice(symbolParams)));
 
+        //symbol price ticker
         log.info("=>>tickerPrice:{}", JsonUtil.toJson(tickerPrice(symbolParams)));
 
+        //kline/candlestick data
         symbolParams.put("interval", "1m");
         log.info("=>>klines:{}", JsonUtil.toJson(klines(symbolParams)));
+
+        //api default symbols
+        log.info("=>>defaultSymbols:{}", JsonUtil.toJson(defaultSymbols(new HashMap<>())));
 
     }
 }

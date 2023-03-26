@@ -71,6 +71,11 @@ public class MexcApiV3AuthExample {
         });
     }
 
+    public static Map<String, String> cancelWithdraw(Map<String, String> params) {
+        return UserDataClient.delete("/api/v3/capital/withdraw", params, new TypeReference<Map<String, String>>() {
+        });
+    }
+
     public static List<DepositHisRec> getDepositHisRec(Map<String, String> params) {
         return UserDataClient.get("/api/v3/capital/deposit/hisrec", params, new TypeReference<List<DepositHisRec>>() {
         });
@@ -78,6 +83,11 @@ public class MexcApiV3AuthExample {
 
     public static List<WithdrawHisRec> getWithdrawHisRec(Map<String, String> params) {
         return UserDataClient.get("/api/v3/capital/withdraw/history", params, new TypeReference<List<WithdrawHisRec>>() {
+        });
+    }
+
+    public static WithdrawAddressResp getWithdrawAddress(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/withdraw/address", params, new TypeReference<WithdrawAddressResp>() {
         });
     }
 
@@ -96,6 +106,11 @@ public class MexcApiV3AuthExample {
         });
     }
 
+    public static TransferRows getTransferRecByTranId(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/transfer/tranId", params, new TypeReference<TransferRows>() {
+        });
+    }
+
     public static Map<String, String> postUserDataStream(Map<String, String> params) {
         return UserDataClient.post("/api/v3/userDataStream", params, new TypeReference<Map<String, String>>() {
         });
@@ -107,9 +122,40 @@ public class MexcApiV3AuthExample {
         });
     }
 
+    public static MxDeductResp mxDeduct(Map<String, String> params) {
+        return UserDataClient.post("/api/v3/mxDeduct/enable", params, new TypeReference<MxDeductResp>() {
+        });
+    }
+
+
+    public static MxDeductResp getMxDeductStatus(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/mxDeduct/enable", params, new TypeReference<MxDeductResp>() {
+        });
+    }
+
+    public static List<ConvertItem> convertList(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/capital/convert/list", params, new TypeReference<List<ConvertItem>>() {
+        });
+    }
+
+    public static ConvertResp convert(Map<String, String> params) {
+        return UserDataClient.post("/api/v3/capital/convert", params, new TypeReference<ConvertResp>() {
+        });
+    }
+
+    public static Symbols selfSymbols(Map<String, String> params) {
+        return UserDataClient.get("/api/v3/selfSymbols", params, new TypeReference<Symbols>() {
+        });
+    }
 
 
     public static void main(String[] args) {
+
+        //get listenKey
+        String listenKey = MexcApiV3AuthExample.postUserDataStream(ImmutableMap.<String, String>builder()
+                .put("recvWindow", "60000")
+                .build()).get("listenKey");
+        log.info("==>>listenKey:{}", listenKey);
 
         //get order
         Order order = getOrder(Maps.newHashMap(ImmutableMap.<String, String>builder()
@@ -194,7 +240,15 @@ public class MexcApiV3AuthExample {
                 .build());
 
         Object withdraw = withdraw(withdrawParams);
-        System.out.println(JsonUtil.toJson(withdraw));
+        log.info("===>>withdraw resp:{}", JsonUtil.toJson(withdraw));
+
+        //cancel withdraw
+        Map<String, String> cancelWithdrawResp = cancelWithdraw(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("id", "ca7bd51895134fb5bd749f1cf875b8af")
+                .put("recvWindow", "60000")
+                .build()));
+
+        log.info("===>>cancelWithdrawResp:{}", JsonUtil.toJson(cancelWithdrawResp));
 
         //get deposit history record
         List<DepositHisRec> depositHisRec = getDepositHisRec(Maps.newHashMap(ImmutableMap.<String, String>builder()
@@ -202,11 +256,17 @@ public class MexcApiV3AuthExample {
                 .build()));
         log.info("==>>depositHisRec:{}", JsonUtil.toJson(depositHisRec));
 
-        //get deposit history record
+        //get withdraw history record
         List<WithdrawHisRec> withdrawHisRec = getWithdrawHisRec(Maps.newHashMap(ImmutableMap.<String, String>builder()
-                .put("coin", "USDT-TRX")
+                .put("coin", "USDT")
                 .build()));
         log.info("==>>withdrawHisRec:{}", JsonUtil.toJson(withdrawHisRec));
+
+        //get withdraw address
+        WithdrawAddressResp withdrawAddress = getWithdrawAddress(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("coin", "USDT")
+                .build()));
+        log.info("==>>withdrawAddress:{}", JsonUtil.toJson(withdrawAddress));
 
         //get deposit address
         List<DepositAddress> depositAddress = getDepositAddress(Maps.newHashMap(ImmutableMap.<String, String>builder()
@@ -231,5 +291,43 @@ public class MexcApiV3AuthExample {
         log.info("==>>transferRec:{}", JsonUtil.toJson(transferRec));
 
 
+        //get transfer record by tranId
+        TransferRows transferRow = getTransferRecByTranId(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("tranId", "cb28c88cd20c42819e4d5148d5fb5742")
+                .build()));
+        log.info("==>>transferRow:{}", JsonUtil.toJson(transferRow));
+
+
+        //update mx deduct
+        MxDeductResp mxDeductResp = mxDeduct(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("mxDeductEnable", "true")
+                .build()));
+        log.info("==>>mxDeductResp:{}", JsonUtil.toJson(mxDeductResp));
+
+
+        //get mx deduct status
+        MxDeductResp mxDeductStatus = getMxDeductStatus(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("recvWindow", "60000")
+                .build()));
+        log.info("==>>mxDeductStatus:{}", JsonUtil.toJson(mxDeductStatus));
+
+        //get convert list
+        List<ConvertItem> convertList = convertList(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("recvWindow", "60000")
+                .build()));
+        log.info("==>>convertList:{}", JsonUtil.toJson(convertList));
+
+        //dust transfer
+        ConvertResp convertResp = convert(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("asset", "GPT")
+                .build()));
+        log.info("==>>convertResp:{}", JsonUtil.toJson(convertResp));
+
+        //user api default symbol
+        Symbols selfSymbols = selfSymbols(Maps.newHashMap(ImmutableMap.<String, String>builder()
+                .put("recvWindow", "60000")
+                .build()));
+        log.info("==>>selfSymbols:{}", JsonUtil.toJson(selfSymbols));
     }
+
 }
