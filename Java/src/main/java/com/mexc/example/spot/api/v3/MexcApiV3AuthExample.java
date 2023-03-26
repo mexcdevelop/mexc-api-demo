@@ -96,6 +96,17 @@ public class MexcApiV3AuthExample {
         });
     }
 
+    public static Map<String, String> postUserDataStream(Map<String, String> params) {
+        return UserDataClient.post("/api/v3/userDataStream", params, new TypeReference<Map<String, String>>() {
+        });
+    }
+
+    public static Map<String, String> putUserDataStream(Map<String, String> params) {
+        //todo
+        return UserDataClient.post("/api/v3/userDataStream", params, new TypeReference<Map<String, String>>() {
+        });
+    }
+
 
 
     public static void main(String[] args) {
