@@ -2,8 +2,9 @@
 ## v3 现货 api的调用
 说明：
 * **公共接口**
-    1. 进入main.go中，无参数的请求直接调用
-    2. 带参数的请求需要在params中输入json格式的参数 如：`{"symbol":"BTCUSDT",	"limit":"200"}`
+    1. 进入run demo中，无参数的请求直接调用:在终端中输入指令“go run *.go”. *是想要请求的文件名，例如：go run Kline.go
+    2. 带参数的请求需要在params中输入json格式的参数 如：
+    `{"symbol":"BTCUSDT",	"limit":"200"}`
 * **私有接口**
     1. 需要先在config.go中配置相关的api_key和sec_key
     2. 后续操作与公共接口相同
@@ -16,14 +17,14 @@
 ## V3 Spot API
 Description:
 * **Public API**
-    1. access to main.go，create a function you want to call in spotList.go. eg:
-       > `depthinfo := spotList.SpotMarketDepth(params)`
+    1. access to file:run demo，select a function you want to call in spotList.go. eg:
+       > `run demo/Market Data/Kline.go`
     2. input the params in json format if this request need any params,like：
-       > `var params string = {"symbol":"BTCUSDT","limit":"200"}`  
+       > var params string = `{"symbol":"BTCUSDT","limit":"200"}`  
     3. if no params needed, just write 
        > `var params string =""`
     4. run the request with code 
-       > `go run main.go`
+       > `go run Kline.go`
 * **Private API**
     1. input the `api_key` and `sec_key` in config.go first
     2. same as how to call Public api in next
