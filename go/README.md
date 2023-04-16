@@ -18,7 +18,7 @@
 Description:
 * **Public API**
     1. access to file:run demo，select a function you want to call in spotList.go. eg:
-       > `run demo/Market Data/Kline.go`
+       > `demo/Market Data/Kline.go`
     2. input the params in json format if this request need any params,like：
        > var params string = `{"symbol":"BTCUSDT","limit":"200"}`  
     3. if no params needed, just write 
