@@ -53,6 +53,11 @@ public class SignatureInterceptor implements Interceptor {
         params += "&timestamp=" + timestamp;
         String signature = SignatureUtil.actualSignature(params, secretKey);
         params += "&signature=" + signature;
+        if (origRequest.url().uri().getPath().equals("/api/v3/batchOrders")) {
+            return origRequest.newBuilder()
+                    .addHeader(HEADER_ACCESS_KEY, accessKey)
+                    .post(RequestBody.create(params, MediaType.get("application/json"))).build();
+        }
         if ("POST".equals(method)) {
             return origRequest.newBuilder()
                     .addHeader(HEADER_ACCESS_KEY, accessKey)
