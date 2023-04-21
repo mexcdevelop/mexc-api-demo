@@ -296,15 +296,6 @@ const Spot = superclass => class extends superclass {
     )
   }
 
-  //历史成交列表
-  OldTradeLookup(ptions = {}) {
-    return this.publicRequest(
-      'GET',
-      '/api/v3/historicalTrades',
-      options
-    )
-  }
-
   //近期成交（归集）
   CompressedTradesList(options = {}) {
     return this.publicRequest(
@@ -508,7 +499,7 @@ const Spot = superclass => class extends superclass {
   }
 
   //删除子账户的APIkey
-  DelAccount(options = {}) {
+  DelApikey(options = {}) {
     return this.signRequest(
       'DELETE',
       '/api/v3/sub-account/apiKey',
@@ -534,213 +525,7 @@ const Spot = superclass => class extends superclass {
     )
   }
 
-  //开通子账户的合约业务
-  Futures(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/sub-account/futures',
-      options
-    )
-  }
 
-  //开通子账户的杠杆业务
-  Margin(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/sub-account/margin',
-      options
-    )
-  }
-
-  //*杠杆接口*//
-  //切换杠杆模式
-  TradeMode(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/tradeMode',
-      options
-    )
-  }
-
-  //下单
-  Marginorder(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/order',
-      options
-    )
-  }
-
-  //借贷
-  Loan(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/loan',
-      options
-    )
-  }
-
-  //归还借贷
-  Repay(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/repay',
-      options
-    )
-  }
-
-  //撤销单一交易对的所有挂单
-  CancelAllMargin(options = {}) {
-    return this.signRequest(
-      'DELETE',
-      '/api/v3/margin/openOrders',
-      options
-    )
-  }
-
-  //撤销订单
-  CancelMargin(options = {}) {
-    return this.signRequest(
-      'DELETE',
-      '/api/v3/margin/order',
-      options
-    )
-  }
-
-  //查询借贷记录
-  LoanRecord(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/loan',
-      options
-    )
-  }
-
-  //查询历史委托记录
-  AllOrdersRecord(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/allOrders',
-      options
-    )
-  }
-
-  //查询历史成交记录
-  MyTrades(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/myTrades',
-      options
-    )
-  }
-
-  //查询当前挂单记录
-  MarginOpenOrders(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/openOrders',
-      options
-    )
-  }
-
-  //查询最大可转出额
-  MaxTransferableh(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/maxTransferableh',
-      options
-    )
-  }
-
-  //查询杠杆价格指数
-  PriceIndex(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/priceIndex',
-      options
-    )
-  }
-
-  //查询杠杆账户订单详情
-  MarginOrder(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/order',
-      options
-    )
-  }
-
-  //查询杠杆逐仓账户信息
-  IsolatedAccount(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolated/account',
-      options
-    )
-  }
-
-  //查询止盈止损订单
-  TrigerOrder(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/trigerOrder',
-      options
-    )
-  }
-
-  //查询账户最大可借贷额度
-  MaxBorrowable(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/maxBorrowable',
-      options
-    )
-  }
-
-  //查询还贷记录
-  RepayRecord(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/repay',
-      options
-    )
-  }
-
-  //查询逐仓杠杆交易对
-  IsolatedPair(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolated/pair',
-      options
-    )
-  }
-
-  //获取账户强制平仓记录
-  ForceLiquidationRec(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/forceLiquidationRec',
-      options
-    )
-  }
-
-  //获取逐仓杠杆利率及限额
-  IsolatedMarginData(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolatedMarginData',
-      options
-    )
-  }
-
-  //获取逐仓档位信息
-  IsolatedMarginTier(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolatedMarginTier',
-      options
-    )
-  }
 
   //*钱包接口*//
   //查询币种信息
@@ -832,6 +617,15 @@ const Spot = superclass => class extends superclass {
     )
   }
 
+  //查询用户万向划转历史(ID)
+  TransferHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/transfer/tranId',
+      options
+    )
+  }
+
   //获取小额资产可兑换列表
   Capital(options = {}) {
     return this.signRequest(
@@ -887,7 +681,33 @@ const Spot = superclass => class extends superclass {
     )
   }
 
+  //*Websocket*//
+  //创建listenkey
+  CreateListenKey(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/userDataStream',
+      options
+    )
+  }
 
+  //延长listenkey
+  KeepListenKey(options = {}) {
+    return this.signRequest(
+      'PUT',
+      '/api/v3/userDataStream',
+      options
+    )
+  } 
+
+  //关闭listenkey
+  CloseListenKey(options = {}) {
+    return this.signRequest(
+      'DELETE',
+      '/api/v3/userDataStream',
+      options
+    )
+  } 
 }
 
 module.exports = Spot
