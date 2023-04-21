@@ -54,6 +54,19 @@ public class UserDataClient {
         }
     }
 
+    public static <T> T put(String uri, Map<String, String> params, TypeReference<T> ref) {
+        try {
+            Response response = OK_HTTP_CLIENT
+                    .newCall(new Request.Builder()
+                            .url(REQUEST_HOST.concat(uri))
+                            .put(RequestBody.create(SignatureUtil.toQueryString(params), MediaType.get("text/plain"))).build()).execute();
+            return handleResponse(response, ref);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     public static <T> T delete(String uri, Map<String, String> params, TypeReference<T> ref) {
         try {

@@ -118,7 +118,7 @@ public class MexcApiV3AuthExample {
 
     public static Map<String, String> putUserDataStream(Map<String, String> params) {
         //todo
-        return UserDataClient.post("/api/v3/userDataStream", params, new TypeReference<Map<String, String>>() {
+        return UserDataClient.put("/api/v3/userDataStream", params, new TypeReference<Map<String, String>>() {
         });
     }
 

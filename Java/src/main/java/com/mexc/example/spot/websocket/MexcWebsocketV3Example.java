@@ -79,18 +79,20 @@ public final class MexcWebsocketV3Example extends WebSocketListener {
         MexcWebsocketV3Example websocketV3 = new MexcWebsocketV3Example();
         //sub public channel
         WebSocket publicClient = websocketV3.publicClient();
-        publicClient.send("{\n" +
-                "    \"method\": \"SUBSCRIPTION\",\n" +
-                "    \"params\": [\n" +
-                "        \"spot@public.limit.depth.v3.api@BTCUSDT@20\"\n" +
+   //     publicClient.send("{\n" +
+    //            "    \"method\": \"SUBSCRIPTION\",\n" +
+     //           "    \"params\": [\n" +
+           //     "        \"spot@public.limit.depth.v3.api@BDPUSDT@5\"\n" +
 //                "        \"spot@public.kline.v3.api@BTCUSDT@Min15\"\n" +
                 //               "        \"spot@public.deals.v3.api@BTCUSDT\"\n" +
-                "    ]\n" +
-                "}");
+ //               "    ]\n" +
+//                "}");
 
         //sub private channel
         WebSocket privateClient = websocketV3.privateClient();
-        privateClient.send("{\"id\":1,\"method\":\"SUBSCRIPTION\",\"params\":[\"spot@private.deals.v3.api\",\"spot@private.orders.v3.api\"]}");
+//        privateClient.send("{\"id\":1,\"method\":\"SUBSCRIPTION\",\"params\":[\"spot@private.deals.v3.api\",\"spot@private.orders.v3.api\"]}");
+
+ //       privateClient.send("{\"id\":1,\"method\":\"SUBSCRIPTION\",\"params\":[\"spot@private.account.v3.api\"]}");
     }
 
 

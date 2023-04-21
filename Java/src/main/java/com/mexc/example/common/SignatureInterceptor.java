@@ -32,7 +32,7 @@ public class SignatureInterceptor implements Interceptor {
         Request newRequest;
         if ("GET".equals(method)) {
             newRequest = createUrlSignRequest(origRequest);
-        } else if ("POST".equals(method) || "DELETE".equals(method)) {
+        } else if ("POST".equals(method) || "DELETE".equals(method) || "PUT".equals(method)) {
             RequestBody origBody = origRequest.body();
             if (origBody != null) {
                 //support body params
