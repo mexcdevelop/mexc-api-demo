@@ -4,6 +4,5 @@ const apiSecret = ''
 const client = new Spot(apiKey, apiSecret, { baseURL: 'https://api.mexc.com' })
 
 
-client.AccountInformation().then(response => client.logger.log(response.data))
+client.WithdrawAddress().then(response => client.logger.log(response.data))
   .catch(error => client.logger.error(error))
-

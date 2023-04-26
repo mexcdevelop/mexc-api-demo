@@ -1,148 +1,129 @@
 const moment = require('moment');
 const WebSocket = require('ws');
 const pako = require('pako');
-
-
-
-const WS_URL = 'wss://wbs.mexc.com/raw/ws';
+const WS_URL = 'wss://wbs.mexc.com/ws';
 
 
 var ws = new WebSocket(WS_URL);
 
+ws.onopen = () => {
+    console.log('Connection open');
+    ws.send('{"method":"PING"}')
+    Deals()
+}
+
 ws.onmessage = e => {
     console.log(e.data);
 };
-
-ws.onopen = () => {
-    console.log('Connection open');
-    ws.send('ping');
-    subPersonal()
-}
 
 ws.onclose = () => {
     console.log('close');
 }
 
 /**
- * infor
+ * deals
  * @param ws
  */
-function subInfo(symbol) {
-    var data = {
-        'op': "sub.symbol",
-        'symbol': symbol
+function Deals() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@public.deals.v3.api@BTCUSDT"]       
     }
     ws.send(JSON.stringify(data));
 }
-
-
-
-
 
 /**
  * kline
  * @param ws
  */
-function subKline(symbol) {
-    var data = {
-        'op': "sub.kline",
-        'symbol': symbol,
-        'interval': "Min30"
-    }
-    ws.send(JSON.stringify(data));
-
-}
-
-/**
- * depth
- * @param ws
- */
-function subDepth(symbol) {
-    var data = {
-        'op': "sub.limit.depth",
-
-        'symbol': symbol,   //交易对
-
-        "depth": 5
-    }
-
-    ws.send(JSON.stringify(data));
-
-}
-
-/**
- * overview
- * @param ws
- */
-function subOverview() {
-    var data = {
-        "op": "sub.overview"
-    }
-
-    ws.send(JSON.stringify(data));
-
-}
-
-/**
- * cny
- * @param ws
- */
-function subCny() {
-    var data = {
-        "op": "sub.cny"
-    }
-
-    ws.send(JSON.stringify(data));
-
-}
-
-/**
- * Subscribe to incremental depth
- * @param ws
- */
-function Subdepth(symbol) {
-    var data = {
-        "op": "sub.depth",
-        "symbol": symbol
-    }
-
-    ws.send(JSON.stringify(data));
-
-}
-
-/**
- * Get account order status push
- * @param ws
- */
-function subPersonal() {
-    var data = {
-        'op': "sub.personal",  // sub key
-
-        'api_key': "API Key",	//API Key
-
-        'sign': sign,
-
-        'req_time': "timestamp "	//当前时间的时间戳 current timestamp 
+ function Kline() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@public.kline.v3.api@BTCUSDT@Min15"]       
     }
     ws.send(JSON.stringify(data));
 }
 
 /**
- * deals
+ * increasedepth
  * @param ws
  */
-function subDeals() {
-    var data = {
-        'op': "sub.personal.deals",  // sub key
-
-        'api_key': "API Key",	//API Key
-
-        'sign': sign,
-
-        'req_time': 'timestamp '	//当前时间的时间戳 current timestamp 
+ function IncreaseDepth() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@public.increase.depth.v3.api@BTCUSDT"]       
     }
     ws.send(JSON.stringify(data));
 }
+
+/**
+ * limitdepth
+ * @param ws
+ */
+ function LimitDepth() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@public.limit.depth.v3.api@BTCUSDT@5"]       
+    }
+    ws.send(JSON.stringify(data));
+}
+
+/**
+ * bookTicker
+ * @param ws
+ */
+ function BookTicker() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@public.bookTicker.v3.api@BTCUSDT"]       
+    }
+    ws.send(JSON.stringify(data));
+}
+
+/**
+ * account
+ * WS_URL = 'wss://wbs.mexc.com/ws?listenKey=Your listenkey'
+ * @param ws
+ */
+ function Account() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@private.account.v3.api"]       
+    }
+    ws.send(JSON.stringify(data));
+}
+
+/**
+ * accountdeals
+ * WS_URL = 'wss://wbs.mexc.com/ws?listenKey=Your listenkey'
+ * @param ws
+ */
+ function AccountDeals() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@private.deals.v3.api"]       
+    }
+    ws.send(JSON.stringify(data));
+}
+
+/**
+ * orders
+ * WS_URL = 'wss://wbs.mexc.com/ws?listenKey=Your listenkey'
+ * @param ws
+ */
+ function Orders() {
+    var data = {       
+        "method": "SUBSCRIPTION",
+        "params": ["spot@private.orders.v3.api"]       
+    }
+    ws.send(JSON.stringify(data));
+}
+
+
+
+
+
+
 
 
 
