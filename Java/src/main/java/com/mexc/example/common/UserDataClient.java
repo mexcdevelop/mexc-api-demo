@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -53,6 +54,37 @@ public class UserDataClient {
             throw new RuntimeException(e);
         }
     }
+    public static <T> T postEmptyBody(String uri, Map<String, String> params, TypeReference<T> ref) {
+        try {
+            String timestamp = Instant.now().toEpochMilli() + "";
+            String paramsStr = SignatureUtil.toQueryString(params);
+            paramsStr += "&timestamp=" + timestamp;
+            String signature = SignatureUtil.actualSignature(paramsStr, secretKey);
+            paramsStr += "&signature=" + signature;
+
+
+            RequestBody empty = RequestBody.create(null, new byte[0]);
+            Request.Builder body = new Request.Builder().url(REQUEST_HOST.concat(uri).concat("?").concat(paramsStr)).method("POST", empty).header("Content-Length", "0");
+            Response response = OK_HTTP_CLIENT
+                    .newCall(body.build()).execute();
+            return handleResponse(response, ref);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T put(String uri, Map<String, String> params, TypeReference<T> ref) {
+        try {
+            Response response = OK_HTTP_CLIENT
+                    .newCall(new Request.Builder()
+                            .url(REQUEST_HOST.concat(uri))
+                            .put(RequestBody.create(SignatureUtil.toQueryString(params), MediaType.get("text/plain"))).build()).execute();
+            return handleResponse(response, ref);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     public static <T> T delete(String uri, Map<String, String> params, TypeReference<T> ref) {
