@@ -29,6 +29,9 @@ params = {
 response = trade.post_order(params)
 print(response)
 
+"""get account selfSymbols"""
+response = trade.get_selfSymbols()
+print(response)
 
 # Spot Account
 """get spot account information"""
@@ -51,20 +54,8 @@ response = sub_account.get_SubAccountList()
 print(response)
 
 
-# Margin Account & Trade
-"""get loan history"""
-margin = mexc_spot_v3.mexc_margin(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
-params = {
-    "asset": "USDT",
-    "symbol": "BTCUSDT",
-}
-response = margin.get_loan_history(params)
-print(response)
-
-
 # Rebate
 """get rebate record details"""
 margin = mexc_spot_v3.mexc_rebate(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
-
 response = margin.get_rebate_detail()
 print(response)
