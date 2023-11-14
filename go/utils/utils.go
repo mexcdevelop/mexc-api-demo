@@ -148,6 +148,43 @@ func PrivateDelete(urlStr string, jsonParams string) interface{} {
 	return resp
 }
 
+//私有put请求
+func PrivatePut(urlStr string, jsonParams string) interface{} {
+	var path string
+	timestamp := time.Now().UnixNano() / 1e6
+	fmt.Println(timestamp)
+	if jsonParams == "" {
+		message := fmt.Sprintf("timestamp=%d", timestamp)
+		sign := ComputeHmac256(message, config.SEC_KEY)
+		path = fmt.Sprintf("%s?timestamp=%d&signature=%s", urlStr, timestamp, sign)
+		fmt.Println("message:", message)
+		fmt.Println("sign:", sign)
+		fmt.Println("path:", path)
+	} else {
+		strParams := JsonToParamStr(jsonParams)
+		message := fmt.Sprintf("%s&timestamp=%d", strParams, timestamp)
+		sign := ComputeHmac256(message, config.SEC_KEY)
+		path = fmt.Sprintf("%s?%s&timestamp=%d&signature=%s", urlStr, strParams, timestamp, sign)
+		fmt.Println("message:", ParamsEncode(message))
+		fmt.Println("sign:", sign)
+		fmt.Println("path:", path)
+	}
+	//创建请求
+	client := resty.New()
+	//发送请求
+	resp, err := client.R().SetHeaders(map[string]string{
+		"X-MEXC-APIKEY": config.API_KEY,
+		"Content-Type":  "application/json",
+	}).Put(path)
+
+	if err != nil {
+		log.Fatal("请求报错：", err)
+	}
+
+	// fmt.Println("Response Info:", resp)
+	return resp
+}
+
 //格式化参数字符串
 func JsonToParamStr(jsonParams string) string {
 	//转化json参数->参数字符串

@@ -10,4 +10,9 @@ public class EtfInfo {
     private String netValue;
     private String feeRate;
     private long timestamp;
+    private long leverage;
+    private long realLeverage;
+    private long mergedTimes;
+    private long lastMergedTime;
+    private double basket;
 }
