@@ -2,7 +2,6 @@ import requests
 import hmac
 import hashlib
 from urllib.parse import urlencode, quote
-import urllib.parse
 
 
 # ServerTime、Signature
@@ -160,17 +159,11 @@ class mexc_trade(TOOL):
     def post_batchorders(self, params):
         """place batch orders(same symbol)"""
         method = 'POST'
-        url = '{}{}{}'.format(self.hosts, self.api, '/batchOrders')
-        params = str(params)
-        params = {"batchOrders": params}
-        params.update({'timestamp': self._get_server_time()})
-        query_str = "&".join([f"{key}={urllib.parse.quote(str(value))}" for key, value in params.items() if key != 'signature'])
-        params['signature'] = hmac.new(key=self.mexc_secret.encode('utf-8'), msg=query_str.encode('utf-8'), digestmod=hashlib.sha256).hexdigest()
-        headers = {
-            'x-mexc-apikey': self.mexc_key,
-            'Content-Type': 'application/json',
-        }
-        return requests.request(method, url, params=params, headers=headers).json()
+        url = '{}{}'.format(self.api, '/batchOrders')
+        params = {"batchOrders": str(params)}
+        response = self.sign_request(method, url, params=params)
+        print(response.url)
+        return response.json()
 
     def delete_order(self, params):
         """
@@ -318,6 +311,13 @@ class mexc_capital(TOOL):
         response = self.sign_request(method, url, params=params)
         return response.json()
 
+    def get_withdraw_address(self, params):
+        """get deposit address"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/withdraw/address')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
     def post_transfer(self, params):
         """universal transfer"""
         method = 'POST'
@@ -336,6 +336,20 @@ class mexc_capital(TOOL):
         """universal transfer history (by tranId)"""
         method = 'GET'
         url = '{}{}'.format(self.api, '/transfer/tranId')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def post_transfer_internal(self, params):
+        """universal transfer"""
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/transfer/internal')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_transfer_internal_list(self, params=None):
+        """universal transfer"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/transfer/internal')
         response = self.sign_request(method, url, params=params)
         return response.json()
 
@@ -457,6 +471,41 @@ class mexc_rebate(TOOL):
         response = self.sign_request(method, url, params=params)
         return response.json()
 
+    def get_affiliate_commission(self, params=None):
+        """get affiliate commission history"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/affiliate/commission')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_affiliate_withdraw(self, params=None):
+        """get affiliate withdraw history"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/affiliate/withdraw')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_affiliate_commission_detail(self, params=None):
+        """get affiliate commission details"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/affiliate/commission/detail')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_affiliate_referral(self, params=None):
+        """get affiliate referral"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/affiliate/referral')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def get_affiliate_subaffiliates(self, params=None):
+        """get affiliate subaffiliates"""
+        method = 'GET'
+        url = '{}{}'.format(self.api, '/affiliate/subaffiliates')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
 
 # WebSocket ListenKey
 class mexc_listenkey(TOOL):
@@ -470,6 +519,13 @@ class mexc_listenkey(TOOL):
     def post_listenKey(self):
         """ generate ListenKey """
         method = 'POST'
+        url = '{}{}'.format(self.api, '/userDataStream')
+        response = self.sign_request(method, url)
+        return response.json()
+
+    def get_listenKey(self):
+        """ get valid ListenKey """
+        method = 'GET'
         url = '{}{}'.format(self.api, '/userDataStream')
         response = self.sign_request(method, url)
         return response.json()
