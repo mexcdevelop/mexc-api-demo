@@ -439,6 +439,24 @@ func ETFInfo(jsonParams string) interface{} {
 	return response
 }
 
+// ### 16 用户站内转账 Internal Transfer
+func InternalTransfer(jsonParams string) interface{} {
+	caseUrl := "/capital/transfer/internal"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivatePost(requestUrl, jsonParams)
+	return response
+}
+
+// ### 17 用户站内转账历史 Internal Transfer History
+func InternalTransferHistory(jsonParams string) interface{} {
+	caseUrl := "/capital/transfer/internal"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivateGet(requestUrl, jsonParams)
+	return response
+}
+
 // ## WS ListenKey
 
 // ### 1 生成 Listen Key  Create a ListenKey
@@ -500,6 +518,51 @@ func SelfRecordsDetail(jsonParams string) interface{} {
 // ### 4 获取邀请人 Query ReferCode
 func ReferCode(jsonParams string) interface{} {
 	caseUrl := "/rebate/referCode"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivateGet(requestUrl, jsonParams)
+	return response
+}
+
+// ### 5 获取代理邀请返佣记录 （代理账户）Get Affiliate Commission Record (affiliate only)
+func AffiliateCommission(jsonParams string) interface{} {
+	caseUrl := "/rebate/affiliate/commission"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivateGet(requestUrl, jsonParams)
+	return response
+}
+
+// ### 6 获取代理提现记录 （代理账户）Get Affiliate Withdraw Record (affiliate only)
+func AffiliateWithdraw(jsonParams string) interface{} {
+	caseUrl := "/rebate/affiliate/withdraw"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivateGet(requestUrl, jsonParams)
+	return response
+}
+
+// ### 7 获取代理返佣明细 （代理账户）Get Affiliate Commission Detail Record (affiliate only)
+func AffiliateCommissionDetail(jsonParams string) interface{} {
+	caseUrl := "/rebate/affiliate/commission/detail"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivateGet(requestUrl, jsonParams)
+	return response
+}
+
+// ### 8 查询直客页面数据 （代理账户）Get Affiliate Referral Data（affiliate only）
+func AffiliateReferral(jsonParams string) interface{} {
+	caseUrl := "/rebate/affiliate/referral"
+	requestUrl := config.BASE_URL + caseUrl
+	fmt.Println("requestUrl:", requestUrl)
+	response := utils.PrivateGet(requestUrl, jsonParams)
+	return response
+}
+
+// ### 9 查询子代理页面数据 （代理账户）Get Subaffiliates Data (affiliate only)
+func Subaffiliates(jsonParams string) interface{} {
+	caseUrl := "/rebate/affiliate/subaffiliates"
 	requestUrl := config.BASE_URL + caseUrl
 	fmt.Println("requestUrl:", requestUrl)
 	response := utils.PrivateGet(requestUrl, jsonParams)
