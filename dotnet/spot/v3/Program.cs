@@ -302,7 +302,7 @@ namespace MexcDotNet
 
       /// Withdraw
       using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/apply", HttpMethod.Post, new Dictionary<string, object> {
-                {"coin", "USDT"}, {"withdrawOrderId", "1234554321"}, {"network", "TRC20"}, {"address", "xxx"}, {"memo", "xxx"},
+                {"coin", "USDT"}, {"withdrawOrderId", "1234554321"}, {"network", "Tron(TRC20)"}, {"address", "xxx"}, {"memo", "xxx"},
                 {"amount", "1000"}, {"remark", "test-withdraw"}
             }))
       {
@@ -337,7 +337,7 @@ namespace MexcDotNet
 
       /// Generate Deposit Address
       using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/address", HttpMethod.Post, new Dictionary<string, object> {
-                {"coin", "USDT"}, {"network", "TRC20"}
+                {"coin", "USDT"}, {"network", "Tron(TRC20)"}
             }))
       {
         Console.WriteLine(await response);
@@ -345,7 +345,7 @@ namespace MexcDotNet
 
       /// Get Deposit Address
       using (var response = MexcService.SendSignedAsync("/api/v3/capital/deposit/address", HttpMethod.Get, new Dictionary<string, object> {
-                {"coin", "USDT"}, {"network", "TRC20"}
+                {"coin", "USDT"}, {"network", "Tron(TRC20)"}
             }))
       {
         Console.WriteLine(await response);
@@ -406,6 +406,22 @@ namespace MexcDotNet
       {
         Console.WriteLine(await response);
       };
+
+      /// Internal Transfer
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer/internal", HttpMethod.Post, new Dictionary<string, object> {
+                {"toAccountType", "UID"}, {"toAccount", "UID"}, {"areaCode", "xxx"}, {"asset", "xxx"}, {"amount", "xxx"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Internal Transfer History
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/transfer/internal", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1698826901000"}, {"endTime", "1700468501288"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
     }
 
     private static async Task Rebate(MexcService MexcService)
@@ -436,6 +452,46 @@ namespace MexcDotNet
 
       /// Get Rebate ReferCode
       using (var response = MexcService.SendSignedAsync("/api/v3/rebate/referCode", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get Affiliate Commission
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/affiliate/commission", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"inviteCode", "xxx"}, {"page", "1"}, {"pageSize", "10"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get Affiliate Withdraw History
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/affiliate/withdraw", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"page", "1"}, {"pageSize", "10"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get Affiliate Commission Detail
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/affiliate/commission/detail", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"inviteCode", "xxx"}, {"page", "1"}, {"pageSize", "10"}, {"type", "1"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get Affiliate Referral
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/affiliate/referral", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"uid", "xxx"}, {"inviteCode", "xxx"}, {"page", "1"}, {"pageSize", "10"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Get Affiliate Subaffiliates
+      using (var response = MexcService.SendSignedAsync("/api/v3/rebate/affiliate/subaffiliates", HttpMethod.Get, new Dictionary<string, object> {
+                {"startTime", "1669865156000"}, {"endTime", "1679282756000"}, {"inviteCode", "xxx"}, {"page", "1"}, {"pageSize", "10"}
+            }))
       {
         Console.WriteLine(await response);
       };
