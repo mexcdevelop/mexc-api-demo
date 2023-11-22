@@ -651,6 +651,24 @@ const Spot = superclass => class extends superclass {
       '/api/v3/capital/convert',
       options
     )
+  }
+  
+  //用户站内转账接口
+  TransferInternal(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/capital/transfer/internal',
+      options
+    )
+  } 
+
+  //查询用户内部转账历史接口
+  TransferInternalHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/transfer/internal',
+      options
+    )
   } 
 
   //*邀请返佣接口*//
@@ -677,6 +695,60 @@ const Spot = superclass => class extends superclass {
     return this.signRequest(
       'GET',
       '/api/v3/rebate/detail/kickback',
+      options
+    )
+  }
+
+  // 获取邀请人
+  ReferCode(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/referCode',
+      options
+    )
+  }
+
+  // 获取代理邀请返佣记录 （代理账户）
+  Affiliate(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/commission',
+      options
+    )
+  }
+
+  // 获取代理提现记录 （代理账户）
+  AffiliateWithdraw(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/withdraw',
+      options
+    )
+  }
+
+  // 获取代理返佣明细 （代理账户）
+  AffiliateDetail(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/commission/detail',
+      options
+    )
+  }
+
+  // 查询直客页面数据（代理账户）
+  AffiliateReferral(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/referral',
+      options
+    )
+  }
+
+  // 查询子代理页面数据（代理账户）
+  AffiliateSubaffiliates(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/subaffiliates',
       options
     )
   }
