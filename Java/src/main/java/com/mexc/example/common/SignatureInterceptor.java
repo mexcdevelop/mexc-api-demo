@@ -61,9 +61,8 @@ public class SignatureInterceptor implements Interceptor {
                     .post(RequestBody.create(StringUtils.EMPTY, MediaType.get("application/json"))).build();
         }
 
-        String timestamp = Instant.now().toEpochMilli() + "";
         String params = bodyToString(origBody);
-        params += "&timestamp=" + timestamp;
+        params += "&timestamp=" + Instant.now().toEpochMilli();
         String originalParamsStr = toQueryStringWithEncoding(body2Map(params));
         params += "&signature=" + actualSignature(originalParamsStr, secretKey);
 
