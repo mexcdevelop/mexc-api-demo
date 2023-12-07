@@ -56,8 +56,10 @@ public class SignatureUtil {
     }
 
     public static String toQueryString(Map<String, String> params) {
-        return params.entrySet().stream().map((entry) -> entry.getKey() + "=" + urlEncode(entry.getValue())).collect(Collectors.joining("&"));
+        return params.entrySet().stream().map((entry) -> entry.getKey() + "=" + entry.getValue()).collect(Collectors.joining("&"));
     }
 
-
+    public static String toQueryStringWithEncoding(Map<String, String> params) {
+        return params.entrySet().stream().map((entry) -> entry.getKey() + "=" + urlEncode(entry.getValue())).collect(Collectors.joining("&"));
+    }
 }
