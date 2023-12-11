@@ -10,7 +10,7 @@ Fill in the corresponding function according to the parameters mentioned in the 
 
 **Rest API V3 doc**   `URL = 'https://api.mexc.com'`
 
-* <https://mxcdevelop.github.io/apidocs/spot_v3_cn/#45fa4e00db>
+* <https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction>
 
 
 > ### Example(Spot V3) :
@@ -53,7 +53,7 @@ According to the information you want to subscribe, change the content of the pa
 
 **WebSocket doc**   `URL = 'wss://wbs.mexc.com/raw/ws'`
 
-* <https://mxcdevelop.github.io/apidocs/spot_v2_cn/#websocket-api>
+* <https://mexcdevelop.github.io/apidocs/spot_v2_cn/#websocket-api>
 
 
 `dotnet run`
