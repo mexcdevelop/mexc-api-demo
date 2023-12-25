@@ -57,7 +57,7 @@ public class UserDataClient {
     public static <T> T postEmptyBody(String uri, Map<String, String> params, TypeReference<T> ref) {
         try {
             String timestamp = Instant.now().toEpochMilli() + "";
-            String paramsStr = SignatureUtil.toQueryString(params);
+            String paramsStr = SignatureUtil.toQueryStringWithEncoding(params);
             paramsStr += "&timestamp=" + timestamp;
             String signature = SignatureUtil.actualSignature(paramsStr, secretKey);
             paramsStr += "&signature=" + signature;

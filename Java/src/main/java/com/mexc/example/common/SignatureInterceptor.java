@@ -4,11 +4,17 @@ package com.mexc.example.common;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okio.Buffer;
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.Instant;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static com.mexc.example.common.SignatureUtil.actualSignature;
+import static com.mexc.example.common.SignatureUtil.toQueryStringWithEncoding;
 
 
 @Slf4j
@@ -48,16 +54,18 @@ public class SignatureInterceptor implements Interceptor {
     }
 
     private Request createBodySignRequest(Request origRequest, RequestBody origBody, String method) {
-        String timestamp = Instant.now().toEpochMilli() + "";
-        String params = bodyToString(origBody);
-        params += "&timestamp=" + timestamp;
-        String signature = SignatureUtil.actualSignature(params, secretKey);
-        params += "&signature=" + signature;
+
         if (origRequest.url().uri().getPath().equals("/api/v3/batchOrders")) {
             return origRequest.newBuilder()
                     .addHeader(HEADER_ACCESS_KEY, accessKey)
-                    .post(RequestBody.create(params, MediaType.get("application/json"))).build();
+                    .post(RequestBody.create(StringUtils.EMPTY, MediaType.get("application/json"))).build();
         }
+
+        String params = bodyToString(origBody);
+        params += "&timestamp=" + Instant.now().toEpochMilli();
+        String originalParamsStr = toQueryStringWithEncoding(body2Map(params));
+        params += "&signature=" + actualSignature(originalParamsStr, secretKey);
+
         if ("POST".equals(method)) {
             return origRequest.newBuilder()
                     .addHeader(HEADER_ACCESS_KEY, accessKey)
@@ -76,7 +84,7 @@ public class SignatureInterceptor implements Interceptor {
                 .newBuilder()
                 .setQueryParameter("timestamp", timestamp);
         String queryParams = urlBuilder.build().query();
-        urlBuilder.setQueryParameter("signature", SignatureUtil.actualSignature(queryParams, secretKey));
+        urlBuilder.setQueryParameter("signature", actualSignature(queryParams, secretKey));
         return request.newBuilder()
                 .addHeader(HEADER_ACCESS_KEY, accessKey)
                 .url(urlBuilder.build()).build();
@@ -93,6 +101,36 @@ public class SignatureInterceptor implements Interceptor {
         }
         return "";
     }
+
+    private Map<String, String> body2Map(String body) {
+        Map<String, String> retVal = new LinkedHashMap<>();
+        if (StringUtils.isEmpty(body)) {
+            return retVal;
+        }
+
+        if (body.contains("&")) {
+            String[] paramsList = body.split("&");
+            for (String param : paramsList) {
+                if (param.contains("=")) {
+                    String[] pair = param.split("=");
+                    if (pair.length == 2) {
+                        retVal.put(pair[0], pair[1]);
+                    } else {
+                        retVal.put(pair[0], "");
+                    }
+                }
+            }
+        } else if (body.contains("=")) {
+            String[] pair = body.split("=");
+            if (pair.length == 2) {
+                retVal.put(pair[0], pair[1]);
+            } else {
+                retVal.put(pair[0], "");
+            }
+        }
+        return retVal;
+    }
+
 }
 
 
