@@ -10,11 +10,11 @@ Fill in the corresponding function according to the parameters mentioned in the 
 
 **Rest API V2 doc**   `URL = 'https://www.mexc.com'`
 
-* <https://mxcdevelop.github.io/apidocs/spot_v2_cn/#5ea2e0cde2>
+* <https://mexcdevelop.github.io/apidocs/spot_v2_en/#introduction>
 
 **Rest API V3 doc**   `URL = 'https://api.mexc.com'`
 
-* <https://mxcdevelop.github.io/apidocs/spot_v3_cn/#45fa4e00db>
+* <https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction>
 
 
 > ### Example(Spot V3) :
@@ -45,9 +45,9 @@ print(response)
 
 According to the information you want to subscribe, change the content of the params according to the websocket documentation, ex: "op" or "symbol".   Execute the entire python file after adjusting the parameters.
 
-**WebSocket doc**   `URL = 'wss://wbs.mexc.com/raw/ws'`
+**WebSocket doc**   `URL = 'wss://wbs.mexc.com/ws'`
 
-* <https://mxcdevelop.github.io/apidocs/spot_v2_cn/#websocket-api>
+* <https://mexcdevelop.github.io/apidocs/spot_v3_en/#websocket-market-streams>
 
 
 > ### Example(Spot WebSocket) :
@@ -55,7 +55,7 @@ According to the information you want to subscribe, change the content of the pa
 import json
 import websocket
 
-BASE_URL = 'wss://wbs.mexc.com/raw/ws'
+BASE_URL = 'wss://wbs.mexc.com/ws'
 
 def on_message(ws, message):
     print(message)
@@ -67,22 +67,28 @@ def on_close(ws):
     print("Connection closed ....")
 
 def on_open(ws):
-    params = {        
-        "op": "sub.symbol",
-        "symbol": "ETH_USDT",       
-    }    
+    params = {
+        "method": "SUBSCRIPTION",
+        "params":[
+            "spot@public.deals.v3.api@BTCUSDT",
+            "spot@public.kline.v3.api@BTCUSDT@Min5",
+            "spot@public.increase.depth.v3.api@BTCUSDT",
+            "spot@public.limit.depth.v3.api@BTCUSDT@5",
+            "spot@public.bookTicker.v3.api@BTCUSDT"
+        ]
+    } 
     print(json.dumps(params))    
     ws.send(json.dumps(params))
 
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
+    websocket.enableTrace(False)
     ws = websocket.WebSocketApp(BASE_URL,
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close,
                                 )
     ws.on_open = on_open
-    ws.run_forever(ping_timeout=10)
+    ws.run_forever()
 
 ```
