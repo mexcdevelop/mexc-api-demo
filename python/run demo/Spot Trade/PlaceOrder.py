@@ -12,5 +12,5 @@ params = {
     "price": "1",
     "quantity": "5"
 }
-OpenOrder = trade.post_order(params)
-print(OpenOrder)
+PlaceOrder = trade.post_order(params)
+print(PlaceOrder)

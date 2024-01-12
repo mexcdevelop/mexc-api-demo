@@ -1,30 +1,9 @@
 import json
 import websocket
-from python.spot.v3 import mexc_spot_v3
 import threading, time
 
 BASE_URL = 'wss://wbs.mexc.com/ws'
-hosts = 'https://api.mexc.com'
-mexc_key = "your apiKey"
-mexc_secret = "your secretKey"
 
-# listenKey = mexc_spot_v3.mexc_listenkey(mexc_key=mexc_key, mexc_secret=mexc_secret, mexc_hosts=hosts)
-
-""" 建立 ListenKey """
-""" generate ListenKey """
-#ListenKey = listenKey.post_listenKey()['listenKey']
-
-""" 延長 ListenKey 有效期 """
-""" Extend ListenKey validity """
-# params = {'listenKey': ListenKey}
-# print(listenKey.put_listenKey(params))
-
-""" 刪除 ListneKey """
-""" Delete ListenKey """
-# params = {'listenKey': ListenKey}
-# print(listenKey.delete_listenKey(params))
-
-#BASE_URL = 'wss://wbs.mexc.com/ws' + '?listenKey=' + ListenKey
 
 def on_message(ws, message):
     print(message)
