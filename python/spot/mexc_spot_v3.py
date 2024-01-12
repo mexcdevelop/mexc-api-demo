@@ -2,7 +2,7 @@ import requests
 import hmac
 import hashlib
 from urllib.parse import urlencode, quote
-
+import config
 
 # ServerTime、Signature
 class TOOL(object):
@@ -42,9 +42,9 @@ class TOOL(object):
 # Market Data
 class mexc_market(TOOL):
 
-    def __init__(self, mexc_hosts):
+    def __init__(self):
         self.api = '/api/v3'
-        self.hosts = mexc_hosts
+        self.hosts = config.mexc_host
         self.method = 'GET'
 
     def get_ping(self):
@@ -129,11 +129,11 @@ class mexc_market(TOOL):
 # Spot Trade
 class mexc_trade(TOOL):
 
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+    def __init__(self):
         self.api = '/api/v3'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
+        self.hosts = config.mexc_host
+        self.mexc_key = config.api_key
+        self.mexc_secret = config.secret_key
 
     def get_selfSymbols(self):
         """get currency information"""
@@ -230,20 +230,10 @@ class mexc_trade(TOOL):
 
     def get_mxDeDuct(self):
         """MX DeDuct status"""
-        method = 'POST'
+        method = 'GET'
         url = '{}{}'.format(self.api, '/mxDeduct/enable')
         response = self.sign_request(method, url)
         return response.json()
-
-
-# Spot Account
-class mexc_account(TOOL):
-
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
-        self.api = '/api/v3'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
 
     def get_account_info(self):
         """get account information"""
@@ -253,14 +243,14 @@ class mexc_account(TOOL):
         return response.json()
 
 
-# Capital
-class mexc_capital(TOOL):
+# Wallet
+class mexc_wallet(TOOL):
 
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+    def __init__(self):
         self.api = '/api/v3/capital'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
+        self.hosts = config.mexc_host
+        self.mexc_key = config.api_key
+        self.mexc_secret = config.secret_key
 
     def get_coinlist(self):
         """get currency information"""
@@ -378,11 +368,11 @@ class mexc_capital(TOOL):
 # Sub-Account
 class mexc_subaccount(TOOL):
 
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+    def __init__(self):
         self.api = '/api/v3'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
+        self.hosts = config.mexc_host
+        self.mexc_key = config.api_key
+        self.mexc_secret = config.secret_key
 
     def post_virtualSubAccount(self, params):
         """create a sub-account"""
@@ -437,11 +427,11 @@ class mexc_subaccount(TOOL):
 # Rebate
 class mexc_rebate(TOOL):
 
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+    def __init__(self):
         self.api = '/api/v3/rebate'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
+        self.hosts = config.mexc_host
+        self.mexc_key = config.api_key
+        self.mexc_secret = config.secret_key
 
     def get_taxQuery(self, params=None):
         """get the rebate commission record"""
@@ -510,11 +500,11 @@ class mexc_rebate(TOOL):
 # WebSocket ListenKey
 class mexc_listenkey(TOOL):
 
-    def __init__(self, mexc_hosts, mexc_key, mexc_secret):
+    def __init__(self):
         self.api = '/api/v3'
-        self.hosts = mexc_hosts
-        self.mexc_key = mexc_key
-        self.mexc_secret = mexc_secret
+        self.hosts = config.mexc_host
+        self.mexc_key = config.api_key
+        self.mexc_secret = config.secret_key
 
     def post_listenKey(self):
         """ generate ListenKey """

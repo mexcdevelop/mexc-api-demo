@@ -19,26 +19,30 @@ Fill in the corresponding function according to the parameters mentioned in the 
 
 > ### Example(Spot V3) :
 
-Use test_v3.py as a test example
+Fill in your API key and Secret key in " python/spot/config.py "
 
 ```python
-import mexc_spot_v3
-import time
+mexc_host = "https://api.mexc.com"
+api_key = "your apikey"
+secret_key = "your secretkey"
+```
 
-hosts = "https://api.mexc.com"
-# mexc_key = "your apiKey"
-# mexc_secret = "your secretKey"
+Select the corresponding file in the " python/run demo " folder to execute
 
-# Market Data
-"""get kline"""
-data = mexc_spot_v3.mexc_market(mexc_hosts=hosts)
+Example " python/run demo/Market Data/ExchangeInfo.py "
+
+```python
+from python.spot import mexc_spot_v3
+
+market = mexc_spot_v3.mexc_market()
+
+# Enter parameters in JSON format in the "params", for example: {"symbol":"BTCUSDT", "limit":"200"}
+# If there are no parameters, no need to send params
 params = {
-    'symbol': 'BTCUSDT', 
-    'interval': '5m', 
-    'limit': 10
+    "symbol": "BTCUSDT"
 }
-response= data.get_kline(params)
-print(response)
+ExchangeInfo = market.get_exchangeInfo(params)
+print(ExchangeInfo)
 ```
 
 ## Spot Websocket Demo 
