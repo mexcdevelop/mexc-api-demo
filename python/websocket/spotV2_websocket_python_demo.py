@@ -52,7 +52,6 @@ def on_open(ws):
     del params['api_secret']
     params["sign"] = sign_data
     print(json.dumps(params))
-    # time.sleep(2)
     ws.send(json.dumps(params))
 
 
