@@ -69,11 +69,11 @@ public class SignatureInterceptor implements Interceptor {
         if ("POST".equals(method)) {
             return origRequest.newBuilder()
                     .addHeader(HEADER_ACCESS_KEY, accessKey)
-                    .post(RequestBody.create(params, MediaType.get("text/plain"))).build();
+                    .post(RequestBody.create(params, MediaType.get("application/json"))).build();
         } else {
             return origRequest.newBuilder()
                     .addHeader(HEADER_ACCESS_KEY, accessKey)
-                    .delete(RequestBody.create(params, MediaType.get("text/plain"))).build();
+                    .delete(RequestBody.create(params, MediaType.get("application/json"))).build();
         }
     }
 
