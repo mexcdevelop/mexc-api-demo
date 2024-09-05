@@ -9,29 +9,24 @@ npm install
 ## RESTful APIs
 
 ```javascript
-const Future = require('../../src/future')
-
+const Spot = require('../src/spot')
 const apiKey = ''
 const apiSecret = ''
-const client = new Future(apiKey, apiSecret, { baseURL: 'https://contract.mexc.com' })
+const client = new Spot(apiKey, apiSecret, { baseURL: 'https://api.mexc.com' })
 
-client.PlaceNewOrder({
-    symbol:'IMX_USDT',
-    price: 0.1,
-    vol: 10,
-    side:1,
-    type:1,
-    openType:2
-  }).then(response => client.logger.log(response.data)) 
+
+client.CancelWithdraw().then(response => client.logger.log(response.data))
+  .catch(error => client.logger.error(error))
 ```
 
 ```javascript
+const Spot = require('../src/spot')
+const apiKey = ''
+const apiSecret = ''
+const client = new Spot(apiKey, apiSecret, { baseURL: 'https://api.mexc.com' })
 
-const Future = require('../../src/future')
 
-const client = new Future()
-
-client.Ticker({symbol:'BTC_USDT'}).then(response => client.logger.log(response.data))
+client.AccountInformation().then(response => client.logger.log(response.data))
   .catch(error => client.logger.error(error))
 
 ```
@@ -40,11 +35,9 @@ Please find `modules` folder to check for more endpoints.
 
 
 ### Base URL
-# V1
+# Contract
 `https://contract.mexc.com`
-# V2
-`https://www.mexc.com`
-# V3
+# spot
 `https://api.mexc.com`
 
 ### Optional Parameters

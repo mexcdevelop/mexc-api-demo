@@ -1,5 +1,5 @@
 const Spot = require('../src/spot')
-const client = new Spot(apiKey, apiSecret, { baseURL: 'https://api.mexc.com' })
+const client = new Spot( { baseURL: 'https://api.mexc.com' })
 
 
 client.Depth().then(response => client.logger.log(response.data))
