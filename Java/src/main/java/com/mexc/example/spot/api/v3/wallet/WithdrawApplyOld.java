@@ -12,19 +12,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-public class WithdrawApply {
+public class WithdrawApplyOld {
     public static Withdraw withdraw(Map<String, String> params) {
-        return UserDataClient.post("/api/v3/capital/withdraw", params, new TypeReference<Withdraw>() {
+        return UserDataClient.post("/api/v3/capital/withdraw/apply", params, new TypeReference<Withdraw>() {
         });
     }
 
     public static void main(String[] args) {
         //withdraw apply
         HashMap<String, String> withdrawParams = Maps.newHashMap(ImmutableMap.<String, String>builder()
-                .put("coin", "USDT")
-                .put("address", "TLHwAkP8Ao5vHc8GR9KvwhrJHwJN142ECZ")
-                .put("amount", "0.1")
-                .put("netWork", "TRX")
+                .put("coin", "USDT-TRX")
+                .put("address", "TPb5qT9ZikopzCUD4zyieSEfwbjdjU8PVb")
+                .put("amount", "3")
+                .put("network", "TRC20")
                 .put("recvWindow", "60000")
                 .build());
 
