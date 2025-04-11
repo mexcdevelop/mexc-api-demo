@@ -1,100 +1,71 @@
 ﻿using System;
 using System.Text;
-using System.Web;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using WebSocket4Net;
+using System.Threading;
+using System.Reactive.Linq;
+using Websocket.Client;
+using Google.Protobuf;
 
-
-namespace mexc_websocket_dotnet
+class Program
 {
-  public class Program
-  {
-    public static void Main(string[] args)
-    {
-      using (WebSocket websocket = new WebSocket("wss://wbs.mexc.com/raw/ws"))
-      {
-        websocket.Opened += new EventHandler(websocket_Opened);
-        websocket.Error += new EventHandler<SuperSocket.ClientEngine.ErrorEventArgs>(websocket_Error);
-        websocket.Closed += new EventHandler(websocket_Closed);
-        websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(websocket_MessageReceived);
-        websocket.Open();
+    private static WebsocketClient client;
 
-        Console.WriteLine("Connecting .......");
-        while (websocket.State != WebSocketState.Open)
+    static void Main()
+    {
+        var url = new Uri("wss://wbs-api.mexc.com/ws");
+        client = new WebsocketClient(url)
         {
-          Console.Write("");
-        }
-        Console.WriteLine("-------- Connected --------");
+            ReconnectTimeout = TimeSpan.FromSeconds(10) // Set auto-reconnect timeout to 10 seconds
+        };
 
-        // subscribe limited depth
-        websocket.Send("{\"op\":\"sub.limit.depth\",\"symbol\":\"BTC_USDT\",\"depth\": 5}");
+        // Subscribe to WebSocket disconnection events
+        client.DisconnectionHappened.Subscribe(info =>
+        {
+            Console.WriteLine($"⚠️ WebSocket disconnected: {info.Type}，attempting to reconnect...");
+        });
 
-        // sbuscribe personal order & deal;
-        string apiKey = "your apikey";
-        string apiSecret = "your apisecret";
-        long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        // Subscribe to WebSocket message events
+        client.MessageReceived
+            .Where(msg => msg.Binary != null)  // Filter only Protobuf messages
+            .Subscribe(msg =>
+            {
+                try
+                {
+                    var response = PushDataV3ApiWrapper.Parser.ParseFrom(msg.Binary);
+                    Console.WriteLine($"✅ Successfully parsed: {response}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"❌ Parsing failed: {ex.Message}");
+                }
+            });
 
-        Dictionary<string, string> param = new Dictionary<string, string>();
-        param["api_key"] = apiKey;
-        param["op"] = "sub.personal";
-        param["req_time"] = now + "";
-        param["sign"] = Sign(SignStr(param, apiSecret));
-        string json = JsonConvert.SerializeObject(param);
-        websocket.Send(json);
-        Console.WriteLine(json);
-        Console.ReadKey();
-      }
+        // Start WebSocket connection
+        client.Start();
+        Console.WriteLine("🚀 WebSocket connected！");
+
+        // Send subscription request to MEXC API
+        SubscribeToMexc();
+
+        // Send a ping message every 30 seconds to keep the connection alive
+        Timer pingTimer = new Timer(_ =>
+        {
+            client.Send("{\"method\": \"ping\"}");
+            Console.WriteLine("📍 Sent ping...");
+        }, null, 0, 30000);
+
+        // Prevent the main program from exiting
+        Console.ReadLine();
     }
 
-    private static void websocket_Opened(object? sender, EventArgs e)
+    static void SubscribeToMexc()
     {
-      Console.WriteLine($"socket OPENED, sender: {sender} and eventargs e: {e}");
+        var subscriptionMessage = new
+        {
+            method = "SUBSCRIPTION",
+            @params = new string[] { "spot@public.aggre.deals.v3.api.pb@100ms@BTCUSDT" }
+        };
+        string json = System.Text.Json.JsonSerializer.Serialize(subscriptionMessage);
+        client.Send(json);
+        Console.WriteLine($"📡 Sent subscription request: {json}");
     }
-
-    private static void websocket_Error(object? sender, SuperSocket.ClientEngine.ErrorEventArgs e)
-    {
-      Console.WriteLine($"socket ERROR, sender: {sender} and eventargs e: {e.Exception}");
-    }
-
-    private static void websocket_Closed(object? sender, EventArgs e)
-    {
-      Console.WriteLine($"socket CLOSED, sender: {sender} and eventargs e: {e}");
-    }
-
-    private static void websocket_MessageReceived(object? sender, MessageReceivedEventArgs e)
-    {
-      // Console.WriteLine($"socket MESSAGE RECEIVED, sender: {sender} and eventargs e: {e.Message}");
-      Console.WriteLine($"{e.Message}");
-    }
-
-    private static string Sign(string stringOfSign)
-    {
-      System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-
-      using (MD5 hmacsha256 = MD5.Create())
-      {
-        byte[] utf8EncodedDataBytes = encoding.GetBytes(stringOfSign);
-        byte[] md5HashBytes = hmacsha256.ComputeHash(utf8EncodedDataBytes);
-        string base64md5HashString = Convert.ToBase64String(md5HashBytes);
-
-        return BitConverter.ToString(md5HashBytes).Replace("-", "").ToLower();
-      }
-    }
-
-    private static string SignStr(Dictionary<string, string> param, string apiSecret)
-    {
-      StringBuilder queryStringBuilder = new StringBuilder();
-      if (!(param is null))
-      {
-        string queryParameterString = string.Join("&", param.Where(kvp => !string.IsNullOrWhiteSpace(kvp.Value?.ToString())).Select(kvp => string.Format("{0}={1}", kvp.Key, HttpUtility.UrlEncode(kvp.Value.ToString()))));
-        queryStringBuilder.Append(queryParameterString);
-      }
-      queryStringBuilder.Append("&").Append("api_secret").Append("=").Append(apiSecret);
-
-      return queryStringBuilder.ToString();
-    }
-  }
 }
-

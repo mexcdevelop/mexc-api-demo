@@ -4,13 +4,10 @@ Before you use the demo, you need to generate your apikey & apisecret, then ente
 
 * <https://www.mexc.com/user/openapi>
 
-## Spot V2、V3 Demo 
+## Spot V3 Demo
 
 Fill in the corresponding function according to the parameters mentioned in the API documentation and execute it. => `print()`
 
-**Rest API V2 doc**   `URL = 'https://www.mexc.com'`
-
-* <https://mexcdevelop.github.io/apidocs/spot_v2_en/#introduction>
 
 **Rest API V3 doc**   `URL = 'https://api.mexc.com'`
 
@@ -45,11 +42,11 @@ ExchangeInfo = market.get_exchangeInfo(params)
 print(ExchangeInfo)
 ```
 
-## Spot Websocket Demo 
+## Spot Websocket Demo
 
-According to the information you want to subscribe, change the content of the params according to the websocket documentation, ex: "op" or "symbol".   Execute the entire python file after adjusting the parameters.
+According to the information you want to subscribe, change the content of the params according to the websocket documentation.   Execute the entire python file after adjusting the parameters.
 
-**WebSocket doc**   `URL = 'wss://wbs.mexc.com/ws'`
+**WebSocket doc**   `URL = 'wss://wbs-api.mexc.com/ws'`
 
 * <https://mexcdevelop.github.io/apidocs/spot_v3_en/#websocket-market-streams>
 
@@ -59,7 +56,7 @@ According to the information you want to subscribe, change the content of the pa
 import json
 import websocket
 
-BASE_URL = 'wss://wbs.mexc.com/ws'
+BASE_URL = 'wss://wbs-api.mexc.com/ws'
 
 def on_message(ws, message):
     print(message)
@@ -71,18 +68,15 @@ def on_close(ws):
     print("Connection closed ....")
 
 def on_open(ws):
-    params = {
-        "method": "SUBSCRIPTION",
-        "params":[
-            "spot@public.deals.v3.api@BTCUSDT",
-            "spot@public.kline.v3.api@BTCUSDT@Min5",
-            "spot@public.increase.depth.v3.api@BTCUSDT",
-            "spot@public.limit.depth.v3.api@BTCUSDT@5",
-            "spot@public.bookTicker.v3.api@BTCUSDT"
-        ]
-    } 
-    print(json.dumps(params))    
-    ws.send(json.dumps(params))
+    subscribe_message = {
+            "method": "SUBSCRIPTION",
+            "params": [
+                "spot@public.aggre.deals.v3.api.pb@10ms@BTCUSDT",
+                "spot@public.aggre.deals.v3.api.pb@10ms@ETHUSDT"
+            ]
+        }
+    ws.send(json.dumps(subscribe_message))
+    logger.info(f"Sent subscription message: {subscribe_message}")
 
 
 if __name__ == "__main__":
