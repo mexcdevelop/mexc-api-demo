@@ -1,9 +1,10 @@
-      
 const { validateRequiredParameters } = require('../helpers/validation')
 const Spot = superclass => class extends superclass {
+
   /**
    * @V3
    */
+  //*行情接口*//
   //测试服务的连通性
   TestConnectivity() {
     return this.publicRequest('GET', '/api/v3/ping')
@@ -19,6 +20,11 @@ const Spot = superclass => class extends superclass {
     return this.publicRequest('GET', '/api/v3/exchangeInfo')
   }
 
+  //API交易对
+  ApiDefault() {
+    return this.publicRequest('GET', '/api/v3/defaultSymbols')
+  }
+ 
   //深度信息
   Depth(options = {}) {
     return this.publicRequest(
@@ -33,15 +39,6 @@ const Spot = superclass => class extends superclass {
     return this.publicRequest(
       'GET',
       '/api/v3/trades',
-      options
-    )
-  }
-
-  //历史成交列表
-  OldTradeLookup(ptions = {}) {
-    return this.publicRequest(
-      'GET',
-      '/api/v3/historicalTrades',
       options
     )
   }
@@ -88,9 +85,23 @@ const Spot = superclass => class extends superclass {
     return this.publicRequest('GET', '/api/v3/ticker/bookTicker')
   }
 
-  //获取ETF
-  Etfinfo() {
-    return this.publicRequest('GET', 'api/v3/etf/info')
+  //*现货账户和交易接口*//
+  //查询账户KYC状态
+  KycStatus(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/kyc/status',
+      options
+    )
+  }
+
+  //用户API交易对
+  SelfSymbol(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/selfSymbols',
+      options
+    )
   }
 
   //测试下单
@@ -176,7 +187,7 @@ const Spot = superclass => class extends superclass {
   }
 
   //账户成交历史
-  AccountTradeList(ptions = {}) {
+  AccountTradeList(options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/myTrades',
@@ -184,8 +195,34 @@ const Spot = superclass => class extends superclass {
     )
   }
 
-  //*母子账户接口*//
+  //开启MX抵扣
+  MxDeduct(options = {}) {
+    return this.signRequest(
+      'POST',
+      'api/v3/mxDeduct/enable',
+      options
+    )
+  }
 
+  //查看MX抵扣状态
+  MxDeducth(options = {}) {
+    return this.signRequest(
+      'GET',
+      'api/v3/mxDeduct/enableh',
+      options
+    )
+  }
+
+  //查看手续费率
+  TradeFee(options = {}) {
+    return this.signRequest(
+      'GET',
+      'api/v3/tradeFee',
+      options
+    )
+  }
+
+  //*母子账户接口*//
   //创建子账户
   VirtualSubAccount(options = {}) {
     return this.signRequest(
@@ -221,9 +258,9 @@ const Spot = superclass => class extends superclass {
       options
     )
   }
- 
+
   //删除子账户的APIkey
-  DelAccount(options = {}) {
+  DelApikey(options = {}) {
     return this.signRequest(
       'DELETE',
       '/api/v3/sub-account/apiKey',
@@ -231,225 +268,286 @@ const Spot = superclass => class extends superclass {
     )
   }
 
-    //删除子账户的APIkey
-    TransferAccount(options = {}) {
-      return this.signRequest(
-        'POST',
-        '/api/v3/capital/sub-account/universalTransfer',
-        options
-      )
-    }
-
-
-  //切换杠杆模式
-  TradeMode(options = {}) {
+  //母子用户万向划转
+  UniversalTransfer(options = {}) {
     return this.signRequest(
       'POST',
-      '/api/v3/margin/tradeMode',
+      '/api/v3/capital/sub-account/universalTransfer',
       options
     )
   }
 
-  //下单
-  Marginorder(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/order',
-      options
-    )
-  }
-
-  //借贷
-  Loan(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/loan',
-      options
-    )
-  }
-
-  //归还借贷
-  Repay(options = {}) {
-    return this.signRequest(
-      'POST',
-      '/api/v3/margin/repay',
-      options
-    )
-  }
-
-  //撤销单一交易对的所有挂单
-  CancelAllMargin(options = {}) {
-    return this.signRequest(
-      'DELETE',
-      '/api/v3/margin/openOrders',
-      options
-    )
-  }
-
-  //撤销订单
-  CancelMargin(options = {}) {
-    return this.signRequest(
-      'DELETE',
-      '/api/v3/margin/order',
-      options
-    )
-  }
-
-  //查询借贷记录
-  LoanRecord(options = {}) {
+  //查询母子万向划转历史
+  TransferHistory(options = {}) {
     return this.signRequest(
       'GET',
-      '/api/v3/margin/loan',
+      '/api/v3/capital/sub-account/universalTransfer',
       options
     )
   }
 
-  //查询历史委托记录
-  AllOrdersRecord(options = {}) {
+  //查询子账户的APIkey
+  GetAsset(options = {}) {
     return this.signRequest(
       'GET',
-      '/api/v3/margin/allOrders',
+      '/api/v3/sub-account/asset',
       options
     )
   }
 
-  //查询历史成交记录
-  MyTrades(options = {}) {
+  //*钱包接口*//
+  //查询币种信息
+  CoinList(options = {}) {
     return this.signRequest(
       'GET',
-      '/api/v3/margin/myTrades',
+      '/api/v3/capital/config/getall',
       options
     )
   }
 
-  //查询当前挂单记录
-  MarginOpenOrders(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/openOrders',
-      options
-    )
-  }
-
-  //查询最大可转出额
-  MaxTransferableh(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/maxTransferableh',
-      options
-    )
-  }
-
-  //查询杠杆价格指数
-  PriceIndex(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/priceIndex',
-      options
-    )
-  }
-
-  //查询杠杆账户订单详情
-  MarginOrder(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/order',
-      options
-    )
-  }
-
-  //查询杠杆逐仓账户信息
-  IsolatedAccount(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolated/account',
-      options
-    )
-  }
-
-  //查询止盈止损订单
-  TrigerOrder(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/trigerOrder',
-      options
-    )
-  }
-
-  //查询账户最大可借贷额度
-  MaxBorrowable(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/maxBorrowable',
-      options
-    )
-  }
-
-  //查询还贷记录
-  RepayRecord(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/repay',
-      options
-    )
-  }
-
-  //查询逐仓杠杆交易对
-  IsolatedPair(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolated/pair',
-      options
-    )
-  }
-
-  //获取账户强制平仓记录
-  ForceLiquidationRec(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/forceLiquidationRec',
-      options
-    )
-  }
-
-  //获取逐仓杠杆利率及限额
-  IsolatedMarginData(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolatedMarginData',
-      options
-    )
-  }
-
-  //获取逐仓档位信息
-  IsolatedMarginTier(options = {}) {
-    return this.signRequest(
-      'GET',
-      '/api/v3/margin/isolatedMarginTier',
-      options
-    )
-  }
-
-
+  //提币
   WithDraw(options = {}) {
     return this.signRequest(
       'POST',
-      '/api/v3/capital/withdraw/apply',
+      '/api/v3/capital/withdraw',
       options
     )
   }
 
-  //创建broker子账户
-  CreateBroker(options = {}) {
+  //取消提币
+  CancelWithdraw(options = {}) {
+    return this.signRequest(
+      'DELETE',
+      '/api/v3/capital/withdraw',
+      options
+    )
+  }
+  //获取充值历史
+  DepositHisrec(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/deposit/hisrec',
+      options
+    )
+  }
+
+  //获取提币历史
+  WithdrawHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/withdraw/history',
+      options
+    )
+  }
+
+  //生成充值地址
+  GenerateDepositAddress(options = {}) {
     return this.signRequest(
       'POST',
-      '/api/v3/broker/sub-account/virtualSubAccount',
+      '/api/v3/capital/deposit/address',
       options
     )
   }
 
+  //获取充值地址
+  DepositAddress(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/deposit/address',
+      options
+    )
+  }
+
+  //获取提币地址
+  WithdrawAddress(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/withdraw/address',
+      options
+    )
+  }
+  
+  //用户万向划转
+  Transfer(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/capital/transfer',
+      options
+    )
+  }
+
+  //查询用户万向划转历史
+  TransferHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/transfer',
+      options
+    )
+  }
+
+  //查询用户万向划转历史(ID)
+  TransferHistoryId(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/transfer/tranId',
+      options
+    )
+  }
+
+  //获取小额资产可兑换列表
+  Capital(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/convert/list',
+      options
+    )
+  }
+
+  //小额资产兑换
+  CapitalConvert(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/capital/convert',
+      options
+    )
+  } 
+
+  //查询小额资产兑换历史
+  CapitalHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/convert',
+      options
+    )
+  }
+  
+  //用户站内转账接口
+  TransferInternal(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/capital/transfer/internal',
+      options
+    )
+  } 
+
+  //查询用户内部转账历史接口
+  TransferInternalHistory(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/capital/transfer/internal',
+      options
+    )
+  } 
+
+  //*邀请返佣接口*//
+  //  获取邀请返佣记录
+  TaxQuery(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/taxQuery',
+      options
+    )
+  }
+
+  // 获取返佣记录明细 （奖励记录）
+  RebateDetail(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/detail',
+      options
+    )
+  }
+
+  // 获取自返记录明细 （奖励记录）
+  KickBack(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/detail/kickback',
+      options
+    )
+  }
+
+  // 获取邀请人
+  ReferCode(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/referCode',
+      options
+    )
+  }
+
+  // 获取代理邀请返佣记录 （代理账户）
+  Affiliate(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/commission',
+      options
+    )
+  }
+
+  // 获取代理提现记录 （代理账户）
+  AffiliateWithdraw(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/withdraw',
+      options
+    )
+  }
+
+  // 获取代理返佣明细 （代理账户）
+  AffiliateDetail(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/commission/detail',
+      options
+    )
+  }
+
+  // 查询直客页面数据（代理账户）
+  AffiliateReferral(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/referral',
+      options
+    )
+  }
+
+  // 查询子代理页面数据（代理账户）
+  AffiliateSubaffiliates(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/rebate/affiliate/subaffiliates',
+      options
+    )
+  }
+
+  //*Websocket*//
+  //创建listenkey
+  CreateListenKey(options = {}) {
+    return this.signRequest(
+      'POST',
+      '/api/v3/userDataStream',
+      options
+    )
+  }
+
+  //延长listenkey
+  KeepListenKey(options = {}) {
+    return this.signRequest(
+      'PUT',
+      '/api/v3/userDataStream',
+      options
+    )
+  } 
+
+  //关闭listenkey
+  CloseListenKey(options = {}) {
+    return this.signRequest(
+      'DELETE',
+      '/api/v3/userDataStream',
+      options
+    )
+  } 
 }
 
 module.exports = Spot
-
-    
