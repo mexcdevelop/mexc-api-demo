@@ -214,7 +214,7 @@ func JsonToParamStr(jsonParams string) string {
 
 //urlencode
 func ParamsEncode(paramStr string) string {
-	return url.QueryEscape(paramStr)
+	return strings.Replace(url.QueryEscape(paramStr), "+", "%20", -1)
 }
 
 //加密
