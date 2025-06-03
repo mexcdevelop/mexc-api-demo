@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: pb/PushDataV3ApiWrapper.proto
+// source: PushDataV3ApiWrapper.proto
 
 package pb
 
@@ -41,6 +41,11 @@ type PushDataV3ApiWrapper struct {
 	//	*PushDataV3ApiWrapper_PublicSpotKline
 	//	*PushDataV3ApiWrapper_PublicMiniTicker
 	//	*PushDataV3ApiWrapper_PublicMiniTickers
+	//	*PushDataV3ApiWrapper_PublicBookTickerBatch
+	//	*PushDataV3ApiWrapper_PublicIncreaseDepthsBatch
+	//	*PushDataV3ApiWrapper_PublicAggreDepths
+	//	*PushDataV3ApiWrapper_PublicAggreDeals
+	//	*PushDataV3ApiWrapper_PublicAggreBookTicker
 	Body isPushDataV3ApiWrapper_Body `protobuf_oneof:"body"`
 	// *
 	// 交易对
@@ -60,7 +65,7 @@ type PushDataV3ApiWrapper struct {
 
 func (x *PushDataV3ApiWrapper) Reset() {
 	*x = PushDataV3ApiWrapper{}
-	mi := &file_pb_PushDataV3ApiWrapper_proto_msgTypes[0]
+	mi := &file_PushDataV3ApiWrapper_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -72,7 +77,7 @@ func (x *PushDataV3ApiWrapper) String() string {
 func (*PushDataV3ApiWrapper) ProtoMessage() {}
 
 func (x *PushDataV3ApiWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PushDataV3ApiWrapper_proto_msgTypes[0]
+	mi := &file_PushDataV3ApiWrapper_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -85,7 +90,7 @@ func (x *PushDataV3ApiWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PushDataV3ApiWrapper.ProtoReflect.Descriptor instead.
 func (*PushDataV3ApiWrapper) Descriptor() ([]byte, []int) {
-	return file_pb_PushDataV3ApiWrapper_proto_rawDescGZIP(), []int{0}
+	return file_PushDataV3ApiWrapper_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PushDataV3ApiWrapper) GetChannel() string {
@@ -192,6 +197,51 @@ func (x *PushDataV3ApiWrapper) GetPublicMiniTickers() *PublicMiniTickersV3Api {
 	return nil
 }
 
+func (x *PushDataV3ApiWrapper) GetPublicBookTickerBatch() *PublicBookTickerBatchV3Api {
+	if x != nil {
+		if x, ok := x.Body.(*PushDataV3ApiWrapper_PublicBookTickerBatch); ok {
+			return x.PublicBookTickerBatch
+		}
+	}
+	return nil
+}
+
+func (x *PushDataV3ApiWrapper) GetPublicIncreaseDepthsBatch() *PublicIncreaseDepthsBatchV3Api {
+	if x != nil {
+		if x, ok := x.Body.(*PushDataV3ApiWrapper_PublicIncreaseDepthsBatch); ok {
+			return x.PublicIncreaseDepthsBatch
+		}
+	}
+	return nil
+}
+
+func (x *PushDataV3ApiWrapper) GetPublicAggreDepths() *PublicAggreDepthsV3Api {
+	if x != nil {
+		if x, ok := x.Body.(*PushDataV3ApiWrapper_PublicAggreDepths); ok {
+			return x.PublicAggreDepths
+		}
+	}
+	return nil
+}
+
+func (x *PushDataV3ApiWrapper) GetPublicAggreDeals() *PublicAggreDealsV3Api {
+	if x != nil {
+		if x, ok := x.Body.(*PushDataV3ApiWrapper_PublicAggreDeals); ok {
+			return x.PublicAggreDeals
+		}
+	}
+	return nil
+}
+
+func (x *PushDataV3ApiWrapper) GetPublicAggreBookTicker() *PublicAggreBookTickerV3Api {
+	if x != nil {
+		if x, ok := x.Body.(*PushDataV3ApiWrapper_PublicAggreBookTicker); ok {
+			return x.PublicAggreBookTicker
+		}
+	}
+	return nil
+}
+
 func (x *PushDataV3ApiWrapper) GetSymbol() string {
 	if x != nil && x.Symbol != nil {
 		return *x.Symbol
@@ -264,6 +314,26 @@ type PushDataV3ApiWrapper_PublicMiniTickers struct {
 	PublicMiniTickers *PublicMiniTickersV3Api `protobuf:"bytes,310,opt,name=publicMiniTickers,proto3,oneof"`
 }
 
+type PushDataV3ApiWrapper_PublicBookTickerBatch struct {
+	PublicBookTickerBatch *PublicBookTickerBatchV3Api `protobuf:"bytes,311,opt,name=publicBookTickerBatch,proto3,oneof"`
+}
+
+type PushDataV3ApiWrapper_PublicIncreaseDepthsBatch struct {
+	PublicIncreaseDepthsBatch *PublicIncreaseDepthsBatchV3Api `protobuf:"bytes,312,opt,name=publicIncreaseDepthsBatch,proto3,oneof"`
+}
+
+type PushDataV3ApiWrapper_PublicAggreDepths struct {
+	PublicAggreDepths *PublicAggreDepthsV3Api `protobuf:"bytes,313,opt,name=publicAggreDepths,proto3,oneof"`
+}
+
+type PushDataV3ApiWrapper_PublicAggreDeals struct {
+	PublicAggreDeals *PublicAggreDealsV3Api `protobuf:"bytes,314,opt,name=publicAggreDeals,proto3,oneof"`
+}
+
+type PushDataV3ApiWrapper_PublicAggreBookTicker struct {
+	PublicAggreBookTicker *PublicAggreBookTickerV3Api `protobuf:"bytes,315,opt,name=publicAggreBookTicker,proto3,oneof"`
+}
+
 func (*PushDataV3ApiWrapper_PublicDeals) isPushDataV3ApiWrapper_Body() {}
 
 func (*PushDataV3ApiWrapper_PublicIncreaseDepths) isPushDataV3ApiWrapper_Body() {}
@@ -284,11 +354,22 @@ func (*PushDataV3ApiWrapper_PublicMiniTicker) isPushDataV3ApiWrapper_Body() {}
 
 func (*PushDataV3ApiWrapper_PublicMiniTickers) isPushDataV3ApiWrapper_Body() {}
 
-var File_pb_PushDataV3ApiWrapper_proto protoreflect.FileDescriptor
+func (*PushDataV3ApiWrapper_PublicBookTickerBatch) isPushDataV3ApiWrapper_Body() {}
 
-const file_pb_PushDataV3ApiWrapper_proto_rawDesc = "" +
+func (*PushDataV3ApiWrapper_PublicIncreaseDepthsBatch) isPushDataV3ApiWrapper_Body() {}
+
+func (*PushDataV3ApiWrapper_PublicAggreDepths) isPushDataV3ApiWrapper_Body() {}
+
+func (*PushDataV3ApiWrapper_PublicAggreDeals) isPushDataV3ApiWrapper_Body() {}
+
+func (*PushDataV3ApiWrapper_PublicAggreBookTicker) isPushDataV3ApiWrapper_Body() {}
+
+var File_PushDataV3ApiWrapper_proto protoreflect.FileDescriptor
+
+const file_PushDataV3ApiWrapper_proto_rawDesc = "" +
 	"\n" +
-	"\x1dpb/PushDataV3ApiWrapper.proto\x1a\x19pb/PublicDealsV3Api.proto\x1a\"pb/PublicIncreaseDepthsV3Api.proto\x1a\x1fpb/PublicLimitDepthsV3Api.proto\x1a\x1bpb/PrivateOrdersV3Api.proto\x1a\x1epb/PublicBookTickerV3Api.proto\x1a\x1apb/PrivateDealsV3Api.proto\x1a\x1cpb/PrivateAccountV3Api.proto\x1a\x1dpb/PublicSpotKlineV3Api.proto\x1a\x1epb/PublicMiniTickerV3Api.proto\x1a\x1fpb/PublicMiniTickersV3Api.proto\"\x9b\a\n" +
+	"\x1aPushDataV3ApiWrapper.proto\x1a\x16PublicDealsV3Api.proto\x1a\x1fPublicIncreaseDepthsV3Api.proto\x1a\x1cPublicLimitDepthsV3Api.proto\x1a\x18PrivateOrdersV3Api.proto\x1a\x1bPublicBookTickerV3Api.proto\x1a\x17PrivateDealsV3Api.proto\x1a\x19PrivateAccountV3Api.proto\x1a\x1aPublicSpotKlineV3Api.proto\x1a\x1bPublicMiniTickerV3Api.proto\x1a\x1cPublicMiniTickersV3Api.proto\x1a PublicBookTickerBatchV3Api.proto\x1a$PublicIncreaseDepthsBatchV3Api.proto\x1a\x1cPublicAggreDepthsV3Api.proto\x1a\x1bPublicAggreDealsV3Api.proto\x1a PublicAggreBookTickerV3Api.proto\"\xba\n" +
+	"\n" +
 	"\x14PushDataV3ApiWrapper\x12\x18\n" +
 	"\achannel\x18\x01 \x01(\tR\achannel\x126\n" +
 	"\vpublicDeals\x18\xad\x02 \x01(\v2\x11.PublicDealsV3ApiH\x00R\vpublicDeals\x12Q\n" +
@@ -300,7 +381,12 @@ const file_pb_PushDataV3ApiWrapper_proto_rawDesc = "" +
 	"\x0eprivateAccount\x18\xb3\x02 \x01(\v2\x14.PrivateAccountV3ApiH\x00R\x0eprivateAccount\x12B\n" +
 	"\x0fpublicSpotKline\x18\xb4\x02 \x01(\v2\x15.PublicSpotKlineV3ApiH\x00R\x0fpublicSpotKline\x12E\n" +
 	"\x10publicMiniTicker\x18\xb5\x02 \x01(\v2\x16.PublicMiniTickerV3ApiH\x00R\x10publicMiniTicker\x12H\n" +
-	"\x11publicMiniTickers\x18\xb6\x02 \x01(\v2\x17.PublicMiniTickersV3ApiH\x00R\x11publicMiniTickers\x12\x1b\n" +
+	"\x11publicMiniTickers\x18\xb6\x02 \x01(\v2\x17.PublicMiniTickersV3ApiH\x00R\x11publicMiniTickers\x12T\n" +
+	"\x15publicBookTickerBatch\x18\xb7\x02 \x01(\v2\x1b.PublicBookTickerBatchV3ApiH\x00R\x15publicBookTickerBatch\x12`\n" +
+	"\x19publicIncreaseDepthsBatch\x18\xb8\x02 \x01(\v2\x1f.PublicIncreaseDepthsBatchV3ApiH\x00R\x19publicIncreaseDepthsBatch\x12H\n" +
+	"\x11publicAggreDepths\x18\xb9\x02 \x01(\v2\x17.PublicAggreDepthsV3ApiH\x00R\x11publicAggreDepths\x12E\n" +
+	"\x10publicAggreDeals\x18\xba\x02 \x01(\v2\x16.PublicAggreDealsV3ApiH\x00R\x10publicAggreDeals\x12T\n" +
+	"\x15publicAggreBookTicker\x18\xbb\x02 \x01(\v2\x1b.PublicAggreBookTickerV3ApiH\x00R\x15publicAggreBookTicker\x12\x1b\n" +
 	"\x06symbol\x18\x03 \x01(\tH\x01R\x06symbol\x88\x01\x01\x12\x1f\n" +
 	"\bsymbolId\x18\x04 \x01(\tH\x02R\bsymbolId\x88\x01\x01\x12#\n" +
 	"\n" +
@@ -311,36 +397,41 @@ const file_pb_PushDataV3ApiWrapper_proto_rawDesc = "" +
 	"\a_symbolB\v\n" +
 	"\t_symbolIdB\r\n" +
 	"\v_createTimeB\v\n" +
-	"\t_sendTimeBd\n" +
-	"\x1ccom.mxc.push.common.protobufB\x19PushDataV3ApiWrapperProtoH\x01P\x01Z%/Users/admin/Downloads/proto-ws-go/pbb\x06proto3"
+	"\t_sendTimeBM\n" +
+	"\x1ccom.mxc.push.common.protobufB\x19PushDataV3ApiWrapperProtoH\x01P\x01Z\x0eproto-ws-go/pbb\x06proto3"
 
 var (
-	file_pb_PushDataV3ApiWrapper_proto_rawDescOnce sync.Once
-	file_pb_PushDataV3ApiWrapper_proto_rawDescData []byte
+	file_PushDataV3ApiWrapper_proto_rawDescOnce sync.Once
+	file_PushDataV3ApiWrapper_proto_rawDescData []byte
 )
 
-func file_pb_PushDataV3ApiWrapper_proto_rawDescGZIP() []byte {
-	file_pb_PushDataV3ApiWrapper_proto_rawDescOnce.Do(func() {
-		file_pb_PushDataV3ApiWrapper_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pb_PushDataV3ApiWrapper_proto_rawDesc), len(file_pb_PushDataV3ApiWrapper_proto_rawDesc)))
+func file_PushDataV3ApiWrapper_proto_rawDescGZIP() []byte {
+	file_PushDataV3ApiWrapper_proto_rawDescOnce.Do(func() {
+		file_PushDataV3ApiWrapper_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_PushDataV3ApiWrapper_proto_rawDesc), len(file_PushDataV3ApiWrapper_proto_rawDesc)))
 	})
-	return file_pb_PushDataV3ApiWrapper_proto_rawDescData
+	return file_PushDataV3ApiWrapper_proto_rawDescData
 }
 
-var file_pb_PushDataV3ApiWrapper_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_pb_PushDataV3ApiWrapper_proto_goTypes = []any{
-	(*PushDataV3ApiWrapper)(nil),      // 0: PushDataV3ApiWrapper
-	(*PublicDealsV3Api)(nil),          // 1: PublicDealsV3Api
-	(*PublicIncreaseDepthsV3Api)(nil), // 2: PublicIncreaseDepthsV3Api
-	(*PublicLimitDepthsV3Api)(nil),    // 3: PublicLimitDepthsV3Api
-	(*PrivateOrdersV3Api)(nil),        // 4: PrivateOrdersV3Api
-	(*PublicBookTickerV3Api)(nil),     // 5: PublicBookTickerV3Api
-	(*PrivateDealsV3Api)(nil),         // 6: PrivateDealsV3Api
-	(*PrivateAccountV3Api)(nil),       // 7: PrivateAccountV3Api
-	(*PublicSpotKlineV3Api)(nil),      // 8: PublicSpotKlineV3Api
-	(*PublicMiniTickerV3Api)(nil),     // 9: PublicMiniTickerV3Api
-	(*PublicMiniTickersV3Api)(nil),    // 10: PublicMiniTickersV3Api
+var file_PushDataV3ApiWrapper_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_PushDataV3ApiWrapper_proto_goTypes = []any{
+	(*PushDataV3ApiWrapper)(nil),           // 0: PushDataV3ApiWrapper
+	(*PublicDealsV3Api)(nil),               // 1: PublicDealsV3Api
+	(*PublicIncreaseDepthsV3Api)(nil),      // 2: PublicIncreaseDepthsV3Api
+	(*PublicLimitDepthsV3Api)(nil),         // 3: PublicLimitDepthsV3Api
+	(*PrivateOrdersV3Api)(nil),             // 4: PrivateOrdersV3Api
+	(*PublicBookTickerV3Api)(nil),          // 5: PublicBookTickerV3Api
+	(*PrivateDealsV3Api)(nil),              // 6: PrivateDealsV3Api
+	(*PrivateAccountV3Api)(nil),            // 7: PrivateAccountV3Api
+	(*PublicSpotKlineV3Api)(nil),           // 8: PublicSpotKlineV3Api
+	(*PublicMiniTickerV3Api)(nil),          // 9: PublicMiniTickerV3Api
+	(*PublicMiniTickersV3Api)(nil),         // 10: PublicMiniTickersV3Api
+	(*PublicBookTickerBatchV3Api)(nil),     // 11: PublicBookTickerBatchV3Api
+	(*PublicIncreaseDepthsBatchV3Api)(nil), // 12: PublicIncreaseDepthsBatchV3Api
+	(*PublicAggreDepthsV3Api)(nil),         // 13: PublicAggreDepthsV3Api
+	(*PublicAggreDealsV3Api)(nil),          // 14: PublicAggreDealsV3Api
+	(*PublicAggreBookTickerV3Api)(nil),     // 15: PublicAggreBookTickerV3Api
 }
-var file_pb_PushDataV3ApiWrapper_proto_depIdxs = []int32{
+var file_PushDataV3ApiWrapper_proto_depIdxs = []int32{
 	1,  // 0: PushDataV3ApiWrapper.publicDeals:type_name -> PublicDealsV3Api
 	2,  // 1: PushDataV3ApiWrapper.publicIncreaseDepths:type_name -> PublicIncreaseDepthsV3Api
 	3,  // 2: PushDataV3ApiWrapper.publicLimitDepths:type_name -> PublicLimitDepthsV3Api
@@ -351,29 +442,39 @@ var file_pb_PushDataV3ApiWrapper_proto_depIdxs = []int32{
 	8,  // 7: PushDataV3ApiWrapper.publicSpotKline:type_name -> PublicSpotKlineV3Api
 	9,  // 8: PushDataV3ApiWrapper.publicMiniTicker:type_name -> PublicMiniTickerV3Api
 	10, // 9: PushDataV3ApiWrapper.publicMiniTickers:type_name -> PublicMiniTickersV3Api
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	11, // 10: PushDataV3ApiWrapper.publicBookTickerBatch:type_name -> PublicBookTickerBatchV3Api
+	12, // 11: PushDataV3ApiWrapper.publicIncreaseDepthsBatch:type_name -> PublicIncreaseDepthsBatchV3Api
+	13, // 12: PushDataV3ApiWrapper.publicAggreDepths:type_name -> PublicAggreDepthsV3Api
+	14, // 13: PushDataV3ApiWrapper.publicAggreDeals:type_name -> PublicAggreDealsV3Api
+	15, // 14: PushDataV3ApiWrapper.publicAggreBookTicker:type_name -> PublicAggreBookTickerV3Api
+	15, // [15:15] is the sub-list for method output_type
+	15, // [15:15] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
-func init() { file_pb_PushDataV3ApiWrapper_proto_init() }
-func file_pb_PushDataV3ApiWrapper_proto_init() {
-	if File_pb_PushDataV3ApiWrapper_proto != nil {
+func init() { file_PushDataV3ApiWrapper_proto_init() }
+func file_PushDataV3ApiWrapper_proto_init() {
+	if File_PushDataV3ApiWrapper_proto != nil {
 		return
 	}
-	file_pb_PublicDealsV3Api_proto_init()
-	file_pb_PublicIncreaseDepthsV3Api_proto_init()
-	file_pb_PublicLimitDepthsV3Api_proto_init()
-	file_pb_PrivateOrdersV3Api_proto_init()
-	file_pb_PublicBookTickerV3Api_proto_init()
-	file_pb_PrivateDealsV3Api_proto_init()
-	file_pb_PrivateAccountV3Api_proto_init()
-	file_pb_PublicSpotKlineV3Api_proto_init()
-	file_pb_PublicMiniTickerV3Api_proto_init()
-	file_pb_PublicMiniTickersV3Api_proto_init()
-	file_pb_PushDataV3ApiWrapper_proto_msgTypes[0].OneofWrappers = []any{
+	file_PublicDealsV3Api_proto_init()
+	file_PublicIncreaseDepthsV3Api_proto_init()
+	file_PublicLimitDepthsV3Api_proto_init()
+	file_PrivateOrdersV3Api_proto_init()
+	file_PublicBookTickerV3Api_proto_init()
+	file_PrivateDealsV3Api_proto_init()
+	file_PrivateAccountV3Api_proto_init()
+	file_PublicSpotKlineV3Api_proto_init()
+	file_PublicMiniTickerV3Api_proto_init()
+	file_PublicMiniTickersV3Api_proto_init()
+	file_PublicBookTickerBatchV3Api_proto_init()
+	file_PublicIncreaseDepthsBatchV3Api_proto_init()
+	file_PublicAggreDepthsV3Api_proto_init()
+	file_PublicAggreDealsV3Api_proto_init()
+	file_PublicAggreBookTickerV3Api_proto_init()
+	file_PushDataV3ApiWrapper_proto_msgTypes[0].OneofWrappers = []any{
 		(*PushDataV3ApiWrapper_PublicDeals)(nil),
 		(*PushDataV3ApiWrapper_PublicIncreaseDepths)(nil),
 		(*PushDataV3ApiWrapper_PublicLimitDepths)(nil),
@@ -384,22 +485,27 @@ func file_pb_PushDataV3ApiWrapper_proto_init() {
 		(*PushDataV3ApiWrapper_PublicSpotKline)(nil),
 		(*PushDataV3ApiWrapper_PublicMiniTicker)(nil),
 		(*PushDataV3ApiWrapper_PublicMiniTickers)(nil),
+		(*PushDataV3ApiWrapper_PublicBookTickerBatch)(nil),
+		(*PushDataV3ApiWrapper_PublicIncreaseDepthsBatch)(nil),
+		(*PushDataV3ApiWrapper_PublicAggreDepths)(nil),
+		(*PushDataV3ApiWrapper_PublicAggreDeals)(nil),
+		(*PushDataV3ApiWrapper_PublicAggreBookTicker)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_PushDataV3ApiWrapper_proto_rawDesc), len(file_pb_PushDataV3ApiWrapper_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_PushDataV3ApiWrapper_proto_rawDesc), len(file_PushDataV3ApiWrapper_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_pb_PushDataV3ApiWrapper_proto_goTypes,
-		DependencyIndexes: file_pb_PushDataV3ApiWrapper_proto_depIdxs,
-		MessageInfos:      file_pb_PushDataV3ApiWrapper_proto_msgTypes,
+		GoTypes:           file_PushDataV3ApiWrapper_proto_goTypes,
+		DependencyIndexes: file_PushDataV3ApiWrapper_proto_depIdxs,
+		MessageInfos:      file_PushDataV3ApiWrapper_proto_msgTypes,
 	}.Build()
-	File_pb_PushDataV3ApiWrapper_proto = out.File
-	file_pb_PushDataV3ApiWrapper_proto_goTypes = nil
-	file_pb_PushDataV3ApiWrapper_proto_depIdxs = nil
+	File_PushDataV3ApiWrapper_proto = out.File
+	file_PushDataV3ApiWrapper_proto_goTypes = nil
+	file_PushDataV3ApiWrapper_proto_depIdxs = nil
 }

@@ -1,22 +1,26 @@
 syntax = "proto3";
 
-import "pb/PublicDealsV3Api.proto";
-import "pb/PublicIncreaseDepthsV3Api.proto";
-import "pb/PublicLimitDepthsV3Api.proto";
-import "pb/PrivateOrdersV3Api.proto";
-import "pb/PublicBookTickerV3Api.proto";
-import "pb/PrivateDealsV3Api.proto";
-import "pb/PrivateAccountV3Api.proto";
-import "pb/PublicSpotKlineV3Api.proto";
-import "pb/PublicMiniTickerV3Api.proto";
-import "pb/PublicMiniTickersV3Api.proto";
+import "PublicDealsV3Api.proto";
+import "PublicIncreaseDepthsV3Api.proto";
+import "PublicLimitDepthsV3Api.proto";
+import "PrivateOrdersV3Api.proto";
+import "PublicBookTickerV3Api.proto";
+import "PrivateDealsV3Api.proto";
+import "PrivateAccountV3Api.proto";
+import "PublicSpotKlineV3Api.proto";
+import "PublicMiniTickerV3Api.proto";
+import "PublicMiniTickersV3Api.proto";
+import "PublicBookTickerBatchV3Api.proto";
+import "PublicIncreaseDepthsBatchV3Api.proto";
+import "PublicAggreDepthsV3Api.proto";
+import "PublicAggreDealsV3Api.proto";
+import "PublicAggreBookTickerV3Api.proto";
 
 option java_package = "com.mxc.push.common.protobuf";
 option optimize_for = SPEED;
 option java_multiple_files = true;
 option java_outer_classname = "PushDataV3ApiWrapperProto";
 option go_package = "proto-ws-go/pb";
-
 
 message PushDataV3ApiWrapper {
 
@@ -40,6 +44,11 @@ message PushDataV3ApiWrapper {
     PublicSpotKlineV3Api publicSpotKline = 308;
     PublicMiniTickerV3Api publicMiniTicker = 309;
     PublicMiniTickersV3Api publicMiniTickers = 310;
+    PublicBookTickerBatchV3Api publicBookTickerBatch = 311;
+    PublicIncreaseDepthsBatchV3Api publicIncreaseDepthsBatch = 312;
+    PublicAggreDepthsV3Api publicAggreDepths = 313;
+    PublicAggreDealsV3Api publicAggreDeals = 314;
+    PublicAggreBookTickerV3Api publicAggreBookTicker = 315;
   }
 
   /**

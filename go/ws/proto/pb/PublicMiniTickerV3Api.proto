@@ -8,7 +8,6 @@ option java_multiple_files = true;
 option java_outer_classname = "PublicMiniTickerV3ApiProto";
 option go_package = "proto-ws-go/pb";
 
-
 message PublicMiniTickerV3Api {
 
   // 交易对名

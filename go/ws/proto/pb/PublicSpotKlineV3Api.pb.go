@@ -4,7 +4,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: pb/PublicSpotKlineV3Api.proto
+// source: PublicSpotKlineV3Api.proto
 
 package pb
 
@@ -49,7 +49,7 @@ type PublicSpotKlineV3Api struct {
 
 func (x *PublicSpotKlineV3Api) Reset() {
 	*x = PublicSpotKlineV3Api{}
-	mi := &file_pb_PublicSpotKlineV3Api_proto_msgTypes[0]
+	mi := &file_PublicSpotKlineV3Api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -61,7 +61,7 @@ func (x *PublicSpotKlineV3Api) String() string {
 func (*PublicSpotKlineV3Api) ProtoMessage() {}
 
 func (x *PublicSpotKlineV3Api) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicSpotKlineV3Api_proto_msgTypes[0]
+	mi := &file_PublicSpotKlineV3Api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -74,7 +74,7 @@ func (x *PublicSpotKlineV3Api) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicSpotKlineV3Api.ProtoReflect.Descriptor instead.
 func (*PublicSpotKlineV3Api) Descriptor() ([]byte, []int) {
-	return file_pb_PublicSpotKlineV3Api_proto_rawDescGZIP(), []int{0}
+	return file_PublicSpotKlineV3Api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PublicSpotKlineV3Api) GetInterval() string {
@@ -140,11 +140,11 @@ func (x *PublicSpotKlineV3Api) GetWindowEnd() int64 {
 	return 0
 }
 
-var File_pb_PublicSpotKlineV3Api_proto protoreflect.FileDescriptor
+var File_PublicSpotKlineV3Api_proto protoreflect.FileDescriptor
 
-const file_pb_PublicSpotKlineV3Api_proto_rawDesc = "" +
+const file_PublicSpotKlineV3Api_proto_rawDesc = "" +
 	"\n" +
-	"\x1dpb/PublicSpotKlineV3Api.proto\"\xb0\x02\n" +
+	"\x1aPublicSpotKlineV3Api.proto\"\xb0\x02\n" +
 	"\x14PublicSpotKlineV3Api\x12\x1a\n" +
 	"\binterval\x18\x01 \x01(\tR\binterval\x12 \n" +
 	"\vwindowStart\x18\x02 \x01(\x03R\vwindowStart\x12\"\n" +
@@ -154,26 +154,26 @@ const file_pb_PublicSpotKlineV3Api_proto_rawDesc = "" +
 	"\vlowestPrice\x18\x06 \x01(\tR\vlowestPrice\x12\x16\n" +
 	"\x06volume\x18\a \x01(\tR\x06volume\x12\x16\n" +
 	"\x06amount\x18\b \x01(\tR\x06amount\x12\x1c\n" +
-	"\twindowEnd\x18\t \x01(\x03R\twindowEndBd\n" +
-	"\x1ccom.mxc.push.common.protobufB\x19PublicSpotKlineV3ApiProtoH\x01P\x01Z%/Users/admin/Downloads/proto-ws-go/pbb\x06proto3"
+	"\twindowEnd\x18\t \x01(\x03R\twindowEndBM\n" +
+	"\x1ccom.mxc.push.common.protobufB\x19PublicSpotKlineV3ApiProtoH\x01P\x01Z\x0eproto-ws-go/pbb\x06proto3"
 
 var (
-	file_pb_PublicSpotKlineV3Api_proto_rawDescOnce sync.Once
-	file_pb_PublicSpotKlineV3Api_proto_rawDescData []byte
+	file_PublicSpotKlineV3Api_proto_rawDescOnce sync.Once
+	file_PublicSpotKlineV3Api_proto_rawDescData []byte
 )
 
-func file_pb_PublicSpotKlineV3Api_proto_rawDescGZIP() []byte {
-	file_pb_PublicSpotKlineV3Api_proto_rawDescOnce.Do(func() {
-		file_pb_PublicSpotKlineV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pb_PublicSpotKlineV3Api_proto_rawDesc), len(file_pb_PublicSpotKlineV3Api_proto_rawDesc)))
+func file_PublicSpotKlineV3Api_proto_rawDescGZIP() []byte {
+	file_PublicSpotKlineV3Api_proto_rawDescOnce.Do(func() {
+		file_PublicSpotKlineV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_PublicSpotKlineV3Api_proto_rawDesc), len(file_PublicSpotKlineV3Api_proto_rawDesc)))
 	})
-	return file_pb_PublicSpotKlineV3Api_proto_rawDescData
+	return file_PublicSpotKlineV3Api_proto_rawDescData
 }
 
-var file_pb_PublicSpotKlineV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_pb_PublicSpotKlineV3Api_proto_goTypes = []any{
+var file_PublicSpotKlineV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_PublicSpotKlineV3Api_proto_goTypes = []any{
 	(*PublicSpotKlineV3Api)(nil), // 0: PublicSpotKlineV3Api
 }
-var file_pb_PublicSpotKlineV3Api_proto_depIdxs = []int32{
+var file_PublicSpotKlineV3Api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -181,26 +181,26 @@ var file_pb_PublicSpotKlineV3Api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_pb_PublicSpotKlineV3Api_proto_init() }
-func file_pb_PublicSpotKlineV3Api_proto_init() {
-	if File_pb_PublicSpotKlineV3Api_proto != nil {
+func init() { file_PublicSpotKlineV3Api_proto_init() }
+func file_PublicSpotKlineV3Api_proto_init() {
+	if File_PublicSpotKlineV3Api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_PublicSpotKlineV3Api_proto_rawDesc), len(file_pb_PublicSpotKlineV3Api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_PublicSpotKlineV3Api_proto_rawDesc), len(file_PublicSpotKlineV3Api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_pb_PublicSpotKlineV3Api_proto_goTypes,
-		DependencyIndexes: file_pb_PublicSpotKlineV3Api_proto_depIdxs,
-		MessageInfos:      file_pb_PublicSpotKlineV3Api_proto_msgTypes,
+		GoTypes:           file_PublicSpotKlineV3Api_proto_goTypes,
+		DependencyIndexes: file_PublicSpotKlineV3Api_proto_depIdxs,
+		MessageInfos:      file_PublicSpotKlineV3Api_proto_msgTypes,
 	}.Build()
-	File_pb_PublicSpotKlineV3Api_proto = out.File
-	file_pb_PublicSpotKlineV3Api_proto_goTypes = nil
-	file_pb_PublicSpotKlineV3Api_proto_depIdxs = nil
+	File_PublicSpotKlineV3Api_proto = out.File
+	file_PublicSpotKlineV3Api_proto_goTypes = nil
+	file_PublicSpotKlineV3Api_proto_depIdxs = nil
 }

@@ -4,7 +4,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: pb/PublicBookTickerV3Api.proto
+// source: PublicBookTickerV3Api.proto
 
 package pb
 
@@ -35,7 +35,7 @@ type PublicBookTickerV3Api struct {
 
 func (x *PublicBookTickerV3Api) Reset() {
 	*x = PublicBookTickerV3Api{}
-	mi := &file_pb_PublicBookTickerV3Api_proto_msgTypes[0]
+	mi := &file_PublicBookTickerV3Api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -47,7 +47,7 @@ func (x *PublicBookTickerV3Api) String() string {
 func (*PublicBookTickerV3Api) ProtoMessage() {}
 
 func (x *PublicBookTickerV3Api) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicBookTickerV3Api_proto_msgTypes[0]
+	mi := &file_PublicBookTickerV3Api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +60,7 @@ func (x *PublicBookTickerV3Api) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicBookTickerV3Api.ProtoReflect.Descriptor instead.
 func (*PublicBookTickerV3Api) Descriptor() ([]byte, []int) {
-	return file_pb_PublicBookTickerV3Api_proto_rawDescGZIP(), []int{0}
+	return file_PublicBookTickerV3Api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PublicBookTickerV3Api) GetBidPrice() string {
@@ -91,35 +91,35 @@ func (x *PublicBookTickerV3Api) GetAskQuantity() string {
 	return ""
 }
 
-var File_pb_PublicBookTickerV3Api_proto protoreflect.FileDescriptor
+var File_PublicBookTickerV3Api_proto protoreflect.FileDescriptor
 
-const file_pb_PublicBookTickerV3Api_proto_rawDesc = "" +
+const file_PublicBookTickerV3Api_proto_rawDesc = "" +
 	"\n" +
-	"\x1epb/PublicBookTickerV3Api.proto\"\x93\x01\n" +
+	"\x1bPublicBookTickerV3Api.proto\"\x93\x01\n" +
 	"\x15PublicBookTickerV3Api\x12\x1a\n" +
 	"\bbidPrice\x18\x01 \x01(\tR\bbidPrice\x12 \n" +
 	"\vbidQuantity\x18\x02 \x01(\tR\vbidQuantity\x12\x1a\n" +
 	"\baskPrice\x18\x03 \x01(\tR\baskPrice\x12 \n" +
-	"\vaskQuantity\x18\x04 \x01(\tR\vaskQuantityBe\n" +
-	"\x1ccom.mxc.push.common.protobufB\x1aPublicBookTickerV3ApiProtoH\x01P\x01Z%/Users/admin/Downloads/proto-ws-go/pbb\x06proto3"
+	"\vaskQuantity\x18\x04 \x01(\tR\vaskQuantityBN\n" +
+	"\x1ccom.mxc.push.common.protobufB\x1aPublicBookTickerV3ApiProtoH\x01P\x01Z\x0eproto-ws-go/pbb\x06proto3"
 
 var (
-	file_pb_PublicBookTickerV3Api_proto_rawDescOnce sync.Once
-	file_pb_PublicBookTickerV3Api_proto_rawDescData []byte
+	file_PublicBookTickerV3Api_proto_rawDescOnce sync.Once
+	file_PublicBookTickerV3Api_proto_rawDescData []byte
 )
 
-func file_pb_PublicBookTickerV3Api_proto_rawDescGZIP() []byte {
-	file_pb_PublicBookTickerV3Api_proto_rawDescOnce.Do(func() {
-		file_pb_PublicBookTickerV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pb_PublicBookTickerV3Api_proto_rawDesc), len(file_pb_PublicBookTickerV3Api_proto_rawDesc)))
+func file_PublicBookTickerV3Api_proto_rawDescGZIP() []byte {
+	file_PublicBookTickerV3Api_proto_rawDescOnce.Do(func() {
+		file_PublicBookTickerV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_PublicBookTickerV3Api_proto_rawDesc), len(file_PublicBookTickerV3Api_proto_rawDesc)))
 	})
-	return file_pb_PublicBookTickerV3Api_proto_rawDescData
+	return file_PublicBookTickerV3Api_proto_rawDescData
 }
 
-var file_pb_PublicBookTickerV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_pb_PublicBookTickerV3Api_proto_goTypes = []any{
+var file_PublicBookTickerV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_PublicBookTickerV3Api_proto_goTypes = []any{
 	(*PublicBookTickerV3Api)(nil), // 0: PublicBookTickerV3Api
 }
-var file_pb_PublicBookTickerV3Api_proto_depIdxs = []int32{
+var file_PublicBookTickerV3Api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -127,26 +127,26 @@ var file_pb_PublicBookTickerV3Api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_pb_PublicBookTickerV3Api_proto_init() }
-func file_pb_PublicBookTickerV3Api_proto_init() {
-	if File_pb_PublicBookTickerV3Api_proto != nil {
+func init() { file_PublicBookTickerV3Api_proto_init() }
+func file_PublicBookTickerV3Api_proto_init() {
+	if File_PublicBookTickerV3Api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_PublicBookTickerV3Api_proto_rawDesc), len(file_pb_PublicBookTickerV3Api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_PublicBookTickerV3Api_proto_rawDesc), len(file_PublicBookTickerV3Api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_pb_PublicBookTickerV3Api_proto_goTypes,
-		DependencyIndexes: file_pb_PublicBookTickerV3Api_proto_depIdxs,
-		MessageInfos:      file_pb_PublicBookTickerV3Api_proto_msgTypes,
+		GoTypes:           file_PublicBookTickerV3Api_proto_goTypes,
+		DependencyIndexes: file_PublicBookTickerV3Api_proto_depIdxs,
+		MessageInfos:      file_PublicBookTickerV3Api_proto_msgTypes,
 	}.Build()
-	File_pb_PublicBookTickerV3Api_proto = out.File
-	file_pb_PublicBookTickerV3Api_proto_goTypes = nil
-	file_pb_PublicBookTickerV3Api_proto_depIdxs = nil
+	File_PublicBookTickerV3Api_proto = out.File
+	file_PublicBookTickerV3Api_proto_goTypes = nil
+	file_PublicBookTickerV3Api_proto_depIdxs = nil
 }

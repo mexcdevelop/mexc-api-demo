@@ -1,14 +1,14 @@
-// spot@public.bookTicker.v3.api.pb
+// spot@public.aggre.bookTicker.v3.api.pb
 
 syntax = "proto3";
 
 option java_package = "com.mxc.push.common.protobuf";
 option optimize_for = SPEED;
 option java_multiple_files = true;
-option java_outer_classname = "PublicBookTickerV3ApiProto";
+option java_outer_classname = "PublicAggreBookTickerV3ApiProto";
 option go_package = "proto-ws-go/pb";
 
-message PublicBookTickerV3Api {
+message PublicAggreBookTickerV3Api {
 
   string bidPrice = 1;
   string bidQuantity = 2;

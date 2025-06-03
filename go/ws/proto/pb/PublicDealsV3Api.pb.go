@@ -4,7 +4,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: pb/PublicDealsV3Api.proto
+// source: PublicDealsV3Api.proto
 
 package pb
 
@@ -33,7 +33,7 @@ type PublicDealsV3Api struct {
 
 func (x *PublicDealsV3Api) Reset() {
 	*x = PublicDealsV3Api{}
-	mi := &file_pb_PublicDealsV3Api_proto_msgTypes[0]
+	mi := &file_PublicDealsV3Api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *PublicDealsV3Api) String() string {
 func (*PublicDealsV3Api) ProtoMessage() {}
 
 func (x *PublicDealsV3Api) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicDealsV3Api_proto_msgTypes[0]
+	mi := &file_PublicDealsV3Api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *PublicDealsV3Api) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicDealsV3Api.ProtoReflect.Descriptor instead.
 func (*PublicDealsV3Api) Descriptor() ([]byte, []int) {
-	return file_pb_PublicDealsV3Api_proto_rawDescGZIP(), []int{0}
+	return file_PublicDealsV3Api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PublicDealsV3Api) GetDeals() []*PublicDealsV3ApiItem {
@@ -87,7 +87,7 @@ type PublicDealsV3ApiItem struct {
 
 func (x *PublicDealsV3ApiItem) Reset() {
 	*x = PublicDealsV3ApiItem{}
-	mi := &file_pb_PublicDealsV3Api_proto_msgTypes[1]
+	mi := &file_PublicDealsV3Api_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -99,7 +99,7 @@ func (x *PublicDealsV3ApiItem) String() string {
 func (*PublicDealsV3ApiItem) ProtoMessage() {}
 
 func (x *PublicDealsV3ApiItem) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicDealsV3Api_proto_msgTypes[1]
+	mi := &file_PublicDealsV3Api_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -112,7 +112,7 @@ func (x *PublicDealsV3ApiItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicDealsV3ApiItem.ProtoReflect.Descriptor instead.
 func (*PublicDealsV3ApiItem) Descriptor() ([]byte, []int) {
-	return file_pb_PublicDealsV3Api_proto_rawDescGZIP(), []int{1}
+	return file_PublicDealsV3Api_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PublicDealsV3ApiItem) GetPrice() string {
@@ -143,11 +143,11 @@ func (x *PublicDealsV3ApiItem) GetTime() int64 {
 	return 0
 }
 
-var File_pb_PublicDealsV3Api_proto protoreflect.FileDescriptor
+var File_PublicDealsV3Api_proto protoreflect.FileDescriptor
 
-const file_pb_PublicDealsV3Api_proto_rawDesc = "" +
+const file_PublicDealsV3Api_proto_rawDesc = "" +
 	"\n" +
-	"\x19pb/PublicDealsV3Api.proto\"]\n" +
+	"\x16PublicDealsV3Api.proto\"]\n" +
 	"\x10PublicDealsV3Api\x12+\n" +
 	"\x05deals\x18\x01 \x03(\v2\x15.PublicDealsV3ApiItemR\x05deals\x12\x1c\n" +
 	"\teventType\x18\x02 \x01(\tR\teventType\"z\n" +
@@ -155,27 +155,27 @@ const file_pb_PublicDealsV3Api_proto_rawDesc = "" +
 	"\x05price\x18\x01 \x01(\tR\x05price\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\tR\bquantity\x12\x1c\n" +
 	"\ttradeType\x18\x03 \x01(\x05R\ttradeType\x12\x12\n" +
-	"\x04time\x18\x04 \x01(\x03R\x04timeB`\n" +
-	"\x1ccom.mxc.push.common.protobufB\x15PublicDealsV3ApiProtoH\x01P\x01Z%/Users/admin/Downloads/proto-ws-go/pbb\x06proto3"
+	"\x04time\x18\x04 \x01(\x03R\x04timeBI\n" +
+	"\x1ccom.mxc.push.common.protobufB\x15PublicDealsV3ApiProtoH\x01P\x01Z\x0eproto-ws-go/pbb\x06proto3"
 
 var (
-	file_pb_PublicDealsV3Api_proto_rawDescOnce sync.Once
-	file_pb_PublicDealsV3Api_proto_rawDescData []byte
+	file_PublicDealsV3Api_proto_rawDescOnce sync.Once
+	file_PublicDealsV3Api_proto_rawDescData []byte
 )
 
-func file_pb_PublicDealsV3Api_proto_rawDescGZIP() []byte {
-	file_pb_PublicDealsV3Api_proto_rawDescOnce.Do(func() {
-		file_pb_PublicDealsV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pb_PublicDealsV3Api_proto_rawDesc), len(file_pb_PublicDealsV3Api_proto_rawDesc)))
+func file_PublicDealsV3Api_proto_rawDescGZIP() []byte {
+	file_PublicDealsV3Api_proto_rawDescOnce.Do(func() {
+		file_PublicDealsV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_PublicDealsV3Api_proto_rawDesc), len(file_PublicDealsV3Api_proto_rawDesc)))
 	})
-	return file_pb_PublicDealsV3Api_proto_rawDescData
+	return file_PublicDealsV3Api_proto_rawDescData
 }
 
-var file_pb_PublicDealsV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_pb_PublicDealsV3Api_proto_goTypes = []any{
+var file_PublicDealsV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_PublicDealsV3Api_proto_goTypes = []any{
 	(*PublicDealsV3Api)(nil),     // 0: PublicDealsV3Api
 	(*PublicDealsV3ApiItem)(nil), // 1: PublicDealsV3ApiItem
 }
-var file_pb_PublicDealsV3Api_proto_depIdxs = []int32{
+var file_PublicDealsV3Api_proto_depIdxs = []int32{
 	1, // 0: PublicDealsV3Api.deals:type_name -> PublicDealsV3ApiItem
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
@@ -184,26 +184,26 @@ var file_pb_PublicDealsV3Api_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_pb_PublicDealsV3Api_proto_init() }
-func file_pb_PublicDealsV3Api_proto_init() {
-	if File_pb_PublicDealsV3Api_proto != nil {
+func init() { file_PublicDealsV3Api_proto_init() }
+func file_PublicDealsV3Api_proto_init() {
+	if File_PublicDealsV3Api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_PublicDealsV3Api_proto_rawDesc), len(file_pb_PublicDealsV3Api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_PublicDealsV3Api_proto_rawDesc), len(file_PublicDealsV3Api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_pb_PublicDealsV3Api_proto_goTypes,
-		DependencyIndexes: file_pb_PublicDealsV3Api_proto_depIdxs,
-		MessageInfos:      file_pb_PublicDealsV3Api_proto_msgTypes,
+		GoTypes:           file_PublicDealsV3Api_proto_goTypes,
+		DependencyIndexes: file_PublicDealsV3Api_proto_depIdxs,
+		MessageInfos:      file_PublicDealsV3Api_proto_msgTypes,
 	}.Build()
-	File_pb_PublicDealsV3Api_proto = out.File
-	file_pb_PublicDealsV3Api_proto_goTypes = nil
-	file_pb_PublicDealsV3Api_proto_depIdxs = nil
+	File_PublicDealsV3Api_proto = out.File
+	file_PublicDealsV3Api_proto_goTypes = nil
+	file_PublicDealsV3Api_proto_depIdxs = nil
 }

@@ -4,7 +4,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: pb/PublicLimitDepthsV3Api.proto
+// source: PublicLimitDepthsV3Api.proto
 
 package pb
 
@@ -35,7 +35,7 @@ type PublicLimitDepthsV3Api struct {
 
 func (x *PublicLimitDepthsV3Api) Reset() {
 	*x = PublicLimitDepthsV3Api{}
-	mi := &file_pb_PublicLimitDepthsV3Api_proto_msgTypes[0]
+	mi := &file_PublicLimitDepthsV3Api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -47,7 +47,7 @@ func (x *PublicLimitDepthsV3Api) String() string {
 func (*PublicLimitDepthsV3Api) ProtoMessage() {}
 
 func (x *PublicLimitDepthsV3Api) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicLimitDepthsV3Api_proto_msgTypes[0]
+	mi := &file_PublicLimitDepthsV3Api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +60,7 @@ func (x *PublicLimitDepthsV3Api) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicLimitDepthsV3Api.ProtoReflect.Descriptor instead.
 func (*PublicLimitDepthsV3Api) Descriptor() ([]byte, []int) {
-	return file_pb_PublicLimitDepthsV3Api_proto_rawDescGZIP(), []int{0}
+	return file_PublicLimitDepthsV3Api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PublicLimitDepthsV3Api) GetAsks() []*PublicLimitDepthV3ApiItem {
@@ -101,7 +101,7 @@ type PublicLimitDepthV3ApiItem struct {
 
 func (x *PublicLimitDepthV3ApiItem) Reset() {
 	*x = PublicLimitDepthV3ApiItem{}
-	mi := &file_pb_PublicLimitDepthsV3Api_proto_msgTypes[1]
+	mi := &file_PublicLimitDepthsV3Api_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -113,7 +113,7 @@ func (x *PublicLimitDepthV3ApiItem) String() string {
 func (*PublicLimitDepthV3ApiItem) ProtoMessage() {}
 
 func (x *PublicLimitDepthV3ApiItem) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicLimitDepthsV3Api_proto_msgTypes[1]
+	mi := &file_PublicLimitDepthsV3Api_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -126,7 +126,7 @@ func (x *PublicLimitDepthV3ApiItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicLimitDepthV3ApiItem.ProtoReflect.Descriptor instead.
 func (*PublicLimitDepthV3ApiItem) Descriptor() ([]byte, []int) {
-	return file_pb_PublicLimitDepthsV3Api_proto_rawDescGZIP(), []int{1}
+	return file_PublicLimitDepthsV3Api_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PublicLimitDepthV3ApiItem) GetPrice() string {
@@ -143,11 +143,11 @@ func (x *PublicLimitDepthV3ApiItem) GetQuantity() string {
 	return ""
 }
 
-var File_pb_PublicLimitDepthsV3Api_proto protoreflect.FileDescriptor
+var File_PublicLimitDepthsV3Api_proto protoreflect.FileDescriptor
 
-const file_pb_PublicLimitDepthsV3Api_proto_rawDesc = "" +
+const file_PublicLimitDepthsV3Api_proto_rawDesc = "" +
 	"\n" +
-	"\x1fpb/PublicLimitDepthsV3Api.proto\"\xb0\x01\n" +
+	"\x1cPublicLimitDepthsV3Api.proto\"\xb0\x01\n" +
 	"\x16PublicLimitDepthsV3Api\x12.\n" +
 	"\x04asks\x18\x01 \x03(\v2\x1a.PublicLimitDepthV3ApiItemR\x04asks\x12.\n" +
 	"\x04bids\x18\x02 \x03(\v2\x1a.PublicLimitDepthV3ApiItemR\x04bids\x12\x1c\n" +
@@ -155,27 +155,27 @@ const file_pb_PublicLimitDepthsV3Api_proto_rawDesc = "" +
 	"\aversion\x18\x04 \x01(\tR\aversion\"M\n" +
 	"\x19PublicLimitDepthV3ApiItem\x12\x14\n" +
 	"\x05price\x18\x01 \x01(\tR\x05price\x12\x1a\n" +
-	"\bquantity\x18\x02 \x01(\tR\bquantityBf\n" +
-	"\x1ccom.mxc.push.common.protobufB\x1bPublicLimitDepthsV3ApiProtoH\x01P\x01Z%/Users/admin/Downloads/proto-ws-go/pbb\x06proto3"
+	"\bquantity\x18\x02 \x01(\tR\bquantityBO\n" +
+	"\x1ccom.mxc.push.common.protobufB\x1bPublicLimitDepthsV3ApiProtoH\x01P\x01Z\x0eproto-ws-go/pbb\x06proto3"
 
 var (
-	file_pb_PublicLimitDepthsV3Api_proto_rawDescOnce sync.Once
-	file_pb_PublicLimitDepthsV3Api_proto_rawDescData []byte
+	file_PublicLimitDepthsV3Api_proto_rawDescOnce sync.Once
+	file_PublicLimitDepthsV3Api_proto_rawDescData []byte
 )
 
-func file_pb_PublicLimitDepthsV3Api_proto_rawDescGZIP() []byte {
-	file_pb_PublicLimitDepthsV3Api_proto_rawDescOnce.Do(func() {
-		file_pb_PublicLimitDepthsV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pb_PublicLimitDepthsV3Api_proto_rawDesc), len(file_pb_PublicLimitDepthsV3Api_proto_rawDesc)))
+func file_PublicLimitDepthsV3Api_proto_rawDescGZIP() []byte {
+	file_PublicLimitDepthsV3Api_proto_rawDescOnce.Do(func() {
+		file_PublicLimitDepthsV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_PublicLimitDepthsV3Api_proto_rawDesc), len(file_PublicLimitDepthsV3Api_proto_rawDesc)))
 	})
-	return file_pb_PublicLimitDepthsV3Api_proto_rawDescData
+	return file_PublicLimitDepthsV3Api_proto_rawDescData
 }
 
-var file_pb_PublicLimitDepthsV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_pb_PublicLimitDepthsV3Api_proto_goTypes = []any{
+var file_PublicLimitDepthsV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_PublicLimitDepthsV3Api_proto_goTypes = []any{
 	(*PublicLimitDepthsV3Api)(nil),    // 0: PublicLimitDepthsV3Api
 	(*PublicLimitDepthV3ApiItem)(nil), // 1: PublicLimitDepthV3ApiItem
 }
-var file_pb_PublicLimitDepthsV3Api_proto_depIdxs = []int32{
+var file_PublicLimitDepthsV3Api_proto_depIdxs = []int32{
 	1, // 0: PublicLimitDepthsV3Api.asks:type_name -> PublicLimitDepthV3ApiItem
 	1, // 1: PublicLimitDepthsV3Api.bids:type_name -> PublicLimitDepthV3ApiItem
 	2, // [2:2] is the sub-list for method output_type
@@ -185,26 +185,26 @@ var file_pb_PublicLimitDepthsV3Api_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_pb_PublicLimitDepthsV3Api_proto_init() }
-func file_pb_PublicLimitDepthsV3Api_proto_init() {
-	if File_pb_PublicLimitDepthsV3Api_proto != nil {
+func init() { file_PublicLimitDepthsV3Api_proto_init() }
+func file_PublicLimitDepthsV3Api_proto_init() {
+	if File_PublicLimitDepthsV3Api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_PublicLimitDepthsV3Api_proto_rawDesc), len(file_pb_PublicLimitDepthsV3Api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_PublicLimitDepthsV3Api_proto_rawDesc), len(file_PublicLimitDepthsV3Api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_pb_PublicLimitDepthsV3Api_proto_goTypes,
-		DependencyIndexes: file_pb_PublicLimitDepthsV3Api_proto_depIdxs,
-		MessageInfos:      file_pb_PublicLimitDepthsV3Api_proto_msgTypes,
+		GoTypes:           file_PublicLimitDepthsV3Api_proto_goTypes,
+		DependencyIndexes: file_PublicLimitDepthsV3Api_proto_depIdxs,
+		MessageInfos:      file_PublicLimitDepthsV3Api_proto_msgTypes,
 	}.Build()
-	File_pb_PublicLimitDepthsV3Api_proto = out.File
-	file_pb_PublicLimitDepthsV3Api_proto_goTypes = nil
-	file_pb_PublicLimitDepthsV3Api_proto_depIdxs = nil
+	File_PublicLimitDepthsV3Api_proto = out.File
+	file_PublicLimitDepthsV3Api_proto_goTypes = nil
+	file_PublicLimitDepthsV3Api_proto_depIdxs = nil
 }

@@ -8,7 +8,6 @@ option java_multiple_files = true;
 option java_outer_classname = "PublicLimitDepthsV3ApiProto";
 option go_package = "proto-ws-go/pb";
 
-
 message PublicLimitDepthsV3Api {
 
   repeated PublicLimitDepthV3ApiItem asks  = 1;

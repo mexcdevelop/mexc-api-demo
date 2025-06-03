@@ -4,7 +4,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: pb/PublicMiniTickerV3Api.proto
+// source: PublicMiniTickerV3Api.proto
 
 package pb
 
@@ -55,7 +55,7 @@ type PublicMiniTickerV3Api struct {
 
 func (x *PublicMiniTickerV3Api) Reset() {
 	*x = PublicMiniTickerV3Api{}
-	mi := &file_pb_PublicMiniTickerV3Api_proto_msgTypes[0]
+	mi := &file_PublicMiniTickerV3Api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -67,7 +67,7 @@ func (x *PublicMiniTickerV3Api) String() string {
 func (*PublicMiniTickerV3Api) ProtoMessage() {}
 
 func (x *PublicMiniTickerV3Api) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_PublicMiniTickerV3Api_proto_msgTypes[0]
+	mi := &file_PublicMiniTickerV3Api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -80,7 +80,7 @@ func (x *PublicMiniTickerV3Api) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicMiniTickerV3Api.ProtoReflect.Descriptor instead.
 func (*PublicMiniTickerV3Api) Descriptor() ([]byte, []int) {
-	return file_pb_PublicMiniTickerV3Api_proto_rawDescGZIP(), []int{0}
+	return file_PublicMiniTickerV3Api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PublicMiniTickerV3Api) GetSymbol() string {
@@ -167,11 +167,11 @@ func (x *PublicMiniTickerV3Api) GetLastCloseLow() string {
 	return ""
 }
 
-var File_pb_PublicMiniTickerV3Api_proto protoreflect.FileDescriptor
+var File_PublicMiniTickerV3Api_proto protoreflect.FileDescriptor
 
-const file_pb_PublicMiniTickerV3Api_proto_rawDesc = "" +
+const file_PublicMiniTickerV3Api_proto_rawDesc = "" +
 	"\n" +
-	"\x1epb/PublicMiniTickerV3Api.proto\"\xf1\x02\n" +
+	"\x1bPublicMiniTickerV3Api.proto\"\xf1\x02\n" +
 	"\x15PublicMiniTickerV3Api\x12\x16\n" +
 	"\x06symbol\x18\x01 \x01(\tR\x06symbol\x12\x14\n" +
 	"\x05price\x18\x02 \x01(\tR\x05price\x12\x12\n" +
@@ -185,26 +185,26 @@ const file_pb_PublicMiniTickerV3Api_proto_rawDesc = "" +
 	"\x12lastCloseZonedRate\x18\n" +
 	" \x01(\tR\x12lastCloseZonedRate\x12$\n" +
 	"\rlastCloseHigh\x18\v \x01(\tR\rlastCloseHigh\x12\"\n" +
-	"\flastCloseLow\x18\f \x01(\tR\flastCloseLowBe\n" +
-	"\x1ccom.mxc.push.common.protobufB\x1aPublicMiniTickerV3ApiProtoH\x01P\x01Z%/Users/admin/Downloads/proto-ws-go/pbb\x06proto3"
+	"\flastCloseLow\x18\f \x01(\tR\flastCloseLowBN\n" +
+	"\x1ccom.mxc.push.common.protobufB\x1aPublicMiniTickerV3ApiProtoH\x01P\x01Z\x0eproto-ws-go/pbb\x06proto3"
 
 var (
-	file_pb_PublicMiniTickerV3Api_proto_rawDescOnce sync.Once
-	file_pb_PublicMiniTickerV3Api_proto_rawDescData []byte
+	file_PublicMiniTickerV3Api_proto_rawDescOnce sync.Once
+	file_PublicMiniTickerV3Api_proto_rawDescData []byte
 )
 
-func file_pb_PublicMiniTickerV3Api_proto_rawDescGZIP() []byte {
-	file_pb_PublicMiniTickerV3Api_proto_rawDescOnce.Do(func() {
-		file_pb_PublicMiniTickerV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pb_PublicMiniTickerV3Api_proto_rawDesc), len(file_pb_PublicMiniTickerV3Api_proto_rawDesc)))
+func file_PublicMiniTickerV3Api_proto_rawDescGZIP() []byte {
+	file_PublicMiniTickerV3Api_proto_rawDescOnce.Do(func() {
+		file_PublicMiniTickerV3Api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_PublicMiniTickerV3Api_proto_rawDesc), len(file_PublicMiniTickerV3Api_proto_rawDesc)))
 	})
-	return file_pb_PublicMiniTickerV3Api_proto_rawDescData
+	return file_PublicMiniTickerV3Api_proto_rawDescData
 }
 
-var file_pb_PublicMiniTickerV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_pb_PublicMiniTickerV3Api_proto_goTypes = []any{
+var file_PublicMiniTickerV3Api_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_PublicMiniTickerV3Api_proto_goTypes = []any{
 	(*PublicMiniTickerV3Api)(nil), // 0: PublicMiniTickerV3Api
 }
-var file_pb_PublicMiniTickerV3Api_proto_depIdxs = []int32{
+var file_PublicMiniTickerV3Api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -212,26 +212,26 @@ var file_pb_PublicMiniTickerV3Api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_pb_PublicMiniTickerV3Api_proto_init() }
-func file_pb_PublicMiniTickerV3Api_proto_init() {
-	if File_pb_PublicMiniTickerV3Api_proto != nil {
+func init() { file_PublicMiniTickerV3Api_proto_init() }
+func file_PublicMiniTickerV3Api_proto_init() {
+	if File_PublicMiniTickerV3Api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_PublicMiniTickerV3Api_proto_rawDesc), len(file_pb_PublicMiniTickerV3Api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_PublicMiniTickerV3Api_proto_rawDesc), len(file_PublicMiniTickerV3Api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_pb_PublicMiniTickerV3Api_proto_goTypes,
-		DependencyIndexes: file_pb_PublicMiniTickerV3Api_proto_depIdxs,
-		MessageInfos:      file_pb_PublicMiniTickerV3Api_proto_msgTypes,
+		GoTypes:           file_PublicMiniTickerV3Api_proto_goTypes,
+		DependencyIndexes: file_PublicMiniTickerV3Api_proto_depIdxs,
+		MessageInfos:      file_PublicMiniTickerV3Api_proto_msgTypes,
 	}.Build()
-	File_pb_PublicMiniTickerV3Api_proto = out.File
-	file_pb_PublicMiniTickerV3Api_proto_goTypes = nil
-	file_pb_PublicMiniTickerV3Api_proto_depIdxs = nil
+	File_PublicMiniTickerV3Api_proto = out.File
+	file_PublicMiniTickerV3Api_proto_goTypes = nil
+	file_PublicMiniTickerV3Api_proto_depIdxs = nil
 }

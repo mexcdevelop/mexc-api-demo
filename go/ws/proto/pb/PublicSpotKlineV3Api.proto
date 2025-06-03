@@ -8,7 +8,6 @@ option java_multiple_files = true;
 option java_outer_classname = "PublicSpotKlineV3ApiProto";
 option go_package = "proto-ws-go/pb";
 
-
 message PublicSpotKlineV3Api {
   //K线周期(Min1,Min5,Min15,Min30,Min60,Hour4,Hour8,Day1,Week1,Month1)
   string interval = 1;
