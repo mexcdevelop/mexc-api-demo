@@ -2,262 +2,9 @@ const { validateRequiredParameters } = require('../helpers/validation')
 const Spot = superclass => class extends superclass {
 
   /**
-   * @V2
-   */
-  //所有交易对信息
-  symbols() {
-    return this.PublicRequest('GET', '/open/api/v2/market/symbols')
-  }
-
-  //当前系统时间
-  servertime() {
-    return this.PublicRequest('GET', '/open/api/v2/common/timestamp')
-  }
-
-  //ping
-  ping() {
-    return this.PublicRequest('GET', '/open/api/v2/common/ping')
-  }
-
-  //获取平台支持接口的交易对
-  defaultSymbols(options = {}) {
-    return this.PublicRequest(
-      'GET',
-      '/open/api/v2/market/ticker',
-      options
-    )
-  }
-
-  //Ticker行情
-  ticker(options = {}) {
-    return this.PublicRequest(
-      'GET',
-      '/open/api/v2/market/ticker',
-      options
-    )
-  }
-
-  //深度信息
-  depth(options = {}) {
-    return this.PublicRequest(
-      'GET',
-      '/open/api/v2/market/depth',
-      options
-    )
-  }
-
-
-  //成交记录
-  deals(options = {}) {
-    return this.PublicRequest(
-      'GET',
-      '/open/api/v2/market/deals',
-      options
-    )
-  }
-
-  //K线数据
-  kline(options = {}) {
-    return this.PublicRequest(
-      'GET',
-      '/open/api/v2/market/kline',
-      options
-    )
-  }
-
-  //获取币种信息
-  coinList() {
-    return this.PublicRequest('GET', '/open/api/v2/market/coin/list')
-  }
-
-  //账户余额
-  account(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/account/info',
-      options
-    )
-  }
-
-  //获取账户可接口交易的交易对
-  apiAccount(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/market/api_symbols',
-      options,
-    )
-  }
-
-  //下单
-  placeOrder(options = {}) {
-    return this.SignRequest(
-      'POST',
-      '/open/api/v2/order/place',
-      options,
-
-    )
-  }
-
-  //撤销订单
-  cancelOrder(options = {}) {
-    return this.SignRequest(
-      'DELETE',
-      '/open/api/v2/order/cancel',
-      options
-    )
-  }
-
-  //批量下单
-  muiltPlaceOrder(options = {}) {
-    return this.SignRequest(
-      'POST',
-      '/open/api/v2/order/place_batch',
-      options
-    )
-  }
-
-  //当前挂单
-  getOpenOrder(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/order/open_orders',
-      options
-    )
-  }
-
-  //所有订单
-  getAllOrder(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/order/list',
-      options
-    )
-  }
-
-  //查询订单
-  queryOrderById(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/order/query',
-      options
-    )
-  }
-
-  //个人成交记录
-  getOrderDeal(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/order/deals',
-      options
-    )
-  }
-
-  //成交明细
-  queryOrderDealById(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/order/deal_detail',
-      options
-    )
-  }
-
-  //按交易对撤销订单
-  cancelBySymbol(options = {}) {
-    return this.SignRequest(
-      'DELETE',
-      '/open/api/v2/order/cancel_by_symbol',
-      options
-    )
-  }
-
-
-
-
-
-  //获取充币地址
-  getDepositList(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/asset/deposit/address/list',
-      options
-    )
-  }
-
-  //充值记录查询
-  getDepositRecord(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/asset/deposit/list',
-      options
-    )
-  }
-
-  //提币地址列表查询
-  getWithdrawList(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/asset/withdraw/list',
-      options
-    )
-  }
-
-  //提币
-  withdraw(options = {}) {
-    return this.SignRequest(
-      'POST',
-      '/open/api/v2/asset/withdraw',
-      options
-    )
-  }
-
-  //取消提币
-  cancelWithdraw(options = {}) {
-    return this.SignRequest(
-      'DELETE',
-      '/open/api/v2/asset/withdraw',
-      options
-    )
-  }
-
-  //内部资金划转
-  transFer(options = {}) {
-    return this.SignRequest(
-      'POST',
-      '/open/api/v2/asset/internal/transfer',
-      options
-    )
-  }
-
-  //内部资金转账记录
-  getTransferRecord(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/asset/internal/transfer/record',
-      options
-    )
-  }
-
-  //获取可划转资金
-  getAvlTransfer(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/account/balance',
-      options
-    )
-  }
-
-  //内部资金划转订单查询
-  queryTransferRecordById(options = {}) {
-    return this.SignRequest(
-      'GET',
-      '/open/api/v2/asset/internal/transfer/info',
-      options
-    )
-  }
-
-  /**
    * @V3
    */
+  //*行情接口*//
   //测试服务的连通性
   TestConnectivity() {
     return this.publicRequest('GET', '/api/v3/ping')
@@ -338,9 +85,14 @@ const Spot = superclass => class extends superclass {
     return this.publicRequest('GET', '/api/v3/ticker/bookTicker')
   }
 
-  //获取ETF
-  Etfinfo() {
-    return this.publicRequest('GET', 'api/v3/etf/info')
+  //*现货账户和交易接口*//
+  //查询账户KYC状态
+  KycStatus(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/kyc/status',
+      options
+    )
   }
 
   //用户API交易对
@@ -460,8 +212,17 @@ const Spot = superclass => class extends superclass {
       options
     )
   }
-  //*母子账户接口*//
 
+  //查看手续费率
+  TradeFee(options = {}) {
+    return this.signRequest(
+      'GET',
+      'api/v3/tradeFee',
+      options
+    )
+  }
+
+  //*母子账户接口*//
   //创建子账户
   VirtualSubAccount(options = {}) {
     return this.signRequest(
@@ -525,7 +286,14 @@ const Spot = superclass => class extends superclass {
     )
   }
 
-
+  //查询子账户的APIkey
+  GetAsset(options = {}) {
+    return this.signRequest(
+      'GET',
+      '/api/v3/sub-account/asset',
+      options
+    )
+  }
 
   //*钱包接口*//
   //查询币种信息
@@ -541,7 +309,7 @@ const Spot = superclass => class extends superclass {
   WithDraw(options = {}) {
     return this.signRequest(
       'POST',
-      '/api/v3/capital/withdraw/apply',
+      '/api/v3/capital/withdraw',
       options
     )
   }
@@ -618,7 +386,7 @@ const Spot = superclass => class extends superclass {
   }
 
   //查询用户万向划转历史(ID)
-  TransferHistory(options = {}) {
+  TransferHistoryId(options = {}) {
     return this.signRequest(
       'GET',
       '/api/v3/capital/transfer/tranId',
