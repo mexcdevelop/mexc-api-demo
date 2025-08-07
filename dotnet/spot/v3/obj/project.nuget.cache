@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8RZwQbRUWg47ymDOsywTaG6UyitH8/5PykDpiKj/azTCnRHQOP96KV8gKlYaz14B2U7sC1CL/P3kBdERQ3xzLw==",
+  "dgSpecHash": "ksErJ499A8Q=",
   "success": true,
-  "projectFilePath": "/Users/xiechenghan/Desktop/mexc_Csharp_demo/mexc-v3-dotnet/MexcDotNet.csproj",
+  "projectFilePath": "/Users/xiechenghan/mexc-api-demo/dotnet/spot/v3/MexcDotNet.csproj",
   "expectedPackageFiles": [
     "/Users/xiechenghan/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512"
   ],

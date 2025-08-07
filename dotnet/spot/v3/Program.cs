@@ -131,6 +131,12 @@ namespace MexcDotNet
 
     private static async Task Trade(MexcService MexcService)
     {
+      /// Query KYC status
+      using (var response = MexcService.SendSignedAsync("/api/v3/kyc/status", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
       /// Account SelfSymbols
       using (var response = MexcService.SendSignedAsync("/api/v3/selfSymbols", HttpMethod.Get))
       {
@@ -229,6 +235,12 @@ namespace MexcDotNet
       {
         Console.WriteLine(await response);
       };
+
+      /// Query Symbol Commission
+      using (var response = MexcService.SendSignedAsync("/api/v3/tradeFee", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
     }
 
     private static async Task Sub_Account(MexcService MexcService)
@@ -290,6 +302,14 @@ namespace MexcDotNet
       {
         Console.WriteLine(await response);
       };
+
+      /// Get SubAccount Asset
+      using (var response = MexcService.SendSignedAsync("/api/v3/sub-account/asset", HttpMethod.Get, new Dictionary<string, object> {
+                {"subAccount", "xxxx"}, {"accountType", "xxxx"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
     }
 
     private static async Task Capital(MexcService MexcService)
@@ -300,7 +320,16 @@ namespace MexcDotNet
         Console.WriteLine(await response);
       };
 
-      /// Withdraw
+      /// Withdraw(new)
+      using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw", HttpMethod.Post, new Dictionary<string, object> {
+                {"coin", "USDT"}, {"withdrawOrderId", "1234554321"}, {"netWork", "TRX"}, {"address", "xxx"}, {"memo", "xxx"},
+                {"amount", "1000"}, {"remark", "test-withdraw"}
+            }))
+      {
+        Console.WriteLine(await response);
+      };
+
+      /// Withdraw(previous)
       using (var response = MexcService.SendSignedAsync("/api/v3/capital/withdraw/apply", HttpMethod.Post, new Dictionary<string, object> {
                 {"coin", "USDT"}, {"withdrawOrderId", "1234554321"}, {"network", "Tron(TRC20)"}, {"address", "xxx"}, {"memo", "xxx"},
                 {"amount", "1000"}, {"remark", "test-withdraw"}

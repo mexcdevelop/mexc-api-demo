@@ -1,3 +1,8 @@
 is_global = true
 build_property.RootNamespace = MexcDotNet
-build_property.ProjectDir = /Users/xiechenghan/Desktop/mexc_Csharp_demo/v3/
+build_property.ProjectDir = /Users/xiechenghan/mexc-api-demo/dotnet/spot/v3/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

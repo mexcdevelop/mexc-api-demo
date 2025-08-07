@@ -12,5 +12,5 @@ params = {
     # "startTime": "xxx",
     # "endTime": "xxx"
 }
-AllOrders = trade.get_mytrades(params)
+AllOrders = trade.get_trades(params)
 print(AllOrders)

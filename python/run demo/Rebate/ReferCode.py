@@ -5,5 +5,5 @@ rebate = mexc_spot_v3.mexc_rebate()
 
 # Enter parameters in JSON format in the "params", for example: {"symbol":"BTCUSDT", "limit":"200"}
 # If there are no parameters, no need to send params
-ReferCode = rebate.get_inviter()
+ReferCode = rebate.get_refercode()
 print(ReferCode)

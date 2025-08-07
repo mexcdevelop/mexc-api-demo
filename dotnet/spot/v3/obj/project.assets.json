@@ -1,14 +1,18 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net9.0": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -43,7 +47,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net9.0": [
       "Newtonsoft.Json >= 13.0.1"
     ]
   },
@@ -53,24 +57,24 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/xiechenghan/Desktop/mexc_Csharp_demo/mexc-v3-dotnet/MexcDotNet.csproj",
+      "projectUniqueName": "/Users/xiechenghan/mexc-api-demo/dotnet/spot/v3/MexcDotNet.csproj",
       "projectName": "MexcDotNet",
-      "projectPath": "/Users/xiechenghan/Desktop/mexc_Csharp_demo/mexc-v3-dotnet/MexcDotNet.csproj",
+      "projectPath": "/Users/xiechenghan/mexc-api-demo/dotnet/spot/v3/MexcDotNet.csproj",
       "packagesPath": "/Users/xiechenghan/.nuget/packages/",
-      "outputPath": "/Users/xiechenghan/Desktop/mexc_Csharp_demo/mexc-v3-dotnet/obj/",
+      "outputPath": "/Users/xiechenghan/mexc-api-demo/dotnet/spot/v3/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/xiechenghan/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net9.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "projectReferences": {}
         }
       },
@@ -78,11 +82,17 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
-      "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
+      "net9.0": {
+        "targetAlias": "net9.0",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -95,7 +105,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -104,7 +115,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
