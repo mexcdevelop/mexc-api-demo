@@ -11,7 +11,7 @@ import (
 
 //现货参数
 // var params string = ""
-var params string = `{}`
+var params string = `{"coin":"USDT","address":"0xebe4804f7ecc22d5011c42e6ea1f22e6c891d89b","network":"BNB Smart Chain(BEP20)","amount":"10"}`
 
 func main() {
 
