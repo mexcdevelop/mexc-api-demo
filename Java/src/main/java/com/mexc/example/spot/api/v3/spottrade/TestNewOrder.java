@@ -2,6 +2,7 @@ package com.mexc.example.spot.api.v3.spottrade;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.mexc.example.common.JsonUtil;
+import com.mexc.example.common.TestConfig;
 import com.mexc.example.common.UserDataClient;
 import com.mexc.example.spot.api.v3.pojo.OrderPlaceResp;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class TestNewOrder {
     public static void main(String[] args) throws Exception {
         Map<String, String> params = new HashMap<>();
         //symbol=AEUSDT&side=SELL&type=LIMIT&timeInForce=GTC&quantity=1&price=20
-        params.put("symbol", URLEncoder.encode("BTCUSDT", "UTF-8").replaceAll("\\+", "%20"));
+        params.put("symbol", URLEncoder.encode(TestConfig.TEST_SYMBOL, "UTF-8").replaceAll("\\+", "%20"));
         params.put("side", "SELL");
         params.put("type", "LIMIT");
         params.put("quantity", "1");

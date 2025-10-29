@@ -1,23 +1,27 @@
 package com.mexc.example.common;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.gson.Gson;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
-
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.gson.Gson;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 public class UserDataClient {
-    private static final String REQUEST_HOST = "https://api.mexc.com";
+    private static final String REQUEST_HOST = TestConfig.BASE_URL;
 
     private static final OkHttpClient OK_HTTP_CLIENT = createOkHttpClient();
 
-    private static final String accessKey = "";
-    private static final String secretKey = "";
+    private static final String accessKey = TestConfig.ACCESS_KEY;
+    private static final String secretKey = TestConfig.SECRET_KEY;
 
     private static OkHttpClient createOkHttpClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
