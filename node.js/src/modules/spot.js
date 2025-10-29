@@ -63,7 +63,7 @@ const Spot = superclass => class extends superclass {
 
   //当前平均价格
   CurrentAveragePrice(options = {}) {
-    return this.publicRequest(
+    return this.signRequest(
       'GET',
       '/api/v3/avgPrice',
       options

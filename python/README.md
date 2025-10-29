@@ -4,27 +4,71 @@ Before you use the demo, you need to generate your apikey & apisecret, then ente
 
 * <https://www.mexc.com/user/openapi>
 
+## Prerequisites
+
+This project requires `uv` for Python environment management. Install it first:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# or
+pip install uv
+```
+
+## Setup
+
+1. **Create virtual environment and install dependencies:**
+
+```bash
+cd python
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install requests
+```
+
+2. **Configure API credentials:**
+
+Fill in your API key and Secret key in `python/spot/config.py`
+
+```python
+mexc_host = "https://api.mexc.com"  # or test environment URL
+api_key = "your apikey"
+secret_key = "your secretkey"
+```
+
 ## Spot V3 Demo
 
 Fill in the corresponding function according to the parameters mentioned in the API documentation and execute it. => `print()`
-
 
 **Rest API V3 doc**   `URL = 'https://api.mexc.com'`
 
 * <https://mexcdevelop.github.io/apidocs/spot_v3_en/#introduction>
 
+## Running Examples
 
-> ### Example(Spot V3) :
+### Method 1: Using uv run (Recommended)
 
-Fill in your API key and Secret key in " python/spot/config.py "
-
-```python
-mexc_host = "https://api.mexc.com"
-api_key = "your apikey"
-secret_key = "your secretkey"
+```bash
+cd python
+PYTHONPATH=.. uv run "run demo/Market Data/ExchangeInfo.py"
 ```
 
-Select the corresponding file in the " python/run demo " folder to execute
+### Method 2: Using uv with activated environment
+
+```bash
+cd python
+source .venv/bin/activate
+PYTHONPATH=.. python "run demo/Market Data/ExchangeInfo.py"
+```
+
+### Method 3: From project root
+
+```bash
+# From project root directory
+PYTHONPATH=. python3 "python/run demo/Market Data/ExchangeInfo.py"
+```
+
+> ### Example(Spot V3) :
 
 Example " python/run demo/Market Data/ExchangeInfo.py "
 
@@ -41,6 +85,12 @@ params = {
 ExchangeInfo = market.get_exchangeInfo(params)
 print(ExchangeInfo)
 ```
+
+## Notes
+
+- Some APIs (like `get_avgprice`) require signature authentication even in test environments
+- The virtual environment (.venv) and Python cache files (__pycache__, *.pyc) are ignored by git
+- Make sure to activate the virtual environment before running any scripts
 
 ## Spot Websocket Demo
 

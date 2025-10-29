@@ -8,6 +8,7 @@ import com.mexc.example.common.UserDataClient;
 import com.mexc.example.spot.api.v3.pojo.Order;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +19,10 @@ public class AllOrders {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //get all orders
         List<Order> allOrders = allOrders(Maps.newHashMap(ImmutableMap.<String, String>builder()
-                .put("symbol", "BTCUSDT")
+                .put("symbol", URLEncoder.encode("BTCUSDT", "UTF-8").replaceAll("\\+", "%20"))
                 .build()));
         log.info("==>>allOrders:{}", JsonUtil.toJson(allOrders));
     }

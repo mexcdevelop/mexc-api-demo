@@ -2,7 +2,7 @@ import requests
 import hmac
 import hashlib
 from urllib.parse import urlencode, quote
-import config
+from . import config
 
 # ServerTime、Signature
 class TOOL(object):
@@ -176,7 +176,7 @@ class mexc_market(TOOL):
             symbol (str): the trading pair
         """
         url = '{}{}'.format(self.api, '/avgPrice')
-        response = self.public_request(self.method, url, params=params)
+        response = self.sign_request(self.method, url, params=params)
         return response.json()
 
     def get_24hr_ticker(self, params=None):

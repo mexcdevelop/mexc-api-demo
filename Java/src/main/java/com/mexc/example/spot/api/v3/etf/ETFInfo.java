@@ -8,6 +8,7 @@ import com.mexc.example.common.MarketDataClient;
 import com.mexc.example.spot.api.v3.pojo.EtfInfo;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +20,10 @@ public class ETFInfo {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         HashMap<String, String> symbolParams = Maps.newHashMap(ImmutableMap.<String, String>builder()
-                .put("symbol", "BTCUSDT3L")
+                .put("symbol", URLEncoder.encode("BTCUSDT3L", "UTF-8").replaceAll("\\+", "%20"))
                 .build());
 
         log.info("=>>etfInfo:{}", JsonUtil.toJson(etfInfo(symbolParams)));
