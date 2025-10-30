@@ -32,7 +32,7 @@ def main():
     # Initialize test client
     test_client = TestNewOrder()
     
-    symbol = "🤮🐰💗❤️🌞💤📖⛰️USDT"
+    symbol = "️MXUSDT"
     # Basic parameters
     all_params = {
         "symbol": symbol,
