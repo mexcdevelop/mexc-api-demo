@@ -1,22 +1,44 @@
-import requests
-import hmac
 import hashlib
-from urllib.parse import urlencode, quote
+import hmac
+import logging
+from urllib.parse import quote, urlencode
+
+import requests
+
 from . import config
+
 
 # ServerTime、Signature
 class TOOL(object):
 
-    @staticmethod
-    def _get_server_time():
-        return requests.request('get', 'https://api.mexc.com/api/v3/time').json()['serverTime']
+    def _get_server_time(self):
+        url = '{}{}'.format(self.hosts, '/api/v3/time')
+        return requests.request('get', url).json()['serverTime']
 
-    def _sign_v3(self, req_time, sign_params=None):
+    def _sign_v3(self, req_time, sign_params=None, body_params=None):
+        """
+        Generate signature for mixed parameters (query string + body)
+        sign_params: query string parameters
+        body_params: request body parameters
+        """
+        signature_builder = []
+        
+        # Add query string parameters (URL encoded)
         if sign_params:
-            sign_params = urlencode(sign_params, quote_via=quote)
-            to_sign = "{}&timestamp={}".format(sign_params, req_time)
+            for key, value in sign_params.items():
+                signature_builder.append(f"{key}={quote(str(value))}")
+        
+        # Add body parameters (URL encoded) including timestamp
+        if body_params:
+            body_params_with_timestamp = body_params.copy()
+            body_params_with_timestamp['timestamp'] = req_time
+            
+            for key, value in body_params_with_timestamp.items():
+                signature_builder.append(f"{key}={quote(str(value))}")
         else:
-            to_sign = "timestamp={}".format(req_time)
+            signature_builder.append(f"timestamp={req_time}")
+        
+        to_sign = "&".join(signature_builder)
         sign = hmac.new(self.mexc_secret.encode('utf-8'), to_sign.encode('utf-8'), hashlib.sha256).hexdigest()
         return sign
 
@@ -280,6 +302,39 @@ class mexc_trade(TOOL):
         url = '{}{}'.format(self.api, '/order/test')
         response = self.sign_request(method, url, params=params)
         return response.json()
+
+    def post_order_test_via_body(self, params):
+        """Test New Order - Via Request Body
+        All parameters sent via request body (form-encoded).
+
+        POST /api/v3/order/test
+        """
+        url = '{}{}/order/test'.format(self.hosts, self.api)
+        req_time = self._get_server_time()
+        params['timestamp'] = req_time
+        signature = self._sign_v3(req_time=req_time, body_params=params)
+        params['signature'] = signature
+        body_builder = []
+        for key, value in params.items():
+            body_builder.append(f"{key}={str(value)}")
+
+        headers = {
+            'X-MEXC-APIKEY': self.mexc_key,
+            'Content-Type': 'application/json'
+        }
+        body_data = "&".join(body_builder)
+        
+        # Send parameters via request body 
+        response = requests.post(url, data=body_data, headers=headers)
+        return response.json()
+
+    def post_order_test_query_only(self, params):
+        """Test New Order - Query String Only
+        All parameters sent via query string with empty body.
+
+        POST /api/v3/order/test
+        """
+        return self.post_order_test(params) 
 
     def post_order(self, params):
         """New Order
