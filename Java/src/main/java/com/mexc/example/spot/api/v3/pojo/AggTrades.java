@@ -19,12 +19,12 @@ public class AggTrades {
      * },
      */
 
-    private Long a;         // 归集成交ID
-    private Long f;     // 被归集的末个成交ID
-    private Long l;     // 被归集的末个成交ID
-    private String p;   // 成交价
-    private String q;     // 成交量
-    private Long T;       // 成交时间
-    private Boolean m; // 是否为主动卖出单
-    private Boolean M; // 是否为最优撮合单(可忽略，目前总为最优撮合)
+    private Long a;         // Aggregate trade ID
+    private Long f;     // First trade ID
+    private Long l;     // Last trade ID
+    private String p;   // Price
+    private String q;     // Quantity
+    private Long T;       // Timestamp
+    private Boolean m; // Was the buyer the maker?
+    private Boolean M; // Was the trade the best price match? (can be ignored, currently always true)
 }

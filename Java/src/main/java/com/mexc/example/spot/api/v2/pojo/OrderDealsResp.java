@@ -23,7 +23,7 @@ public class OrderDealsResp {
     @JsonProperty("order_id")
     private String orderId;
     /**
-     * 对手单ID
+     * Opponent order ID
      */
     @JsonProperty("opponent_order_id")
     private String opponentOrderId;
