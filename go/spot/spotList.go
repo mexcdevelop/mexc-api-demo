@@ -87,7 +87,7 @@ func AvgPrice(jsonParams string) interface{} {
 	caseUrl := "/avgPrice"
 	requestUrl := config.BASE_URL + caseUrl
 	fmt.Println("requestUrl:", requestUrl)
-	response := utils.PublicGet(requestUrl, jsonParams)
+	response := utils.PrivateGet(requestUrl, jsonParams)
 	return response
 }
 

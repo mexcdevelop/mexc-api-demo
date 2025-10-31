@@ -7,14 +7,15 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/go-resty/resty/v2"
 	"log"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/go-resty/resty/v2"
 )
 
-//公共get请求
+// 公共get请求
 func PublicGet(urlStr string, jsonParams string) interface{} {
 	var path string
 	if jsonParams == "" {
@@ -37,7 +38,7 @@ func PublicGet(urlStr string, jsonParams string) interface{} {
 	return resp
 }
 
-//私有get请求
+// 私有get请求
 func PrivateGet(urlStr string, jsonParams string) interface{} {
 	var path string
 	timestamp := time.Now().UnixNano() / 1e6
@@ -74,7 +75,7 @@ func PrivateGet(urlStr string, jsonParams string) interface{} {
 	return resp
 }
 
-//私有post请求
+// 私有post请求
 func PrivatePost(urlStr string, jsonParams string) interface{} {
 	var path string
 	timestamp := time.Now().UnixNano() / 1e6
@@ -111,7 +112,7 @@ func PrivatePost(urlStr string, jsonParams string) interface{} {
 	return resp
 }
 
-//私有delete请求
+// 私有delete请求
 func PrivateDelete(urlStr string, jsonParams string) interface{} {
 	var path string
 	timestamp := time.Now().UnixNano() / 1e6
@@ -148,7 +149,7 @@ func PrivateDelete(urlStr string, jsonParams string) interface{} {
 	return resp
 }
 
-//私有put请求
+// 私有put请求
 func PrivatePut(urlStr string, jsonParams string) interface{} {
 	var path string
 	timestamp := time.Now().UnixNano() / 1e6
@@ -185,7 +186,7 @@ func PrivatePut(urlStr string, jsonParams string) interface{} {
 	return resp
 }
 
-//格式化参数字符串
+// 格式化参数字符串
 func JsonToParamStr(jsonParams string) string {
 	//转化json参数->参数字符串
 	var paramsarr []string
@@ -198,8 +199,9 @@ func JsonToParamStr(jsonParams string) string {
 	fmt.Printf("map:%v\n", m)
 	i := 0
 	for key, value := range m {
-
-		arritem = fmt.Sprintf("%s=%s", key, value)
+		// 对参数值进行URL编码，避免中文乱码问题
+		encodedValue := strings.Replace(url.QueryEscape(value), "+", "%20", -1)
+		arritem = fmt.Sprintf("%s=%s", key, encodedValue)
 		paramsarr = append(paramsarr, arritem)
 		i++
 		fmt.Println("遍历：", i, "总共", len(m))
@@ -212,12 +214,12 @@ func JsonToParamStr(jsonParams string) string {
 	return paramsstr
 }
 
-//urlencode
+// urlencode
 func ParamsEncode(paramStr string) string {
 	return strings.Replace(url.QueryEscape(paramStr), "+", "%20", -1)
 }
 
-//加密
+// 加密
 func ComputeHmac256(Message string, sec_key string) string {
 	key := []byte(sec_key)
 	h := hmac.New(sha256.New, key)

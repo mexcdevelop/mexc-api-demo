@@ -277,7 +277,7 @@ public class MexcApiV2Example {
                 .put("symbol", "ETH_USDT")
                 .put("depth", "10")
                 .build()));
-        log.info("==>>交易对深度:{}", gson.toJson(depth));
+        log.info("==>>Trading pair depth:{}", gson.toJson(depth));
 
         //deals
         Result<List<TradeHistory>> deals = example.deals(Maps.newHashMap(ImmutableMap.<String, String>builder()

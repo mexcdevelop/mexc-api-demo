@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MarketDataClient {
 
-    private static final String REQUEST_HOST = "https://api.mexc.com";
+    private static final String REQUEST_HOST = TestConfig.BASE_URL;
     private static final OkHttpClient OK_HTTP_CLIENT = createOkHttpClient();
 
     private static OkHttpClient createOkHttpClient() {
