@@ -26,7 +26,6 @@ def on_close(ws, close_status_code, close_msg):
 
 def on_open(ws):
     """
-    根據想訂閱信息，依照websocket文檔更改params中的內容，例如: "method"及"param"
     According to the information you want to subscribe,
     change the content of the params according to the websocket documentation,
     ex: "method" and "param"

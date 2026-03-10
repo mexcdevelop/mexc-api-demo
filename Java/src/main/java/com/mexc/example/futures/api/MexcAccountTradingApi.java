@@ -159,17 +159,6 @@ public class MexcAccountTradingApi extends MexcOkHttpClient {
         return getSigned("/api/v1/private/account/asset/analysis/today_pnl", null);
     }
 
-
-    /**
-     * Get Account Configuration
-     * GET /api/v1/private/account/config/contractFeeDiscountConfig
-     */
-    public JsonObject getAccountConfig() throws IOException {
-        System.out.println("\n=== Get Account Configuration ===");
-        return getSigned("/api/v1/private/account/config/contractFeeDiscountConfig", null);
-    }
-
-
     /**
      * Get Contract Fee Discount Configuration
      * GET /api/v1/private/account/config/contractFeeDiscountConfig
@@ -595,16 +584,6 @@ public class MexcAccountTradingApi extends MexcOkHttpClient {
      */
     public JsonObject getDealDetailsByOrderId(String orderId) throws IOException {
         System.out.println("\n=== Get Deal Details by Order ID: " + orderId + " ===");
-        String endpoint = "/api/v1/private/order/deal_details/" + orderId;
-        return getSigned(endpoint, null);
-    }
-
-    /**
-     * Get Deal Details by Order ID (alternative path)
-     * GET /api/v1/private/order/deal_details/{orderId}
-     */
-    public JsonObject getDealDetails(String orderId) throws IOException {
-        System.out.println("\n=== Get Deal Details: " + orderId + " ===");
         String endpoint = "/api/v1/private/order/deal_details/" + orderId;
         return getSigned(endpoint, null);
     }

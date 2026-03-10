@@ -100,12 +100,6 @@ class TestAccountInfo:
         assert response is not None
         assert response.get("success") is True
     
-    def test_get_account_config(self, client: MexcAccountTradingApi):
-        """Test get account configuration"""
-        response = client.get_account_config()
-        assert response is not None
-        assert response.get("success") is True
-    
     def test_get_account_discount_type(self, client: MexcAccountTradingApi):
         """Test get account discount type"""
         response = client.get_account_discount_type()

@@ -128,15 +128,6 @@ public class MexcAccountTradingApiTest {
         }
 
         @Test
-        @Order(7)
-        @DisplayName("Test Get Account Configuration")
-        void testGetAccountConfig() throws IOException {
-            JsonObject response = client.getAccountConfig();
-            assertThat(response).isNotNull();
-            assertThat(response.get("success").getAsBoolean()).isTrue();
-        }
-
-        @Test
         @Order(8)
         @DisplayName("Test Get Account Discount Type")
         void testGetAccountDiscountType() throws IOException {
@@ -702,14 +693,6 @@ public class MexcAccountTradingApiTest {
             assertThat(response.get("success").getAsBoolean()).isTrue();
         }
 
-        @Test
-        @Order(58)
-        @DisplayName("Test Get Deal Details")
-        void testGetDealDetails() throws IOException {
-            JsonObject response = client.getDealDetails(TEST_ORDER_ID);
-            assertThat(response).isNotNull();
-            assertThat(response.get("success").getAsBoolean()).isTrue();
-        }
 
         @Test
         @Order(59)

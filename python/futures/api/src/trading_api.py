@@ -112,11 +112,7 @@ class MexcAccountTradingApi(MexcHttpClient):
     def get_today_pnl(self) -> dict:
         logger.info("\n=== Get Today's PnL ===")
         return self.get_signed("/api/v1/private/account/asset/analysis/today_pnl", None)
-    
-    def get_account_config(self) -> dict:
-        logger.info("\n=== Get Account Configuration ===")
-        return self.get_signed("/api/v1/private/account/config/contractFeeDiscountConfig", None)
-    
+
     def get_contract_fee_discount_config(self) -> dict:
         logger.info("\n=== Get Contract Fee Discount Configuration ===")
         return self.get_signed("/api/v1/private/account/config/contractFeeDiscountConfig", None)
