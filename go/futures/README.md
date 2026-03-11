@@ -68,17 +68,6 @@ MEXC_BASE_URL=https://api.mexc.com
 MEXC_WS_URL=wss://contract.mexc.com/edge
 ```
 
-Security notes:
-
-- `.env` contains API key/secret. **Do not commit it to Git.**
-- The root `.gitignore` already includes:
-  - `.env`
-  - `*.exe`
-  - `testrest.exe` / `testws.exe`
-
-Both `testrest` and `testws` walk up from the current working directory, up to
-6 levels, to find the first `.env` and load it.
-
 ---
 
 ## REST API

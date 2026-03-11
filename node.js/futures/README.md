@@ -33,6 +33,23 @@ a sandbox or a regional endpoint.
 
 ---
 
+## Configuration (.env)
+
+Some private WebSocket examples (e.g. `run-ws.js`, `examples/ws-private.js`) load API credentials from a `.env` file.
+
+This project loads `.env` from the **project root** (same directory as `package.json`):
+
+- `node.js/futures/.env`
+
+Example `.env`:
+
+```dotenv
+MEXC_API_KEY=your_api_key_here
+MEXC_API_SECRET=your_api_secret_here
+```
+
+---
+
 ## REST API
 
 By default the REST client returns the **full server response**:
