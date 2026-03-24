@@ -1,0 +1,4 @@
+*.exe
+.env
+testrest.exe
+testws.exe

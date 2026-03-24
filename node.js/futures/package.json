@@ -1,0 +1,23 @@
+{
+  "name": "mexc-futures-sdk",
+  "version": "1.0.0",
+  "description": "MEXC Futures OpenAPI SDK for Node.js",
+  "main": "src/index.js",
+  "scripts": {
+    "run": "node run.js",
+    "test": "node -e \"require('./signer'); require('./httpClient'); console.log('OK');\"",
+    "example:rest-public": "node examples/rest-public.js",
+    "example:rest-private": "node examples/rest-private.js",
+    "example:ws-ticker": "node examples/ws-ticker.js",
+    "example:ws-depth": "node examples/ws-depth.js",
+    "example:ws-private": "node examples/ws-private.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "ws": "^8.14.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
