@@ -379,16 +379,26 @@ func (c *FuturesRestClient) GetAsset(ctx context.Context, params map[string]any)
 }
 
 // GetTransferRecords returns transfer records. Params may include currency, state, type, page_num, page_size.
+// If page_num is omitted or <1, it defaults to 1. If page_size is omitted or <1, it defaults to 20 (per API docs).
 // @endpoint GET /api/v1/private/account/transfer_record
 func (c *FuturesRestClient) GetTransferRecords(ctx context.Context, params map[string]any) (*RawResponse, error) {
 	p := toInterfaceMap(params)
-	if p != nil {
-		if err := CheckPage(getIntParam(params, "page_num"), getIntParam(params, "page_size"), 100); err != nil {
-			if getIntParam(params, "page_num") != 0 || getIntParam(params, "page_size") != 0 {
-				return nil, err
-			}
-		}
+	if p == nil {
+		p = make(map[string]interface{})
 	}
+	pn := getIntParam(params, "page_num")
+	if pn < 1 {
+		pn = 1
+	}
+	ps := getIntParam(params, "page_size")
+	if ps < 1 {
+		ps = 20
+	}
+	if err := CheckPage(pn, ps, 100); err != nil {
+		return nil, err
+	}
+	p["page_num"] = pn
+	p["page_size"] = ps
 	resp, err := c.http.PrivateRequest(ctx, "GET", PathTransferRecord, p)
 	if err != nil {
 		return nil, err
@@ -411,10 +421,10 @@ func (c *FuturesRestClient) GetProfitRate(ctx context.Context, params map[string
 	return resp, nil
 }
 
-// GetYesterdayPnl returns yesterday PnL (POST, no body).
-// @endpoint POST /api/v1/private/account/asset/analysis/yesterday_pnl
+// GetYesterdayPnl returns yesterday PnL.
+// @endpoint GET /api/v1/private/account/asset/analysis/yesterday_pnl
 func (c *FuturesRestClient) GetYesterdayPnl(ctx context.Context) (*RawResponse, error) {
-	resp, err := c.http.PrivateRequest(ctx, "POST", PathYesterdayPnl, map[string]interface{}{})
+	resp, err := c.http.PrivateRequest(ctx, "GET", PathYesterdayPnl, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -737,7 +747,7 @@ func (c *FuturesRestClient) CloseAllPositions(ctx context.Context, params map[st
 // ----- private order -----
 
 // SubmitOrder submits a single order. Params: symbol, vol, side, type, openType, price? (for limit), leverage? (for open).
-// @endpoint POST /api/v1/private/order/submit
+// @endpoint POST /api/v1/private/order/create
 func (c *FuturesRestClient) SubmitOrder(ctx context.Context, params map[string]any) (*RawResponse, error) {
 	if getStringParam(params, "symbol") == "" {
 		return nil, fmt.Errorf("params.symbol required")
@@ -754,7 +764,7 @@ func (c *FuturesRestClient) SubmitOrder(ctx context.Context, params map[string]a
 	if _, ok := params["openType"]; !ok {
 		return nil, fmt.Errorf("params.openType required")
 	}
-	resp, err := c.http.PrivateRequest(ctx, "POST", PathOrderSubmit, toInterfaceMap(params))
+	resp, err := c.http.PrivateRequest(ctx, "POST", PathOrderCreate, toInterfaceMap(params))
 	if err != nil {
 		return nil, err
 	}

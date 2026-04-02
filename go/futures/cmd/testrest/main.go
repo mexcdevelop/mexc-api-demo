@@ -56,10 +56,10 @@ type Target struct {
 //
 //	var target = Target{Action: "order_detail", Params: map[string]any{"orderId": "123456"}, Note: "Test GetOrderDetail"}
 //
-// Private submit_order (string numbers auto-converted):
+// Private create_order (string numbers auto-converted):
 //
 //	var target = Target{
-//	  Action: "submit_order",
+//	  Action: "create_order",
 //	  Params: map[string]any{
 //	    "symbol": "BTC_USDT", "vol": "1", "side": "OPEN", "type": "LIMIT", "openType": "ISOLATED", "price": "50000",
 //	  },
