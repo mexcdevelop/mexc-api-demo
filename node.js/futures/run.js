@@ -7,7 +7,7 @@
  * - getTicker       -> { method: 'getTicker', params: { symbol: 'BTC_USDT' } }
  * - getFundingRateHistory -> { method: 'getFundingRateHistory', params: { symbol: 'BTC_USDT', page_num: 1, page_size: 20 } }
  * - getAssets       -> { method: 'getAssets', params: {} }
- * - submitOrder     -> { method: 'submitOrder', params: { symbol, vol, side, type, openType, leverage, ... } }
+ * - submitOrder     -> { method: 'submitOrder', params: { ... } } (HTTP POST /api/v1/private/order/create)
  * - getStpGroups    -> { method: 'getStpGroups', params: {} } or params: { configName: 'group_id' }
  * - getCurrentUserStpGroup -> { method: 'getCurrentUserStpGroup', params: {} }
  * - createStpGroup  -> { method: 'createStpGroup', params: { configName: 'stpconf001', blacklist: ['uid1', 'uid2'] } }

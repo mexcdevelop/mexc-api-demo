@@ -59,7 +59,7 @@ func registerAllActions(m map[string]actionHandler) {
 	m["reverse_position"] = handleReversePosition
 	m["close_all_positions"] = handleCloseAllPositions
 	// ----- private order -----
-	m["submit_order"] = handleSubmitOrder
+	m["create_order"] = handleCreateOrder
 	m["submit_order_batch"] = handleSubmitOrderBatch
 	m["cancel_order"] = handleCancelOrder
 	m["cancel_all_orders"] = handleCancelAllOrders
@@ -367,26 +367,26 @@ func handleCloseAllPositions(ctx context.Context, c *FuturesRestClient, params m
 
 // ----- private order -----
 
-func handleSubmitOrder(ctx context.Context, c *FuturesRestClient, params map[string]any) (*RawResponse, error) {
+func handleCreateOrder(ctx context.Context, c *FuturesRestClient, params map[string]any) (*RawResponse, error) {
 	if params == nil {
-		return nil, fmt.Errorf("submit_order requires params.symbol, params.vol, params.side, params.type, params.openType")
+		return nil, fmt.Errorf("create_order requires params.symbol, params.vol, params.side, params.type, params.openType")
 	}
 	if !hasParam(params, "symbol") || paramStrOrFormat(params, "symbol") == "" {
-		return nil, fmt.Errorf("submit_order requires params.symbol")
+		return nil, fmt.Errorf("create_order requires params.symbol")
 	}
 	if !hasParam(params, "vol") {
-		return nil, fmt.Errorf("submit_order requires params.vol")
+		return nil, fmt.Errorf("create_order requires params.vol")
 	}
 	if !hasParam(params, "side") {
-		return nil, fmt.Errorf("submit_order requires params.side")
+		return nil, fmt.Errorf("create_order requires params.side")
 	}
 	if !hasParam(params, "type") {
-		return nil, fmt.Errorf("submit_order requires params.type")
+		return nil, fmt.Errorf("create_order requires params.type")
 	}
 	if !hasParam(params, "openType") {
-		return nil, fmt.Errorf("submit_order requires params.openType")
+		return nil, fmt.Errorf("create_order requires params.openType")
 	}
-	vol, _, err := parseSubmitOrderNumber(params, "vol")
+	vol, _, err := parseOrderNumber(params, "vol")
 	if err != nil {
 		return nil, err
 	}
@@ -399,12 +399,12 @@ func handleSubmitOrder(ctx context.Context, c *FuturesRestClient, params map[str
 	out["type"] = paramStrOrFormat(params, "type")
 	out["openType"] = paramStrOrFormat(params, "openType")
 	out["vol"] = vol
-	if price, ok, err := parseSubmitOrderNumber(params, "price"); err != nil {
+	if price, ok, err := parseOrderNumber(params, "price"); err != nil {
 		return nil, err
 	} else if ok {
 		out["price"] = price
 	}
-	if leverage, ok, err := parseSubmitOrderNumber(params, "leverage"); err != nil {
+	if leverage, ok, err := parseOrderNumber(params, "leverage"); err != nil {
 		return nil, err
 	} else if ok {
 		out["leverage"] = leverage

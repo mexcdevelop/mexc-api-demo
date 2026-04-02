@@ -51,7 +51,7 @@ const (
 
 // Order (private) paths.
 const (
-	PathOrderSubmit                  = "/api/v1/private/order/submit"
+	PathOrderCreate                  = "/api/v1/private/order/create"
 	PathOrderSubmitBatch             = "/api/v1/private/order/submit_batch"
 	PathOrderCancel                  = "/api/v1/private/order/cancel"
 	PathOrderCancelAll               = "/api/v1/private/order/cancel_all"

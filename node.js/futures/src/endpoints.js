@@ -53,7 +53,7 @@ module.exports = {
 
   // ----- order (private) -----
   order: {
-    SUBMIT: '/api/v1/private/order/submit',
+    CREATE: '/api/v1/private/order/create',
     SUBMIT_BATCH: '/api/v1/private/order/submit_batch',
     CANCEL: '/api/v1/private/order/cancel',
     CANCEL_ALL: '/api/v1/private/order/cancel_all',
@@ -126,7 +126,7 @@ module.exports = {
 
   // Backward-compat aliases
   trade: {
-    ORDER_SUBMIT: '/api/v1/private/order/submit',
+    ORDER_CREATE: '/api/v1/private/order/create',
     ORDER_SUBMIT_BATCH: '/api/v1/private/order/submit_batch',
     ORDER_CANCEL: '/api/v1/private/order/cancel',
     ORDER_CANCEL_ALL: '/api/v1/private/order/cancel_all'

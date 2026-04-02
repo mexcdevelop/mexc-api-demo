@@ -87,7 +87,7 @@ It covers:
 
 - **Accounts and assets (private)**
   - `GetAssets`, `GetAsset`
-  - `GetTransferRecords`, `GetProfitRate`
+  - `GetTransferRecords` (defaults `page_num=1`, `page_size=20` if omitted), `GetProfitRate`
   - Asset analysis suite: `GetAssetAnalysis`, `GetAssetAnalysisV3`,
     `GetAssetAnalysisCalendarDaily`, `GetAssetAnalysisCalendarMonthly`,
     `GetAssetAnalysisRecent`, `GetAssetAnalysisExport`
@@ -121,7 +121,7 @@ It covers:
 
 The `cmd/testrest` example uses a generic `RunAction(ctx, action, params)` entry
 to exercise these methods via snake_case actions (e.g. `ticker`,
-`submit_order`, `open_orders`).
+`create_order`, `open_orders`).
 
 ---
 
@@ -260,11 +260,11 @@ var target = Target{
 }
 ```
 
-- `submit_order`
+- `create_order`
 
 ```go
 var target = Target{
-    Action: "submit_order",
+    Action: "create_order",
     Params: map[string]any{
         "symbol":   "BTC_USDT",
         "price":    "50000",

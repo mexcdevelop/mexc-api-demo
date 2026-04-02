@@ -169,8 +169,8 @@ func klineParamsFromMap(params map[string]any) KlineParams {
 	}
 }
 
-// parseSubmitOrderNumber converts vol/price/leverage from string, json.Number, or numeric type to float64.
-func parseSubmitOrderNumber(params map[string]any, key string) (float64, bool, error) {
+// parseOrderNumber converts vol/price/leverage from string, json.Number, or numeric type to float64.
+func parseOrderNumber(params map[string]any, key string) (float64, bool, error) {
 	if params == nil {
 		return 0, false, nil
 	}
@@ -182,13 +182,13 @@ func parseSubmitOrderNumber(params map[string]any, key string) (float64, bool, e
 	case string:
 		f, err := strconv.ParseFloat(val, 64)
 		if err != nil {
-			return 0, true, fmt.Errorf("submit_order params.%s must be a number (got %T)", key, v)
+			return 0, true, fmt.Errorf("create_order params.%s must be a number (got %T)", key, v)
 		}
 		return f, true, nil
 	case json.Number:
 		f, err := val.Float64()
 		if err != nil {
-			return 0, true, fmt.Errorf("submit_order params.%s must be a number (got %T)", key, v)
+			return 0, true, fmt.Errorf("create_order params.%s must be a number (got %T)", key, v)
 		}
 		return f, true, nil
 	case int:
@@ -198,7 +198,7 @@ func parseSubmitOrderNumber(params map[string]any, key string) (float64, bool, e
 	case float64:
 		return val, true, nil
 	default:
-		return 0, true, fmt.Errorf("submit_order params.%s must be a number (got %T)", key, v)
+		return 0, true, fmt.Errorf("create_order params.%s must be a number (got %T)", key, v)
 	}
 }
 

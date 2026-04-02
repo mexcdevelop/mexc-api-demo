@@ -88,6 +88,12 @@ See `src/futuresRestClient.js` and the `examples/rest-*.js` files for more
 endpoint-specific examples (public market data, account/position, orders,
 plan/stop/track orders, STP, etc).
 
+REST alignment notes (see official futures docs for full parameter lists):
+
+- Single order placement uses `POST /api/v1/private/order/create` (client method name remains `submitOrder`).
+- `getTransferRecords` sends `page_num` / `page_size` with defaults **1** and **20** when omitted.
+- `getYesterdayPnl` uses **GET** (no body).
+
 ---
 
 ## WebSocket

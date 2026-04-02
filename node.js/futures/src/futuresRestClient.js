@@ -322,11 +322,14 @@ class MexcFuturesRestClient {
   /**
    * Transfer records.
    * @endpoint GET /api/v1/private/account/transfer_record
-   * @param {Object} params - currency?, state?, type?, page_num, page_size
+   * @param {Object} params - currency?, state?, type?, page_num (default 1), page_size (default 20)
    */
   getTransferRecords (params = {}) {
-    const p = _cleanQuery(params)
-    _checkPage(p.page_num, p.page_size)
+    const raw = params || {}
+    const pageNum = raw.page_num != null && raw.page_num >= 1 ? raw.page_num : 1
+    const pageSize = raw.page_size != null && raw.page_size >= 1 ? raw.page_size : 20
+    _checkPage(pageNum, pageSize)
+    const p = _cleanQuery({ ...raw, page_num: pageNum, page_size: pageSize })
     return this._private(E.account.TRANSFER_RECORD, p)
   }
 
@@ -348,11 +351,11 @@ class MexcFuturesRestClient {
   }
 
   /**
-   * Yesterday PnL (POST).
-   * @endpoint POST /api/v1/private/account/asset/analysis/yesterday_pnl
+   * Yesterday PnL.
+   * @endpoint GET /api/v1/private/account/asset/analysis/yesterday_pnl
    */
   getYesterdayPnl () {
-    return this._privatePost(E.account.YESTERDAY_PNL)
+    return this._private(E.account.YESTERDAY_PNL)
   }
 
   /**
@@ -454,8 +457,8 @@ class MexcFuturesRestClient {
   // ----- order (private) -----
 
   /**
-   * Submit order (under maintenance).
-   * @endpoint POST /api/v1/private/order/submit
+   * Place a single order (HTTP path: /order/create). Public method name remains submitOrder for compatibility.
+   * @endpoint POST /api/v1/private/order/create
    * @param {Object} params - symbol, vol, side, type, openType, price? (required for limit), leverage? (required for open)
    */
   submitOrder (params = {}) {
@@ -464,7 +467,7 @@ class MexcFuturesRestClient {
     if (params.side == null) throw new TypeError('params.side required')
     if (params.type == null) throw new TypeError('params.type required')
     if (params.openType == null) throw new TypeError('params.openType required')
-    return this._privatePost(E.order.SUBMIT, _cleanQuery(params))
+    return this._privatePost(E.order.CREATE, _cleanQuery(params))
   }
 
   /**
