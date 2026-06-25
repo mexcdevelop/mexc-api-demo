@@ -42,9 +42,7 @@ public class MexcP2pApiDemo {
         demoDownloadFile();
     }
 
-    /**
-     * 我的广告
-     */
+
     private static void demoMyAds() {
 
         Map<String, String> params = Maps.newHashMap(
@@ -58,9 +56,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 市场广告
-     */
+
     private static void demoMarketAds() {
 
         Map<String, String> params = new HashMap<>();
@@ -74,9 +70,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * Maker订单
-     */
+
     private static void demoMakerOrders() {
 
         Map<String, String> params = new HashMap<>();
@@ -89,9 +83,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 全部订单
-     */
+
     private static void demoAllOrders() {
 
         Map<String, String> params = new HashMap<>();
@@ -104,9 +96,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 订单详情
-     */
+
     private static void demoOrderDetail() {
 
         Map<String, String> params = new HashMap<>();
@@ -118,9 +108,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 创建订单
-     */
+
     private static void demoCreateOrder() {
 
         Map<String, String> params = new HashMap<>();
@@ -134,9 +122,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 已付款
-     */
+
     private static void demoConfirmPaid() {
 
         Map<String, String> params = new HashMap<>();
@@ -149,9 +135,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 放币
-     */
+
     private static void demoReleaseCoin() {
 
         Map<String, String> params = new HashMap<>();
@@ -163,9 +147,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 创建/修改广告
-     */
+
     private static void demoSaveOrUpdateAd() {
 
         Map<String, String> params = new HashMap<>();
@@ -187,9 +169,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 商家营业状态
-     */
+
     private static void demoMerchantServiceSwitch() {
 
         Map<String, String> params = new HashMap<>();
@@ -201,9 +181,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 创建listenKey
-     */
+
     private static void demoGenerateListenKey() {
 
         Object resp = MexcP2pApi.generateListenKey(new HashMap<>());
@@ -211,9 +189,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 获取listenKey
-     */
+
     private static void demoGetListenKey() {
 
         HashMap<String, String> params = new HashMap<>();
@@ -223,9 +199,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 获取聊天会话
-     */
+
     private static void demoRetrieveChatConversation() {
 
         Map<String, String> params = new HashMap<>();
@@ -237,9 +211,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 获取聊天记录
-     */
+
     private static void demoRetrieveChatMessages() {
 
         Map<String, String> params = new HashMap<>();
@@ -253,9 +225,7 @@ public class MexcP2pApiDemo {
         System.out.println(JsonUtil.toJson(resp));
     }
 
-    /**
-     * 下载聊天附件
-     */
+
     private static void demoDownloadFile() {
 
         Map<String, String> params = new HashMap<>();
