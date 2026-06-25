@@ -14,7 +14,7 @@ namespace MexcDotNet
       if (args.Count() == 0)
         throw new ArgumentException($"Command missing. Accept commands: signature, market, trade, subaccount, capital, rebate");
 
-      string apiKey = "your apikey";
+      string apiKey = "your apiKey";
       string apiSecret = "your secret";
       string BaseUrl = "https://api.mexc.com";
 
@@ -210,6 +210,13 @@ namespace MexcDotNet
 
       /// Account Information
       using (var response = MexcService.SendSignedAsync("/api/v3/account", HttpMethod.Get))
+      {
+        Console.WriteLine(await response);
+      };
+
+      ///Update apiKeyInfo
+      using (var response = MexcService.SendSignedAsync("/api/v3/apiKeyInfo", HttpMethod.Post, new Dictionary<string, object> {
+             {"apiKey", "apiKeyXxxx"},  {"ipWhiteList", "127.0.0.1"}}))
       {
         Console.WriteLine(await response);
       };

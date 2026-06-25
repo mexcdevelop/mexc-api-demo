@@ -499,6 +499,16 @@ class mexc_trade(TOOL):
         response = self.sign_request(method, url)
         return response.json()
 
+    def update_apiKeyInfo(self, params):
+        """Update apiKeyInfo
+
+        POST /api/v3/apiKeyInfo
+        """
+        method = 'POST'
+        url = '{}{}'.format(self.api, '/apiKeyInfo')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
 
 # Wallet
 class mexc_wallet(TOOL):
@@ -1021,5 +1031,104 @@ class mexc_listenkey(TOOL):
         """
         method = 'DELETE'
         url = '{}{}'.format(self.api, '/userDataStream')
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+
+class mexc_p2p(TOOL):
+    def __init__(self):
+        self.api = ''
+        self.hosts = config.mexc_host
+        self.mexc_key = config.api_key
+        self.mexc_secret = config.secret_key
+    def my_ads(self, params):
+        """Get My Ads"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/merchant/ads/pagination"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def market_ads(self, params):
+        """Market Ads"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/market/ads/pagination"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def maker_orders(self, params):
+        """Maker Orders"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/merchant/order/paginationV2"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def all_orders(self, params):
+        """All Orders (Maker + Taker)"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/market/order/paginationV2"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def order_detail(self, params):
+        """Order Detail"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/order/detail"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+
+    def create_order(self, params):
+        """Create Order"""
+        method = 'POST'
+        url = f"{self.api}/api/v3/fiat/merchant/order/deal"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def confirm_paid(self, params):
+        """Confirm Paid"""
+        method = 'POST'
+        url = f"{self.api}/api/v3/fiat/confirm_paid"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def release_coin(self, params):
+        """Release Coin"""
+        method = 'POST'
+        url = f"{self.api}/api/v3/fiat/release_coin"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def save_or_update_ad(self, params):
+        """Create or Update Ad"""
+        method = 'POST'
+        url = f"{self.api}/api/v3/fiat/merchant/ads/save_or_update"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def merchant_service_switch(self, params):
+        """Merchant Service Switch"""
+        method = 'POST'
+        url = f"{self.api}/api/v3/fiat/merchant/service/switch"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def retrieve_chat_conversation(self, params):
+        """Get Chat Conversation"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/retrieveChatConversation"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def retrieve_chat_messages(self, params):
+        """Get Chat Messages (Pagination)"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/retrieveChatMessageWithPagination"
+        response = self.sign_request(method, url, params=params)
+        return response.json()
+
+    def download_file(self, params):
+        """Download File"""
+        method = 'GET'
+        url = f"{self.api}/api/v3/fiat/downloadFile"
         response = self.sign_request(method, url, params=params)
         return response.json()

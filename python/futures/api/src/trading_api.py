@@ -298,7 +298,7 @@ class MexcAccountTradingApi(MexcHttpClient):
             params['positionMode'] = position_mode
         if reduce_only is not None:
             params['reduceOnly'] = str(reduce_only).lower()
-        return self.post_signed("/api/v1/private/order/submit", params)
+        return self.post_signed("/api/v1/private/order/create", params)
     
     def place_batch_orders(self, orders: List[Any]) -> dict:
         logger.info(f"\n=== Place Batch Orders: {len(orders)} orders ===")
