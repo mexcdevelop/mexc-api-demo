@@ -1,0 +1,65 @@
+name: MEXC Workbench
+
+on:
+  push:
+    paths:
+      - 'python/spot/mexc-bot-workbench/**'
+      - '.github/workflows/mexc-workbench.yml'
+  pull_request:
+    paths:
+      - 'python/spot/mexc-bot-workbench/**'
+      - '.github/workflows/mexc-workbench.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mexc-workbench-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: python/spot/mexc-bot-workbench
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests==2.32.3 python-dotenv==1.0.1
+      - run: python -m unittest discover -s tests -v
+        env:
+          MEXC_LIVE_TRADING: 'false'
+
+  monitor:
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests==2.32.3 python-dotenv==1.0.1
+      - name: Check public BTCUSDT signals
+        run: python monitor.py --output monitor-output/latest.json
+        env:
+          MEXC_LIVE_TRADING: 'false'
+      - name: Save public market snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexc-public-snapshot-${{ github.run_id }}
+          path: python/spot/mexc-bot-workbench/monitor-output/latest.json
+          retention-days: 7
